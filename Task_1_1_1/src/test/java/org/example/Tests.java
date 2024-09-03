@@ -16,8 +16,8 @@ public class Tests {
         int[] secondAnswer = {0};
         assert(Arrays.equals(firstTest, firstAnswer));
 
-        int[] thirdTest = HeapSort.sort(new int[] {});
-        int[] thirdAnswer = {};
+        int[] thirdTest = HeapSort.sort(new int[0]);
+        int[] thirdAnswer = new int[0];
         assert(Arrays.equals(thirdTest, thirdAnswer));
 
         int[] fourTest = HeapSort.sort(new int[] {2345, -23213, 4434, 2322});

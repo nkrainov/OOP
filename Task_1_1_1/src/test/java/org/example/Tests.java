@@ -1,13 +1,12 @@
 package org.example;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-public class test {
+/**
+ * Тестирование классов
+ */
+public class Tests {
     @Test void check() {
         int[] firstTest = HeapSort.sort(new int[] {4, 3, 2, 1, 0});
         int[] firstAnswer = {0, 1, 2, 3, 4};

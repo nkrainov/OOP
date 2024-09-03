@@ -3,7 +3,7 @@ package org.example;
 public class HeapSort {
 
     /**
-     * Функция пиромидальной сортировки
+     * Функция пирамидальной сортировки
      * @return возвращает отсортированный массив
      */
     public static int[] sort(int[] array) {

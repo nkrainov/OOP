@@ -1,23 +1,34 @@
 package org.example;
 
 public class HeapSort {
+
+    /**
+     * Функция пиромидальной сортировки
+     * @return возвращает отсортированный массив
+     */
     public static int[] sort(int[] array) {
-        int[] helpArr = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            helpArr[i] = array[i];
-            siftUp(helpArr, i);
-        }
-
-
         int[] answer = new int[array.length];
-        for (int i = answer.length - 1; i >= 0; i--){
-            answer[answer.length - i - 1] = extractMin(helpArr, i);
-        }
+        if (array.length > 1){
+            //Вставляем элементы в кучу, запускаем siftUp для сохранения инварианта кучи
+            int[] helpArr = new int[array.length];
+            for (int i = 0; i < array.length; i++) {
+                helpArr[i] = array[i];
+                siftUp(helpArr, i);
+            }
 
+            for (int i = answer.length - 1; i >= 0; i--){
+                answer[answer.length - i - 1] = extractMin(helpArr, i);
+            }
+
+        }
         return answer;
 
     }
 
+    /**
+     * Функция, извлекающее минимальное значение из кучи и затем выполняющее sift_down для сохранения инварианта кучи
+     * @return возвращает корень этой кучи
+     */
     private static int extractMin(int[] arr, int last_index){
         int ans = arr[0];
         arr[0] = arr[last_index];
@@ -25,6 +36,10 @@ public class HeapSort {
         return ans;
     }
 
+    /**
+     * Функция, которая опускает элементы ниже по дереву, если они больше какого-либо своего сына
+     * После полного завершения работы функции будет выполняться инвариант кучи
+     */
     private static void siftdown(int index, int[] arr, int last_index){
         if (last_index>= 2 * index + 1 && last_index >= 2 * index + 2) {
             int help,left_child = 2*index + 1, right_child = 2*index + 2;
@@ -52,6 +67,11 @@ public class HeapSort {
         }
     }
 
+
+    /**
+     * Функция, которая поднимает элементы вверх по дереву, если они меньше своего родителя
+     * После полного завершения работы функции будет выполняться инвариант кучи
+     */
     private static void siftUp(int[] array, int index){
         if (index > 0) {
             int help, parent = (index - 1) / 2;

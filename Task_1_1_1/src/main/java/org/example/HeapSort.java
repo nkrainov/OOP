@@ -31,14 +31,15 @@ public class HeapSort {
     }
 
     /**
-     * Функция, извлекающее минимальное значение из кучи и затем выполняющее sift_down для сохранения инварианта кучи.
+     * Функция, извлекающее минимальное значение из кучи и затем выполняющее
+     * sift_down для сохранения инварианта кучи.
      *
      * @return возвращает корень этой кучи
      */
-    private static int extractMin(int[] arr, int last_index) {
+    private static int extractMin(int[] arr, int lastIndex) {
         int ans = arr[0];
-        arr[0] = arr[last_index];
-        siftdown(0, arr, last_index);
+        arr[0] = arr[lastIndex];
+        siftdown(0, arr, lastIndex);
         return ans;
     }
 
@@ -50,8 +51,8 @@ public class HeapSort {
         int leftChild;
         int help;
         if (lastIndex >= 2 * index + 1 && lastIndex >= 2 * index + 2) {
-            leftChild = 2*index + 1;
-            int rightChild = 2*index + 2;
+            leftChild = 2 * index + 1;
+            int rightChild = 2 * index + 2;
             if (arr[index] > Math.min(arr[leftChild], arr[rightChild])) {
                 help = arr[index];
                 if (Math.min(arr[leftChild], arr[rightChild]) == arr[leftChild]) {

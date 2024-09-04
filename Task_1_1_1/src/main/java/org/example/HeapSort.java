@@ -46,29 +46,32 @@ public class HeapSort {
      * Функция, которая опускает элементы ниже по дереву, если они больше какого-либо своего сына.
      * После полного завершения работы функции будет выполняться инвариант кучи
      */
-    private static void siftdown(int index, int[] arr, int last_index) {
-        if (last_index>= 2 * index + 1 && last_index >= 2 * index + 2) {
-            int help,left_child = 2*index + 1, right_child = 2*index + 2;
-            if (arr[index] > Math.min(arr[left_child], arr[right_child])) {
+    private static void siftdown(int index, int[] arr, int lastIndex) {
+        int leftChild;
+        int help;
+        if (lastIndex >= 2 * index + 1 && lastIndex >= 2 * index + 2) {
+            leftChild = 2*index + 1;
+            int rightChild = 2*index + 2;
+            if (arr[index] > Math.min(arr[leftChild], arr[rightChild])) {
                 help = arr[index];
-                if (Math.min(arr[left_child], arr[right_child]) == arr[left_child]) {
-                    arr[index] = arr[left_child];
-                    arr[left_child] = help;
-                    siftdown(left_child, arr, last_index);
+                if (Math.min(arr[leftChild], arr[rightChild]) == arr[leftChild]) {
+                    arr[index] = arr[leftChild];
+                    arr[leftChild] = help;
+                    siftdown(leftChild, arr, lastIndex);
                 }
                 else {
-                    arr[index] = arr[right_child];
-                    arr[right_child] = help;
-                    siftdown(right_child, arr, last_index);
+                    arr[index] = arr[rightChild];
+                    arr[rightChild] = help;
+                    siftdown(rightChild, arr, lastIndex);
                 }
             }
         }
-        else if (last_index >= 2 * index + 1) {
-            int help, left_child = 2 * index + 1;
-            if (arr[index] > arr[left_child]) {
+        else if (lastIndex >= 2 * index + 1) {
+            leftChild = 2 * index + 1;
+            if (arr[index] > arr[leftChild]) {
                 help = arr[index];
-                arr[index] = arr[left_child];
-                arr[left_child] = help;
+                arr[index] = arr[leftChild];
+                arr[leftChild] = help;
             }
         }
     }
@@ -80,7 +83,8 @@ public class HeapSort {
      */
     private static void siftUp(int[] array, int index){
         if (index > 0) {
-            int help, parent = (index - 1) / 2;
+            int help;
+            int parent = (index - 1) / 2;
             if (array[parent] > array[index]){
                 help = array[index];
                 array[index] = array[parent];

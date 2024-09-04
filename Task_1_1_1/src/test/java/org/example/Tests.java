@@ -4,7 +4,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 /**
- * Тестирование классов
+ * Тестирование классов.
  */
 public class Tests {
     @Test void check() {

@@ -90,8 +90,8 @@ public class Tests {
         System.out.println("Массив из 10000000 элементов, прошло времени, мс: " + duration3);
 
         double epsilon = 0.1;
-        boolean isEqual1 = Math.abs((Math.log(n1)*n1)/(Math.log(n2)*n2) - duration1/duration2) <= epsilon;
-        boolean isEqual2 = Math.abs((Math.log(n2)*n2)/(Math.log(n3)*n3) - duration2/duration3) <= epsilon;
+        boolean isEqual1 = Math.abs((Math.log(n1) * n1) / (Math.log(n2) * n2) - duration1 / duration2) <= epsilon;
+        boolean isEqual2 = Math.abs((Math.log(n2) * n2) / (Math.log(n3) * n3) - duration2 / duration3) <= epsilon;
         assert isEqual2 && isEqual1;
     }
 }

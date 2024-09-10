@@ -1,8 +1,9 @@
 package org.example;
 
 import java.util.Arrays;
-import org.junit.jupiter.api.Test;
 import java.util.Random;
+import org.junit.jupiter.api.Test;
+
 
 /**
  * Тестирование классов.

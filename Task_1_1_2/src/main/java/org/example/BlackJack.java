@@ -19,40 +19,29 @@ public class BlackJack {
         int ans;
         if (card.contains("Двойка")) {
             ans = 2;
-        }
-        else if (card.contains("Тройка")) {
+        } else if (card.contains("Тройка")) {
             ans = 3;
-        }
-        else if (card.contains("Четверка")) {
+        } else if (card.contains("Четверка")) {
             ans = 4;
-        }
-        else if (card.contains("Пятерка")) {
+        } else if (card.contains("Пятерка")) {
             ans = 5;
-        }
-        else if (card.contains("Шестерка")) {
+        } else if (card.contains("Шестерка")) {
             ans = 6;
-        }
-        else if (card.contains("Семерка")) {
+        } else if (card.contains("Семерка")) {
             ans = 7;
-        }
-        else if (card.contains("Восьмерка")) {
+        } else if (card.contains("Восьмерка")) {
             ans = 8;
-        }
-        else if (card.contains("Девятка")) {
+        } else if (card.contains("Девятка")) {
             ans = 9;
-        }
-        else if (card.contains("Десятка") || card.contains("Валет") || card.contains("Дама") || card.contains("Король")) {
+        } else if (card.contains("Десятка") || card.contains("Валет") || card.contains("Дама") || card.contains("Король")) {
             ans = 10;
-        }
-        else if (card.contains("Туз")) {
-            if ((dealersCard && dealerSum + 11 < 22) || (!dealersCard && playerSum + 11 < 22)){
+        } else if (card.contains("Туз")) {
+            if ((dealersCard && dealerSum + 11 < 22) || (!dealersCard && playerSum + 11 < 22)) {
                 ans = 11;
-            }
-            else {
+            } else {
                 ans = 1;
             }
-        }
-        else{
+        } else {
             ans = 0;
         }
         return ans;
@@ -74,11 +63,9 @@ public class BlackJack {
             return 2;
         } else if (dealerSum == 21) {
             return 1;
-        }
-        else if (playerSum > 21){
+        } else if (playerSum > 21) {
             return 4;
-        }
-        else if (dealerSum > 21) {
+        } else if (dealerSum > 21) {
             return 5;
         }
         return 0;
@@ -92,10 +79,9 @@ public class BlackJack {
         System.out.println("] => " + playerSum);
 
         System.out.print("Карты дилера: [");
-        if (beforeDealersMove){
-            System.out.println(" " + playersCard.get(0) + " <закрытая карта> ]" );
-        }
-        else{
+        if (beforeDealersMove) {
+            System.out.println(" " + playersCard.get(0) + " <закрытая карта> ]");
+        } else {
             for (String elem : dealersCard) {
                 System.out.print(" " + elem + "(" + getCardValue(elem, true) + ")" + " ");
             }
@@ -143,25 +129,23 @@ public class BlackJack {
 
             System.out.println("Ваш ход\n-------");
 
-            while (true){
+            while (true) {
                 System.out.println("Введите “1”, чтобы взять карту, и “0”, чтобы остановиться");
                 choice = scan.nextInt();
-                if (choice == 1){
+                if (choice == 1) {
                     playersCard.add(standartDeck.takeCard());
                     res = checkSituation(dealersCard, playersCard);
                     printCards(dealersCard, playersCard, true);
-                    if (res == 2){
+                    if (res == 2) {
                         System.out.println("У вас блэкджек, вы победили!");
                         playerScore++;
                         continue outerloop;
-                    }
-                    else if (res == 4){
+                    } else if (res == 4) {
                         System.out.println("Вы набрали больше 21 очка, вы проиграли(!");
                         dealerScore++;
                         continue outerloop;
                     }
-                }
-                else if (choice == 0) {
+                } else if (choice == 0) {
                     break;
                 }
             }
@@ -172,31 +156,28 @@ public class BlackJack {
 
             printCards(dealersCard, playersCard, false);
 
-            while (dealerSum < 17){
+            while (dealerSum < 17) {
                 dealersCard.add(standartDeck.takeCard());
                 res = checkSituation(dealersCard, playersCard);
                 printCards(dealersCard, playersCard, false);
-                if (res == 1){
+                if (res == 1) {
                     System.out.println("У дилера блэкджек, вы проиграли(");
                     dealerScore++;
                     continue outerloop;
-                }
-                else if (res == 5){
+                } else if (res == 5) {
                     System.out.println("У дилера больше 21 очка, вы выиграли!");
                     playerScore++;
                     continue outerloop;
                 }
             }
 
-            if (playerSum > dealerSum){
+            if (playerSum > dealerSum) {
                 System.out.println("У вас больше очков, вы выиграли!");
                 playerScore++;
-            }
-            else if (playerSum < dealerSum){
+            } else if (playerSum < dealerSum) {
                 System.out.println("У вас меньше очков, вы проиграли!");
                 dealerScore++;
-            }
-            else {
+            } else {
                 System.out.println("У вас поровну очков, ничья!");
             }
         }

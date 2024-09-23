@@ -3,6 +3,8 @@ package org.example;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 class Tests {
     @Test
     void testMoveAfterEndOfGame() {
@@ -93,6 +95,46 @@ class Tests {
                     Assertions.assertEquals(prevDealerScore, game.getDealerScore());
                     Assertions.assertEquals(prevPlayerScore + 1, game.getPlayerScore());
                     break;
+            }
+        }
+
+    }
+
+    @Test
+    void testPossibleWaysToWin() {
+        BlackJack game = new BlackJack();
+        Random rand = new Random();
+        int prevDealerScore;
+        int prevPlayerScore;
+        boolean flagPlayerBlackJack = false;
+        boolean flagDealerBlackJack = false;
+        boolean flagDraw = false;
+        boolean flagPlayersSumMore21 = false;
+        boolean flagDealersSumMore21 = false;
+        while (!(flagDealersSumMore21 && flagDraw && flagDealerBlackJack && flagPlayersSumMore21 && flagPlayerBlackJack)) {
+            game.startRound();
+            while (game.getCurStatusOfGame() == statusOfGame.playing) {
+                game.move(rand.nextInt(2));
+            }
+            if (!flagPlayerBlackJack && game.getSum(true) == 21){
+                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.playerWin);
+                flagPlayerBlackJack = true;
+            }
+            else if (!flagDealerBlackJack && game.getSum(false) == 21){
+                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.dealerWin);
+                flagDealerBlackJack = true;
+            }
+            else if (!flagDealersSumMore21 && game.getSum(false) > 21) {
+                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.playerWin);
+                flagDealersSumMore21 = true;
+            }
+            else if (!flagPlayersSumMore21 && game.getSum(true) > 21) {
+                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.dealerWin);
+                flagPlayersSumMore21 = true;
+            }
+            else if (!flagDraw && game.getSum(true) == game.getSum(false)) {
+                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.draw);
+                flagDraw = true;
             }
         }
 

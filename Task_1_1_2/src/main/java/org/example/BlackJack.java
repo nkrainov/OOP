@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Vector;
 
-enum statusOfGame{
+enum statusOfGame {
     stop,
     playing,
     dealerWin,
@@ -22,13 +22,13 @@ public class BlackJack {
     private Vector<String> playersCard;
     private boolean hideDealersCard;
 
-    public BlackJack(){
+    public BlackJack() {
         curStatusOfGame = statusOfGame.stop;
         playerScore = 0;
         dealerScore = 0;
     }
 
-    public void startRound(){
+    public void startRound() {
         dealersCard = new Vector<String>();
         playersCard = new Vector<String>();
         curStatusOfGame = statusOfGame.playing;
@@ -47,7 +47,7 @@ public class BlackJack {
 
     }
 
-    private void checkSituation(){
+    private void checkSituation() {
         dealerSum = 0;
         playerSum = 0;
         for (String s : dealersCard) {
@@ -76,27 +76,27 @@ public class BlackJack {
             hideDealersCard = false;
             curStatusOfGame = statusOfGame.playerWin;
             playerScore++;
-        } else if (dealerSum > 17 && dealerSum > playerSum){
+        } else if (dealerSum > 17 && dealerSum > playerSum) {
             curStatusOfGame = statusOfGame.dealerWin;
             dealerScore++;
-        } else if (dealerSum > 17 && dealerSum < playerSum){
+        } else if (dealerSum > 17 && dealerSum < playerSum) {
             curStatusOfGame = statusOfGame.playerWin;
             playerScore++;
-        } else if (dealerSum > 17){
+        } else if (dealerSum > 17) {
             curStatusOfGame = statusOfGame.draw;
         }
     }
 
-    public int getDealerScore(){
+    public int getDealerScore() {
         return dealerScore;
     }
 
-    public int getPlayerScore(){
+    public int getPlayerScore() {
         return playerScore;
     }
 
-    public int move(int choice){
-        if (curStatusOfGame != statusOfGame.playing){
+    public int move(int choice) {
+        if (curStatusOfGame != statusOfGame.playing) {
             return 1;
         }
 
@@ -106,13 +106,15 @@ public class BlackJack {
 
         } else if (choice == 0) {
             dealerMove();
+        } else {
+            return 1;
         }
 
 
         return 0;
     }
 
-    private void dealerMove(){
+    private void dealerMove() {
         hideDealersCard = false;
         while (dealerSum < 17) {
             dealersCard.add(deck.takeCard());
@@ -123,39 +125,35 @@ public class BlackJack {
         }
     }
 
-    public Vector<String> getCards(boolean getPlayersCard){
-        if (curStatusOfGame == statusOfGame.stop){
+    public Vector<String> getCards(boolean getPlayersCard) {
+        if (curStatusOfGame == statusOfGame.stop) {
             return null;
         }
-        if (getPlayersCard){
-            return (Vector<String>)playersCard.clone();
-        }
-        else{
-            if (hideDealersCard){
+        if (getPlayersCard) {
+            return (Vector<String>) playersCard.clone();
+        } else {
+            if (hideDealersCard) {
                 Vector<String> clone = (Vector<String>) dealersCard.clone();
                 clone.remove(1);
                 clone.add("<close card>");
                 return clone;
-            }
-            else {
+            } else {
                 return (Vector<String>) dealersCard.clone();
             }
         }
     }
 
-    public statusOfGame getCurStatusOfGame(){
+    public statusOfGame getCurStatusOfGame() {
         return curStatusOfGame;
     }
 
-    public int getSum(boolean player){
-        if (player){
+    public int getSum(boolean player) {
+        if (player) {
             return playerSum;
-        }
-        else {
-            if (hideDealersCard){
+        } else {
+            if (hideDealersCard) {
                 return 0;
-            }
-            else {
+            } else {
                 return dealerSum;
             }
         }

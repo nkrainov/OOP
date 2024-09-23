@@ -8,7 +8,7 @@ class BlackJackTest {
     void testMoveAfterEndOfGame() {
         BlackJack game = new BlackJack();
         game.startRound();
-        while (game.getCurStatusOfGame() != statusOfGame.playing) {
+        while (game.getCurStatusOfGame() == statusOfGame.playing) {
             game.move(1);
         }
         Assertions.assertEquals(game.move(1), 1);

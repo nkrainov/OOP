@@ -35,6 +35,7 @@ class Tests {
     @Test
     void testGetPlayersCards() {
         BlackJack game = new BlackJack();
+        Assertions.assertNull(game.getCards(true));
         game.startRound();
         Assertions.assertEquals(game.getCards(true).size(), 2);
         int i = 2;

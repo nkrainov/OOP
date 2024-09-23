@@ -24,6 +24,8 @@ public class BlackJack {
 
     public BlackJack(){
         curStatusOfGame = statusOfGame.stop;
+        playerScore = 0;
+        dealerScore = 0;
     }
 
     public void startRound(){
@@ -61,22 +63,36 @@ public class BlackJack {
         } else if (playerSum == 21) {
             hideDealersCard = false;
             curStatusOfGame = statusOfGame.playerWin;
+            playerScore++;
         } else if (dealerSum == 21) {
             hideDealersCard = false;
-            curStatusOfGame = statusOfGame.dealerWin;;
+            curStatusOfGame = statusOfGame.dealerWin;
+            dealerScore++;
         } else if (playerSum > 21) {
             hideDealersCard = false;
             curStatusOfGame = statusOfGame.dealerWin;
+            dealerScore++;
         } else if (dealerSum > 21) {
             hideDealersCard = false;
             curStatusOfGame = statusOfGame.playerWin;
+            playerScore++;
         } else if (dealerSum > 17 && dealerSum > playerSum){
             curStatusOfGame = statusOfGame.dealerWin;
+            dealerScore++;
         } else if (dealerSum > 17 && dealerSum < playerSum){
             curStatusOfGame = statusOfGame.playerWin;
+            playerScore++;
         } else if (dealerSum > 17){
             curStatusOfGame = statusOfGame.draw;
         }
+    }
+
+    public int getDealerScore(){
+        return dealerScore;
+    }
+
+    public int getPlayerScore(){
+        return playerScore;
     }
 
     public int move(int choice){

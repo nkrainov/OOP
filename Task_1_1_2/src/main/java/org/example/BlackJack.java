@@ -10,7 +10,7 @@ enum statusOfGame{
     draw
 }
 
-public class newBlackJack {
+public class BlackJack {
 
     private statusOfGame curStatusOfGame;
     private StandartDeck deck;
@@ -22,7 +22,7 @@ public class newBlackJack {
     private Vector<String> playersCard;
     private boolean hideDealersCard;
 
-    public newBlackJack(){
+    public BlackJack(){
         curStatusOfGame = statusOfGame.stop;
     }
 
@@ -116,13 +116,13 @@ public class newBlackJack {
         }
         else{
             if (hideDealersCard){
-                Vector<String> clone = (Vector<String>)dealersCard.clone();
+                Vector<String> clone = (Vector<String>) dealersCard.clone();
                 clone.remove(1);
                 clone.add("<close card>");
                 return clone;
             }
             else {
-                return (Vector<String>)dealersCard.clone();
+                return (Vector<String>) dealersCard.clone();
             }
         }
     }

@@ -5,7 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-class Tests {
+/**
+ * Класс для тестирования BlackJack.
+ */
+class BlackJackTest {
+
+    /**
+     * Тест на ход в ситуации, когда его сделать нельзя. Ожидается 1 в качестве возвращаемого значения.
+     */
     @Test
     void testMoveAfterEndOfGame() {
         BlackJack game = new BlackJack();
@@ -16,6 +23,9 @@ class Tests {
         Assertions.assertEquals(game.move(1), 1);
     }
 
+    /**
+     * Проверка скрытия суммы и второй карты дилера до его хода.
+     */
     @Test
     void testHideDealersCard() {
         while (true) {
@@ -34,6 +44,9 @@ class Tests {
         }
     }
 
+    /**
+     * Проверка того, что карты действительно добавляются в руку игрока.
+     */
     @Test
     void testGetPlayersCards() {
         BlackJack game = new BlackJack();
@@ -49,6 +62,9 @@ class Tests {
 
     }
 
+    /**
+     * Проверяется сумма одного из игрока в конце игры при любом из вариантов.
+     */
     @Test
     void testSum() {
         BlackJack game = new BlackJack();
@@ -66,11 +82,15 @@ class Tests {
         }
     }
 
+    /**
+     * Проверка работоспособности игры, а также изменения счета.
+     */
     @Test
     void testGame() {
         BlackJack game = new BlackJack();
         int[] array = {1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1,
                 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1};
+
         int index = 0;
         int prevDealerScore;
         int prevPlayerScore;
@@ -95,11 +115,16 @@ class Tests {
                     Assertions.assertEquals(prevDealerScore, game.getDealerScore());
                     Assertions.assertEquals(prevPlayerScore + 1, game.getPlayerScore());
                     break;
+                default:
+                    break;
             }
         }
 
     }
 
+    /**
+     * Проводится обратная testSum проверка.
+     */
     @Test
     void testPossibleWaysToWin() {
         BlackJack game = new BlackJack();
@@ -116,23 +141,19 @@ class Tests {
             while (game.getCurStatusOfGame() == statusOfGame.playing) {
                 game.move(rand.nextInt(2));
             }
-            if (!flagPlayerBlackJack && game.getSum(true) == 21){
+            if (!flagPlayerBlackJack && game.getSum(true) == 21) {
                 Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.playerWin);
                 flagPlayerBlackJack = true;
-            }
-            else if (!flagDealerBlackJack && game.getSum(false) == 21){
+            } else if (!flagDealerBlackJack && game.getSum(false) == 21) {
                 Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.dealerWin);
                 flagDealerBlackJack = true;
-            }
-            else if (!flagDealersSumMore21 && game.getSum(false) > 21) {
+            } else if (!flagDealersSumMore21 && game.getSum(false) > 21) {
                 Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.playerWin);
                 flagDealersSumMore21 = true;
-            }
-            else if (!flagPlayersSumMore21 && game.getSum(true) > 21) {
+            } else if (!flagPlayersSumMore21 && game.getSum(true) > 21) {
                 Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.dealerWin);
                 flagPlayersSumMore21 = true;
-            }
-            else if (!flagDraw && game.getSum(true) == game.getSum(false)) {
+            } else if (!flagDraw && game.getSum(true) == game.getSum(false)) {
                 Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.draw);
                 flagDraw = true;
             }

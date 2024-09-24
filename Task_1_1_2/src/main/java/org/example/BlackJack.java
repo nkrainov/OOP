@@ -2,6 +2,9 @@ package org.example;
 
 import java.util.Vector;
 
+/**
+ * Перечисление возможных состояний игры.
+ */
 enum statusOfGame {
     stop,
     playing,
@@ -10,6 +13,13 @@ enum statusOfGame {
     draw
 }
 
+/**
+ * Класс, реализующий игру BlackJack.
+ * Имеет 3 ключевые функции для игры.
+ * Конструктор - устанавливает начальное состояние игры.
+ * startGame - производит первичную раздачу карт.
+ * move - реализует ход игрока, а также ход дилера после игрока.
+ */
 public class BlackJack {
 
     private statusOfGame curStatusOfGame;
@@ -22,12 +32,19 @@ public class BlackJack {
     private Vector<String> playersCard;
     private boolean hideDealersCard;
 
+    /**
+     * Конструктор. Инициализирует начальный счет и состояние.
+     */
     public BlackJack() {
         curStatusOfGame = statusOfGame.stop;
         playerScore = 0;
         dealerScore = 0;
     }
 
+    /**
+     * Запускает раунд игры. Создает колоду для игры, инициализирует начальный суммы карты.
+     * Проводит первичную раздачу карт.
+     */
     public void startRound() {
         dealersCard = new Vector<String>();
         playersCard = new Vector<String>();
@@ -47,6 +64,11 @@ public class BlackJack {
 
     }
 
+    /**
+     * Подсчитывает сумму карт играющих.
+     * Если сумма карт удовлетворяет какому-либо из концов игры, то в curStatusOfGame устанавливается исход игры,
+     * а также изменяется счет.
+     */
     private void checkSituation() {
         dealerSum = 0;
         playerSum = 0;
@@ -87,14 +109,30 @@ public class BlackJack {
         }
     }
 
+    /**
+     * Геттер для счета дилера.
+     * @return возвращает счет дилера.
+     */
     public int getDealerScore() {
         return dealerScore;
     }
 
+    /**
+     * Геттер для счета игрока.
+     * @return возвращает счет игрока.
+     */
     public int getPlayerScore() {
         return playerScore;
     }
 
+    /**
+     * Реализует взятие карты игроком. Если choice == 0, то завершает ход игрока
+     * и запускает ход дилера. Если choice == 1, то карта будет добавлена в руку игрока,
+     * затем будет проверены условия конца игры.
+     *
+     * @return при choice не равном 1 или 2, а также в случае, если игра не идет сейчас
+     * (не установлен статус playing), возвращает 1, иначе ноль.
+     */
     public int move(int choice) {
         if (curStatusOfGame != statusOfGame.playing) {
             return 1;
@@ -114,6 +152,9 @@ public class BlackJack {
         return 0;
     }
 
+    /**
+     * Осуществляет ход дилера.
+     */
     private void dealerMove() {
         hideDealersCard = false;
         while (dealerSum < 17) {
@@ -125,6 +166,12 @@ public class BlackJack {
         }
     }
 
+    /**
+     * Возвращает вектор с картами игрока или дилера.
+     *
+     * @return если ни разу не была начата игра, то возвращает null, при getPlayersCard возвращает карты игрока
+     * иначе возвращает карты дилера.
+     */
     public Vector<String> getCards(boolean getPlayersCard) {
         if (curStatusOfGame == statusOfGame.stop) {
             return null;
@@ -143,10 +190,20 @@ public class BlackJack {
         }
     }
 
+    /**
+     * Геттер для статуса игры.
+     * @return возвращает статус игры.
+     */
     public statusOfGame getCurStatusOfGame() {
         return curStatusOfGame;
     }
 
+    /**
+     * Геттер для сумм карты игрока или дилера.
+     *
+     * @return если player, то возвращает счет игрока, иначе возвращает счет дилера
+     * (если ход ещё у игрока, то будет возвращен ноль).
+     */
     public int getSum(boolean player) {
         if (player) {
             return playerSum;
@@ -159,6 +216,11 @@ public class BlackJack {
         }
     }
 
+    /**
+     * Функция подсчета стоимости карты.
+     *
+     * @return возвращает значение карты.
+     */
     private int getCardValue(String card, boolean dealersCard) {
         int ans;
         if (card.contains("Двойка")) {

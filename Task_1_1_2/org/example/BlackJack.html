@@ -132,6 +132,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">BlackJack</span>
 extends java.lang.Object</pre>
+<div class="block">Класс, реализующий игру BlackJack.
+ Имеет 3 ключевые функции для игры.
+ Конструктор - устанавливает начальное состояние игры.
+ startGame - производит первичную раздачу карт.
+ move - реализует ход игрока, а также ход дилера после игрока.</div>
 </li>
 </ul>
 </div>
@@ -153,7 +158,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">BlackJack</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Конструктор.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -176,37 +183,51 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.util.Vector&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCards(boolean)">getCards</a></span>&#8203;(boolean&nbsp;getPlayersCard)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Возвращает вектор с картами игрока или дилера.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>org.example.statusOfGame</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurStatusOfGame()">getCurStatusOfGame</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Геттер для статуса игры.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDealerScore()">getDealerScore</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Геттер для счета дилера.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerScore()">getPlayerScore</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Геттер для счета игрока.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSum(boolean)">getSum</a></span>&#8203;(boolean&nbsp;player)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Геттер для сумм карты игрока или дилера.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#move(int)">move</a></span>&#8203;(int&nbsp;choice)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Реализует взятие карты игроком.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startRound()">startRound</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Запускает раунд игры.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -239,6 +260,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>BlackJack</h4>
 <pre>public&nbsp;BlackJack()</pre>
+<div class="block">Конструктор. Инициализирует начальный счет и состояние.</div>
 </li>
 </ul>
 </li>
@@ -258,6 +280,8 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>startRound</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;startRound()</pre>
+<div class="block">Запускает раунд игры. Создает колоду для игры, инициализирует начальный суммы карты.
+ Проводит первичную раздачу карт.</div>
 </li>
 </ul>
 <a id="getDealerScore()">
@@ -267,6 +291,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getDealerScore</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getDealerScore()</pre>
+<div class="block">Геттер для счета дилера.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>возвращает счет дилера.</dd>
+</dl>
 </li>
 </ul>
 <a id="getPlayerScore()">
@@ -276,6 +305,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getPlayerScore</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getPlayerScore()</pre>
+<div class="block">Геттер для счета игрока.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>возвращает счет игрока.</dd>
+</dl>
 </li>
 </ul>
 <a id="move(int)">
@@ -285,6 +319,14 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>move</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;move&#8203;(int&nbsp;choice)</pre>
+<div class="block">Реализует взятие карты игроком. Если choice == 0, то завершает ход игрока
+ и запускает ход дилера. Если choice == 1, то карта будет добавлена в руку игрока,
+ затем будет проверены условия конца игры.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>при choice не равном 1 или 2, а также в случае, если игра не идет сейчас
+ (не установлен статус playing), возвращает 1, иначе ноль.</dd>
+</dl>
 </li>
 </ul>
 <a id="getCards(boolean)">
@@ -294,6 +336,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getCards</h4>
 <pre class="methodSignature">public&nbsp;java.util.Vector&lt;java.lang.String&gt;&nbsp;getCards&#8203;(boolean&nbsp;getPlayersCard)</pre>
+<div class="block">Возвращает вектор с картами игрока или дилера.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>если ни разу не была начата игра, то возвращает null, при getPlayersCard возвращает карты игрока
+ иначе возвращает карты дилера.</dd>
+</dl>
 </li>
 </ul>
 <a id="getCurStatusOfGame()">
@@ -303,6 +351,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getCurStatusOfGame</h4>
 <pre class="methodSignature">public&nbsp;org.example.statusOfGame&nbsp;getCurStatusOfGame()</pre>
+<div class="block">Геттер для статуса игры.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>возвращает статус игры.</dd>
+</dl>
 </li>
 </ul>
 <a id="getSum(boolean)">
@@ -312,6 +365,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getSum</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getSum&#8203;(boolean&nbsp;player)</pre>
+<div class="block">Геттер для сумм карты игрока или дилера.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>если player, то возвращает счет игрока, иначе возвращает счет дилера
+ (если ход ещё у игрока, то будет возвращен ноль).</dd>
+</dl>
 </li>
 </ul>
 </li>

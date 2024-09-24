@@ -22,15 +22,17 @@ public class StandartDeck {
                     "Дама треф", "Дама бубен", "Дама червей", "Дама пик",
                     "Король треф", "Король бубен", "Король червей", "Король пик",
                     "Туз треф", "Туз бубен", "Туз червей", "Туз пик"};
-    private String[] deck;
+    private Card[] deck;
 
     /**
      * Создается новая колода, представляющее собой массив строк, затем колода перемешивается.
      */
     public StandartDeck() {
-        deck = new String[cardNames.length];
+        deck = new Card[cardNames.length];
         curTop = cardNames.length;
-        System.arraycopy(cardNames, 0, deck, 0, cardNames.length);
+        for (int i = 0; i < 52; i++){
+            deck[i] = new Card(cardNames[i]);
+        }
         shuffleDeck();
     }
 
@@ -41,7 +43,7 @@ public class StandartDeck {
         Random rnd = new Random();
         for (int i = deck.length - 1; i > 0; i--) {
             int index = rnd.nextInt(i + 1);
-            String temp = deck[index];
+            Card temp = deck[index];
             deck[index] = deck[i];
             deck[i] = temp;
         }
@@ -52,11 +54,11 @@ public class StandartDeck {
      *
      * @return возвращает строку-название карты, если в колоде есть карты, иначе null.
      */
-    public String takeCard() {
+    public Card takeCard() {
         if (curTop == -1) {
             return null;
         } else {
-            String ans = new String(deck[curTop - 1]);
+            Card ans = deck[curTop];
             curTop--;
             return ans;
         }

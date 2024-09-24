@@ -3,17 +3,6 @@ package org.example;
 import java.util.Vector;
 
 /**
- * Перечисление возможных состояний игры.
- */
-enum statusOfGame {
-    stop,
-    playing,
-    dealerWin,
-    playerWin,
-    draw
-}
-
-/**
  * Класс, реализующий игру BlackJack.
  * Имеет 3 ключевые функции для игры.
  * Конструктор - устанавливает начальное состояние игры.

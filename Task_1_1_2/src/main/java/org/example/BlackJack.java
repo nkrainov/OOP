@@ -15,11 +15,9 @@ public class BlackJack {
     private StandartDeck deck;
     private int dealerScore;
     private int playerScore;
-    private int dealerSum;
-    private int playerSum;
-    private Vector<String> dealersCard;
-    private Vector<String> playersCard;
     private boolean hideDealersCard;
+    private Player player;
+    private Player dealer;
 
     /**
      * Конструктор. Инициализирует начальный счет и состояние.
@@ -35,19 +33,17 @@ public class BlackJack {
      * Проводит первичную раздачу карт.
      */
     public void startRound() {
-        dealersCard = new Vector<String>();
-        playersCard = new Vector<String>();
+        player = new Player();
+        dealer = new Player();
         curStatusOfGame = statusOfGame.playing;
         deck = new StandartDeck();
         hideDealersCard = true;
 
-        dealersCard.add(deck.takeCard());
-        dealersCard.add(deck.takeCard());
-        playersCard.add(deck.takeCard());
-        playersCard.add(deck.takeCard());
+        player.takeCard(deck.takeCard());
+        player.takeCard(deck.takeCard());
+        dealer.takeCard(deck.takeCard());
+        dealer.takeCard(deck.takeCard());
 
-        dealerSum = 0;
-        playerSum = 0;
         checkSituation();
 
 
@@ -59,15 +55,10 @@ public class BlackJack {
      * а также изменяется счет.
      */
     private void checkSituation() {
-        dealerSum = 0;
-        playerSum = 0;
-        for (String s : dealersCard) {
-            dealerSum += getCardValue(s, true);
-        }
+        int dealerSum = dealer.getSum();
+        int playerSum = player.getSum();
 
-        for (String s : playersCard) {
-            playerSum += getCardValue(s, false);
-        }
+
         if (playerSum == 21 && dealerSum == 21) {
             curStatusOfGame = statusOfGame.draw;
             hideDealersCard = false;
@@ -87,13 +78,13 @@ public class BlackJack {
             hideDealersCard = false;
             curStatusOfGame = statusOfGame.playerWin;
             playerScore++;
-        } else if (dealerSum > 17 && dealerSum > playerSum) {
+        } else if (dealerSum >= 17 && dealerSum > playerSum && !hideDealersCard) {
             curStatusOfGame = statusOfGame.dealerWin;
             dealerScore++;
-        } else if (dealerSum > 17 && dealerSum < playerSum) {
+        } else if (dealerSum >= 17 && dealerSum < playerSum && !hideDealersCard) {
             curStatusOfGame = statusOfGame.playerWin;
             playerScore++;
-        } else if (dealerSum > 17) {
+        } else if (dealerSum >= 17 && !hideDealersCard) {
             curStatusOfGame = statusOfGame.draw;
         }
     }
@@ -128,7 +119,7 @@ public class BlackJack {
         }
 
         if (choice == 1) {
-            playersCard.add(deck.takeCard());
+            player.takeCard(deck.takeCard());
             checkSituation();
 
         } else if (choice == 0) {
@@ -146,13 +137,14 @@ public class BlackJack {
      */
     private void dealerMove() {
         hideDealersCard = false;
-        while (dealerSum < 17) {
-            dealersCard.add(deck.takeCard());
+        while (dealer.getSum() < 17) {
+            dealer.takeCard(deck.takeCard());
             checkSituation();
             if (curStatusOfGame != statusOfGame.playing) {
                 break;
             }
         }
+        checkSituation();
     }
 
     /**
@@ -161,20 +153,19 @@ public class BlackJack {
      * @return если ни разу не была начата игра, то возвращает null, при getPlayersCard возвращает карты игрока
      * иначе возвращает карты дилера.
      */
-    public Vector<String> getCards(boolean getPlayersCard) {
+    public Vector<Card> getCards(boolean getPlayersCard) {
         if (curStatusOfGame == statusOfGame.stop) {
             return null;
         }
         if (getPlayersCard) {
-            return (Vector<String>) playersCard.clone();
+            return (Vector<Card>) player.getCards().clone();
         } else {
             if (hideDealersCard) {
-                Vector<String> clone = (Vector<String>) dealersCard.clone();
+                Vector<Card> clone = (Vector<Card>) dealer.getCards().clone();
                 clone.remove(1);
-                clone.add("<close card>");
                 return clone;
             } else {
-                return (Vector<String>) dealersCard.clone();
+                return (Vector<Card>) dealer.getCards().clone();
             }
         }
     }
@@ -193,53 +184,15 @@ public class BlackJack {
      * @return если player, то возвращает счет игрока, иначе возвращает счет дилера
      * (если ход ещё у игрока, то будет возвращен ноль).
      */
-    public int getSum(boolean player) {
-        if (player) {
-            return playerSum;
+    public int getSum(boolean p) {
+        if (p) {
+            return player.getSum();
         } else {
             if (hideDealersCard) {
                 return 0;
             } else {
-                return dealerSum;
+                return dealer.getSum();
             }
         }
     }
-
-    /**
-     * Функция подсчета стоимости карты.
-     *
-     * @return возвращает значение карты.
-     */
-    private int getCardValue(String card, boolean dealersCard) {
-        int ans;
-        if (card.contains("Двойка")) {
-            ans = 2;
-        } else if (card.contains("Тройка")) {
-            ans = 3;
-        } else if (card.contains("Четверка")) {
-            ans = 4;
-        } else if (card.contains("Пятерка")) {
-            ans = 5;
-        } else if (card.contains("Шестерка")) {
-            ans = 6;
-        } else if (card.contains("Семерка")) {
-            ans = 7;
-        } else if (card.contains("Восьмерка")) {
-            ans = 8;
-        } else if (card.contains("Девятка")) {
-            ans = 9;
-        } else if (card.contains("Десятка") || card.contains("Валет") || card.contains("Дама") || card.contains("Король")) {
-            ans = 10;
-        } else if (card.contains("Туз")) {
-            if ((dealersCard && dealerSum + 11 < 22) || (!dealersCard && playerSum + 11 < 22)) {
-                ans = 11;
-            } else {
-                ans = 1;
-            }
-        } else {
-            ans = 0;
-        }
-        return ans;
-    }
-
 }

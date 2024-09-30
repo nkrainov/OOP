@@ -29,7 +29,7 @@ public class StandartDeck {
      */
     public StandartDeck() {
         deck = new Card[cardNames.length];
-        curTop = cardNames.length;
+        curTop = cardNames.length - 1;
         for (int i = 0; i < 52; i++){
             deck[i] = new Card(cardNames[i]);
         }
@@ -55,7 +55,7 @@ public class StandartDeck {
      * @return возвращает строку-название карты, если в колоде есть карты, иначе null.
      */
     public Card takeCard() {
-        if (curTop == -1) {
+        if (curTop < 0) {
             return null;
         } else {
             Card ans = deck[curTop];

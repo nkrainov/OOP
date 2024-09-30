@@ -1,19 +1,35 @@
 package org.example;
 
+/**
+ * Класс, реализующий сущность карты.
+ */
 public class Card {
     private String name;
 
-    public Card(String cardName){
+    /**
+     * Инициализируется название карты.
+     */
+    public Card(String cardName) {
         name = cardName;
     }
 
-    public int getValue(int curSum){
+    /**
+     * Геттер для имени.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Геттер для значения. В качестве параметра принимает сумму,
+     * от которой зависит значение карты, если она туз.
+     */
+    public int getValue(int curSum) {
         int ans = 0;
         if (name.contains("Туз")) {
             if (curSum >= 11) {
                 ans = 1;
-            }
-            else {
+            } else {
                 ans = 11;
             }
         } else if (name.contains("Двойка")) {

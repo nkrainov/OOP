@@ -91,7 +91,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </nav>
 </header>
 <main role="main">
-<div class="contentContainer"><a href="#I:B">B</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:B">
+<div class="contentContainer"><a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:B">
 <!--   -->
 </a>
 <h2 class="title">B</h2>
@@ -105,11 +105,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Конструктор.</div>
 </dd>
 </dl>
+<a id="I:C">
+<!--   -->
+</a>
+<h2 class="title">C</h2>
+<dl>
+<dt><a href="org/example/Card.html" title="class in org.example"><span class="typeNameLink">Card</span></a> - Class in <a href="org/example/package-summary.html">org.example</a></dt>
+<dd>
+<div class="block">Класс, реализующий сущность карты.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/Card.html#%3Cinit%3E(java.lang.String)">Card(String)</a></span> - Constructor for class org.example.<a href="org/example/Card.html" title="class in org.example">Card</a></dt>
+<dd>
+<div class="block">Инициализируется название карты.</div>
+</dd>
+</dl>
 <a id="I:G">
 <!--   -->
 </a>
 <h2 class="title">G</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="org/example/Player.html#getCards()">getCards()</a></span> - Method in class org.example.<a href="org/example/Player.html" title="class in org.example">Player</a></dt>
+<dd>
+<div class="block">Геттер для карт.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/example/BlackJack.html#getCards(boolean)">getCards(boolean)</a></span> - Method in class org.example.<a href="org/example/BlackJack.html" title="class in org.example">BlackJack</a></dt>
 <dd>
 <div class="block">Возвращает вектор с картами игрока или дилера.</div>
@@ -122,13 +140,25 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Геттер для счета дилера.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/example/Card.html#getName()">getName()</a></span> - Method in class org.example.<a href="org/example/Card.html" title="class in org.example">Card</a></dt>
+<dd>
+<div class="block">Геттер для имени.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/example/BlackJack.html#getPlayerScore()">getPlayerScore()</a></span> - Method in class org.example.<a href="org/example/BlackJack.html" title="class in org.example">BlackJack</a></dt>
 <dd>
 <div class="block">Геттер для счета игрока.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/example/Player.html#getSum()">getSum()</a></span> - Method in class org.example.<a href="org/example/Player.html" title="class in org.example">Player</a></dt>
+<dd>
+<div class="block">Геттер для суммы.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/example/BlackJack.html#getSum(boolean)">getSum(boolean)</a></span> - Method in class org.example.<a href="org/example/BlackJack.html" title="class in org.example">BlackJack</a></dt>
 <dd>
 <div class="block">Геттер для сумм карты игрока или дилера.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/Card.html#getValue(int)">getValue(int)</a></span> - Method in class org.example.<a href="org/example/Card.html" title="class in org.example">Card</a></dt>
+<dd>
+<div class="block">Геттер для значения.</div>
 </dd>
 </dl>
 <a id="I:M">
@@ -154,6 +184,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><a href="org/example/package-summary.html">org.example</a> - package org.example</dt>
 <dd>&nbsp;</dd>
+</dl>
+<a id="I:P">
+<!--   -->
+</a>
+<h2 class="title">P</h2>
+<dl>
+<dt><a href="org/example/Player.html" title="class in org.example"><span class="typeNameLink">Player</span></a> - Class in <a href="org/example/package-summary.html">org.example</a></dt>
+<dd>
+<div class="block">Класс, реализующий сущность игрока, у которого есть карты и текущая сумма.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/Player.html#%3Cinit%3E()">Player()</a></span> - Constructor for class org.example.<a href="org/example/Player.html" title="class in org.example">Player</a></dt>
+<dd>
+<div class="block">Инициализирует вектор, хранящий карты, и сумму, в начале равную нулю.</div>
+</dd>
 </dl>
 <a id="I:S">
 <!--   -->
@@ -182,8 +226,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Функция взятия карты из колоды.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/example/Player.html#takeCard(org.example.Card)">takeCard(Card)</a></span> - Method in class org.example.<a href="org/example/Player.html" title="class in org.example">Player</a></dt>
+<dd>
+<div class="block">Добавление карты в руку.</div>
+</dd>
 </dl>
-<a href="#I:B">B</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
+<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
 </main>
 <footer role="contentinfo">
 <nav role="navigation">

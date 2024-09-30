@@ -33,4 +33,13 @@ public class Sub extends Expression{
     public boolean hasVars() {
         return firstOp.hasVars() || secondOp.hasVars();
     }
+
+    public boolean equals(Expression expr) {
+        if (!(expr instanceof Sub add)){
+            return false;
+        }
+
+        return firstOp.equals(add.firstOp) && secondOp.equals(add.secondOp);
+    }
 }
+

@@ -41,4 +41,12 @@ public class Variable extends Expression{
     public boolean hasVars() {
         return true;
     }
+
+    public boolean equals(Expression expr) {
+        if (!(expr instanceof Variable add)){
+            return false;
+        }
+
+        return var.equals(add.var);
+    }
 }

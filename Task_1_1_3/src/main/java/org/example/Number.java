@@ -7,7 +7,8 @@ public class Number extends Expression{
     }
 
     public void print(){
-        System.out.print(num);
+        if (Integer.parseInt(num) < 0){ System.out.print("(" + num + ")");}
+        else {System.out.print(num); }
     }
 
     public Expression derivative(){
@@ -25,5 +26,13 @@ public class Number extends Expression{
 
     public boolean hasVars() {
         return false;
+    }
+
+    public boolean equals(Expression expr) {
+        if (!(expr instanceof Number add)){
+            return false;
+        }
+
+        return num.equals(add.num);
     }
 }

@@ -31,4 +31,12 @@ public class Div extends Expression{
     public boolean hasVars() {
         return firstOp.hasVars() || secondOp.hasVars();
     }
+
+    public boolean equals(Expression expr) {
+        if (!(expr instanceof Div add)){
+            return false;
+        }
+
+        return firstOp.equals(add.firstOp) && secondOp.equals(add.secondOp);
+    }
 }

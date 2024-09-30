@@ -4,8 +4,8 @@ public class Add extends Expression{
     private Expression firstOp;
     private Expression secondOp;
     public Add(Expression first, Expression second){
-        firstOp = first;
-        secondOp = second;
+        firstOp = first.clone();
+        secondOp = second.clone();
     }
 
     public void print(){
@@ -25,10 +25,18 @@ public class Add extends Expression{
     }
 
     public Expression simplification(){
-        return super.simplification();
+        return new Add(firstOp.simplification(), secondOp.simplification());
     }
 
     public boolean hasVars() {
         return firstOp.hasVars() || secondOp.hasVars();
+    }
+
+    public boolean equals(Expression expr) {
+        if (!(expr instanceof Add add)){
+            return false;
+        }
+
+        return firstOp.equals(add.firstOp) && secondOp.equals(add.secondOp);
     }
 }

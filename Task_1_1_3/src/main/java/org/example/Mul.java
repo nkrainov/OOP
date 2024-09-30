@@ -46,4 +46,12 @@ public class Mul extends Expression{
     public boolean hasVars() {
         return firstOp.hasVars() || secondOp.hasVars();
     }
+
+    public boolean equals(Expression expr) {
+        if (!(expr instanceof Mul add)){
+            return false;
+        }
+
+        return firstOp.equals(add.firstOp) && secondOp.equals(add.secondOp);
+    }
 }

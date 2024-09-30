@@ -48,10 +48,10 @@ public class Card {
             ans = 8;
         } else if (name.contains("Девятка")) {
             ans = 9;
-        } else if (name.contains("Десятка") ||
-                   name.contains("Валет") ||
-                   name.contains("Дама") ||
-                   name.contains("Король")) {
+        } else if (name.contains("Десятка")
+                   || name.contains("Валет")
+                   || name.contains("Дама")
+                   || name.contains("Король")) {
             ans = 10;
         }
         return ans;

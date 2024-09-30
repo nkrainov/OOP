@@ -41,13 +41,13 @@ public class Main {
         Vector<Card> playersCard = game.getCards(true);
         Vector<Card> dealersCard = game.getCards(false);
         System.out.print("Ваши карты: [");
-        for (Card card : game.getCards(true)){
+        for (Card card : game.getCards(true)) {
             System.out.print(card.getName() + " ");
         }
         System.out.println("] => " + game.getSum(true));
 
         System.out.print("Карты дилера: [");
-        for (Card card : game.getCards(false)){
+        for (Card card : game.getCards(false)) {
             System.out.print(card.getName() + " ");
         }
 

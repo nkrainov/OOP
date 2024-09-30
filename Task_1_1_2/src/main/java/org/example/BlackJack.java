@@ -117,7 +117,7 @@ public class BlackJack {
      * затем будет проверены условия конца игры.
      *
      * @return при choice не равном 1 или 2, а также в случае, если игра не идет сейчас
-     * (не установлен статус playing), возвращает 1, иначе ноль.
+     *     (не установлен статус playing), возвращает 1, иначе ноль.
      */
     public int move(int choice) {
         if (curStatusOfGame != StatusOfGame.playing) {
@@ -157,8 +157,8 @@ public class BlackJack {
      * Возвращает вектор с картами игрока или дилера.
      *
      * @return если ни разу не была начата игра, то возвращает null,
-     * при getPlayersCard возвращает карты игрока,
-     * иначе возвращает карты дилера.
+     *     при getPlayersCard возвращает карты игрока,
+     *     иначе возвращает карты дилера.
      */
     public Vector<Card> getCards(boolean getPlayersCard) {
         if (curStatusOfGame == StatusOfGame.stop) {

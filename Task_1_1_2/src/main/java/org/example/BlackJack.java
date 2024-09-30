@@ -11,7 +11,7 @@ import java.util.Vector;
  */
 public class BlackJack {
 
-    private statusOfGame curStatusOfGame;
+    private StatusOfGame curStatusOfGame;
     private StandartDeck deck;
     private int dealerScore;
     private int playerScore;
@@ -23,7 +23,7 @@ public class BlackJack {
      * Конструктор. Инициализирует начальный счет и состояние.
      */
     public BlackJack() {
-        curStatusOfGame = statusOfGame.stop;
+        curStatusOfGame = StatusOfGame.stop;
         playerScore = 0;
         dealerScore = 0;
     }
@@ -35,7 +35,7 @@ public class BlackJack {
     public void startRound() {
         player = new Player();
         dealer = new Player();
-        curStatusOfGame = statusOfGame.playing;
+        curStatusOfGame = StatusOfGame.playing;
         deck = new StandartDeck();
         hideDealersCard = true;
 
@@ -51,46 +51,51 @@ public class BlackJack {
 
     /**
      * Подсчитывает сумму карт играющих.
-     * Если сумма карт удовлетворяет какому-либо из концов игры, то в curStatusOfGame устанавливается исход игры,
+     * Если сумма карт удовлетворяет какому-либо из концов игры,
+     * то в curStatusOfGame устанавливается исход игры,
      * а также изменяется счет.
      */
     private void checkSituation() {
+        if (curStatusOfGame != StatusOfGame.playing) {
+            return;
+        }
         int dealerSum = dealer.getSum();
         int playerSum = player.getSum();
 
 
         if (playerSum == 21 && dealerSum == 21) {
-            curStatusOfGame = statusOfGame.draw;
+            curStatusOfGame = StatusOfGame.draw;
             hideDealersCard = false;
         } else if (playerSum == 21) {
             hideDealersCard = false;
-            curStatusOfGame = statusOfGame.playerWin;
+            curStatusOfGame = StatusOfGame.playerWin;
             playerScore++;
         } else if (dealerSum == 21) {
             hideDealersCard = false;
-            curStatusOfGame = statusOfGame.dealerWin;
+            curStatusOfGame = StatusOfGame.dealerWin;
             dealerScore++;
         } else if (playerSum > 21) {
             hideDealersCard = false;
-            curStatusOfGame = statusOfGame.dealerWin;
+            curStatusOfGame = StatusOfGame.dealerWin;
             dealerScore++;
         } else if (dealerSum > 21) {
             hideDealersCard = false;
-            curStatusOfGame = statusOfGame.playerWin;
+            curStatusOfGame = StatusOfGame.playerWin;
             playerScore++;
         } else if (dealerSum >= 17 && dealerSum > playerSum && !hideDealersCard) {
-            curStatusOfGame = statusOfGame.dealerWin;
+            curStatusOfGame = StatusOfGame.dealerWin;
             dealerScore++;
         } else if (dealerSum >= 17 && dealerSum < playerSum && !hideDealersCard) {
-            curStatusOfGame = statusOfGame.playerWin;
+            curStatusOfGame = StatusOfGame.playerWin;
             playerScore++;
         } else if (dealerSum >= 17 && !hideDealersCard) {
-            curStatusOfGame = statusOfGame.draw;
+            curStatusOfGame = StatusOfGame.draw;
         }
     }
 
     /**
      * Геттер для счета дилера.
+     *
      * @return возвращает счет дилера.
      */
     public int getDealerScore() {
@@ -99,6 +104,7 @@ public class BlackJack {
 
     /**
      * Геттер для счета игрока.
+     *
      * @return возвращает счет игрока.
      */
     public int getPlayerScore() {
@@ -114,7 +120,7 @@ public class BlackJack {
      * (не установлен статус playing), возвращает 1, иначе ноль.
      */
     public int move(int choice) {
-        if (curStatusOfGame != statusOfGame.playing) {
+        if (curStatusOfGame != StatusOfGame.playing) {
             return 1;
         }
 
@@ -140,7 +146,7 @@ public class BlackJack {
         while (dealer.getSum() < 17) {
             dealer.takeCard(deck.takeCard());
             checkSituation();
-            if (curStatusOfGame != statusOfGame.playing) {
+            if (curStatusOfGame != StatusOfGame.playing) {
                 break;
             }
         }
@@ -150,11 +156,12 @@ public class BlackJack {
     /**
      * Возвращает вектор с картами игрока или дилера.
      *
-     * @return если ни разу не была начата игра, то возвращает null, при getPlayersCard возвращает карты игрока
+     * @return если ни разу не была начата игра, то возвращает null,
+     * при getPlayersCard возвращает карты игрока,
      * иначе возвращает карты дилера.
      */
     public Vector<Card> getCards(boolean getPlayersCard) {
-        if (curStatusOfGame == statusOfGame.stop) {
+        if (curStatusOfGame == StatusOfGame.stop) {
             return null;
         }
         if (getPlayersCard) {
@@ -172,9 +179,10 @@ public class BlackJack {
 
     /**
      * Геттер для статуса игры.
+     *
      * @return возвращает статус игры.
      */
-    public statusOfGame getCurStatusOfGame() {
+    public StatusOfGame getCurStatusOfGame() {
         return curStatusOfGame;
     }
 

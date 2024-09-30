@@ -10,15 +10,15 @@ public class Main {
         game.startRound();
         printCards(game);
 
-        if (game.getCurStatusOfGame() == statusOfGame.draw) {
+        if (game.getCurStatusOfGame() == StatusOfGame.draw) {
             System.out.println("Ничья!");
-        } else if (game.getCurStatusOfGame() == statusOfGame.playerWin) {
+        } else if (game.getCurStatusOfGame() == StatusOfGame.playerWin) {
             System.out.println("У вас блэкджек!");
-        } else if (game.getCurStatusOfGame() == statusOfGame.dealerWin) {
+        } else if (game.getCurStatusOfGame() == StatusOfGame.dealerWin) {
             System.out.println("У дилера блэкджек!");
         } else {
             int choice;
-            while (game.getCurStatusOfGame() == statusOfGame.playing) {
+            while (game.getCurStatusOfGame() == StatusOfGame.playing) {
                 System.out.println("Введите 1 для взятия карты, иначе ноль");
                 choice = scan.nextInt();
                 game.move(choice);
@@ -26,11 +26,11 @@ public class Main {
             }
 
 
-            if (game.getCurStatusOfGame() == statusOfGame.draw) {
+            if (game.getCurStatusOfGame() == StatusOfGame.draw) {
                 System.out.println("Ничья!");
-            } else if (game.getCurStatusOfGame() == statusOfGame.playerWin) {
+            } else if (game.getCurStatusOfGame() == StatusOfGame.playerWin) {
                 System.out.println("Вы победили!");
-            } else if (game.getCurStatusOfGame() == statusOfGame.dealerWin) {
+            } else if (game.getCurStatusOfGame() == StatusOfGame.dealerWin) {
                 System.out.println("Дилер победил!");
             }
         }

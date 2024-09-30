@@ -3,7 +3,7 @@ package org.example;
 /**
  * Перечисление возможных состояний игры.
  */
-enum statusOfGame {
+enum StatusOfGame {
     stop,
     playing,
     dealerWin,

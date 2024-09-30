@@ -1,9 +1,8 @@
 package org.example;
 
+import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Random;
 
 /**
  * Класс для тестирования BlackJack.
@@ -11,13 +10,14 @@ import java.util.Random;
 class BlackJackTest {
 
     /**
-     * Тест на ход в ситуации, когда его сделать нельзя. Ожидается 1 в качестве возвращаемого значения.
+     * Тест на ход в ситуации, когда его сделать нельзя.
+     * Ожидается 1 в качестве возвращаемого значения.
      */
     @Test
     void testMoveAfterEndOfGame() {
         BlackJack game = new BlackJack();
         game.startRound();
-        while (game.getCurStatusOfGame() == statusOfGame.playing) {
+        while (game.getCurStatusOfGame() == StatusOfGame.playing) {
             game.move(1);
         }
         Assertions.assertEquals(game.move(1), 1);
@@ -31,15 +31,15 @@ class BlackJackTest {
         while (true) {
             BlackJack game = new BlackJack();
             game.startRound();
-            if (game.getCurStatusOfGame() != statusOfGame.playing) {
+            if (game.getCurStatusOfGame() != StatusOfGame.playing) {
                 continue;
             }
             Assertions.assertEquals(game.getSum(false), 0);
-            Assertions.assertTrue(game.getCards(false).contains("<close card>"));
-            while (game.getCurStatusOfGame() == statusOfGame.playing) {
+            Assertions.assertTrue(game.getCards(false).size() == 1);
+            while (game.getCurStatusOfGame() == StatusOfGame.playing) {
                 game.move(1);
             }
-            Assertions.assertFalse(game.getCards(false).contains("<close card>"));
+            Assertions.assertFalse(game.getCards(false).size() == 1);
             break;
         }
     }
@@ -54,7 +54,7 @@ class BlackJackTest {
         game.startRound();
         Assertions.assertEquals(game.getCards(true).size(), 2);
         int i = 2;
-        while (game.getCurStatusOfGame() == statusOfGame.playing) {
+        while (game.getCurStatusOfGame() == StatusOfGame.playing) {
             game.move(1);
             i++;
             Assertions.assertEquals(game.getCards(true).size(), i);
@@ -69,14 +69,14 @@ class BlackJackTest {
     void testSum() {
         BlackJack game = new BlackJack();
         game.startRound();
-        while (game.getCurStatusOfGame() == statusOfGame.playing) {
+        while (game.getCurStatusOfGame() == StatusOfGame.playing) {
             game.move(1);
         }
-        if (game.getCurStatusOfGame() == statusOfGame.dealerWin) {
+        if (game.getCurStatusOfGame() == StatusOfGame.dealerWin) {
             Assertions.assertTrue(game.getSum(false) <= 21);
-        } else if (game.getCurStatusOfGame() == statusOfGame.playerWin) {
+        } else if (game.getCurStatusOfGame() == StatusOfGame.playerWin) {
             Assertions.assertTrue(game.getSum(true) <= 21);
-        } else if (game.getCurStatusOfGame() == statusOfGame.draw) {
+        } else if (game.getCurStatusOfGame() == StatusOfGame.draw) {
             Assertions.assertTrue(game.getSum(true) <= 21);
             Assertions.assertTrue(game.getSum(false) <= 21);
         }
@@ -89,7 +89,7 @@ class BlackJackTest {
     void testGame() {
         BlackJack game = new BlackJack();
         int[] array = {1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1,
-                0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1};
+                       0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1};
 
         int index = 0;
         int prevDealerScore;
@@ -98,7 +98,7 @@ class BlackJackTest {
             prevPlayerScore = game.getPlayerScore();
             prevDealerScore = game.getDealerScore();
             game.startRound();
-            while (game.getCurStatusOfGame() == statusOfGame.playing) {
+            while (game.getCurStatusOfGame() == StatusOfGame.playing) {
                 game.move(array[index]);
                 index++;
             }
@@ -136,25 +136,26 @@ class BlackJackTest {
         boolean flagDraw = false;
         boolean flagPlayersSumMore21 = false;
         boolean flagDealersSumMore21 = false;
-        while (!(flagDealersSumMore21 && flagDraw && flagDealerBlackJack && flagPlayersSumMore21 && flagPlayerBlackJack)) {
+        while (!(flagDealersSumMore21 && flagDraw && flagDealerBlackJack
+                && flagPlayersSumMore21 && flagPlayerBlackJack)) {
             game.startRound();
-            while (game.getCurStatusOfGame() == statusOfGame.playing) {
+            while (game.getCurStatusOfGame() == StatusOfGame.playing) {
                 game.move(rand.nextInt(2));
             }
             if (!flagPlayerBlackJack && game.getSum(true) == 21) {
-                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.playerWin);
+                Assertions.assertEquals(game.getCurStatusOfGame(), StatusOfGame.playerWin);
                 flagPlayerBlackJack = true;
             } else if (!flagDealerBlackJack && game.getSum(false) == 21) {
-                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.dealerWin);
+                Assertions.assertEquals(game.getCurStatusOfGame(), StatusOfGame.dealerWin);
                 flagDealerBlackJack = true;
             } else if (!flagDealersSumMore21 && game.getSum(false) > 21) {
-                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.playerWin);
+                Assertions.assertEquals(game.getCurStatusOfGame(), StatusOfGame.playerWin);
                 flagDealersSumMore21 = true;
             } else if (!flagPlayersSumMore21 && game.getSum(true) > 21) {
-                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.dealerWin);
+                Assertions.assertEquals(game.getCurStatusOfGame(), StatusOfGame.dealerWin);
                 flagPlayersSumMore21 = true;
             } else if (!flagDraw && game.getSum(true) == game.getSum(false)) {
-                Assertions.assertEquals(game.getCurStatusOfGame(), statusOfGame.draw);
+                Assertions.assertEquals(game.getCurStatusOfGame(), StatusOfGame.draw);
                 flagDraw = true;
             }
         }

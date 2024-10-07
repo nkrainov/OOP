@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":9,"i6":10,"i7":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -122,7 +122,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="Expression.html" title="class in org.example">org.example.Expression</a></li>
+<li><a href="BinOp.html" title="class in org.example">org.example.BinOp</a></li>
 <li>
 <ul class="inheritance">
 <li>org.example.Sub</li>
@@ -140,7 +140,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">Sub</span>
-extends <a href="Expression.html" title="class in org.example">Expression</a></pre>
+extends <a href="BinOp.html" title="class in org.example">BinOp</a></pre>
+<div class="block">Класс, реализующий операцию вычитания.</div>
 </li>
 </ul>
 </div>
@@ -161,8 +162,8 @@ extends <a href="Expression.html" title="class in org.example">Expression</a></p
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.example.Expression,org.example.Expression)">Sub</a></span>&#8203;(<a href="Expression.html" title="class in org.example">Expression</a>&nbsp;first,
-   <a href="Expression.html" title="class in org.example">Expression</a>&nbsp;second)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.example.Expression,org.example.Expression)">Sub</a></span>&#8203;(org.example.Expression&nbsp;first,
+   org.example.Expression&nbsp;second)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -177,50 +178,69 @@ extends <a href="Expression.html" title="class in org.example">Expression</a></p
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="Expression.html" title="class in org.example">Expression</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#derivative()">derivative</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>org.example.Expression</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clone()">clone</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Функция клонирования выражения.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(org.example.Expression)">equals</a></span>&#8203;(<a href="Expression.html" title="class in org.example">Expression</a>&nbsp;expr)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>org.example.Expression</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#derivative()">derivative</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Функция нахождения производной.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#eval(java.lang.String)">eval</a></span>&#8203;(java.lang.String&nbsp;varVal)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(org.example.Expression)">equals</a></span>&#8203;(org.example.Expression&nbsp;expr)</code></th>
+<td class="colLast">
+<div class="block">Функция проверки равенства выражений.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hasVars()">hasVars</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#eval(java.lang.String)">eval</a></span>&#8203;(java.lang.String&nbsp;varVal)</code></th>
+<td class="colLast">
+<div class="block">Функция нахождения значения выражения.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#print()">print</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hasVars()">hasVars</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Эта функция проверяет, имеются ли в выражении переменные.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="Expression.html" title="class in org.example">Expression</a></code></td>
+<td class="colFirst"><code>static org.example.Expression</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parse(java.lang.String)">parse</a></span>&#8203;(java.lang.String&nbsp;expr)</code></th>
+<td class="colLast">
+<div class="block">Функция, получающая из строки выражение.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#print()">print</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Функция вывода на экран.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>org.example.Expression</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#simplification()">simplification</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Функция упрощения выражения.</div>
+</td>
 </tr>
 </table>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.org.example.Expression">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;org.example.<a href="Expression.html" title="class in org.example">Expression</a></h3>
-<code><a href="Expression.html#clone()">clone</a>, <a href="Expression.html#parse(java.lang.String)">parse</a></code></li>
-</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
@@ -250,8 +270,8 @@ extends <a href="Expression.html" title="class in org.example">Expression</a></p
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Sub</h4>
-<pre>public&nbsp;Sub&#8203;(<a href="Expression.html" title="class in org.example">Expression</a>&nbsp;first,
-           <a href="Expression.html" title="class in org.example">Expression</a>&nbsp;second)</pre>
+<pre>public&nbsp;Sub&#8203;(org.example.Expression&nbsp;first,
+           org.example.Expression&nbsp;second)</pre>
 </li>
 </ul>
 </li>
@@ -271,10 +291,7 @@ extends <a href="Expression.html" title="class in org.example">Expression</a></p
 <li class="blockList">
 <h4>print</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;print()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#print()">print</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in org.example">Expression</a></code></dd>
-</dl>
+<div class="block">Функция вывода на экран.</div>
 </li>
 </ul>
 <a id="derivative()">
@@ -283,11 +300,8 @@ extends <a href="Expression.html" title="class in org.example">Expression</a></p
 <ul class="blockList">
 <li class="blockList">
 <h4>derivative</h4>
-<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in org.example">Expression</a>&nbsp;derivative()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#derivative()">derivative</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in org.example">Expression</a></code></dd>
-</dl>
+<pre class="methodSignature">public&nbsp;org.example.Expression&nbsp;derivative()</pre>
+<div class="block">Функция нахождения производной.</div>
 </li>
 </ul>
 <a id="eval(java.lang.String)">
@@ -297,10 +311,7 @@ extends <a href="Expression.html" title="class in org.example">Expression</a></p
 <li class="blockList">
 <h4>eval</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;eval&#8203;(java.lang.String&nbsp;varVal)</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#eval(java.lang.String)">eval</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in org.example">Expression</a></code></dd>
-</dl>
+<div class="block">Функция нахождения значения выражения.</div>
 </li>
 </ul>
 <a id="simplification()">
@@ -309,11 +320,8 @@ extends <a href="Expression.html" title="class in org.example">Expression</a></p
 <ul class="blockList">
 <li class="blockList">
 <h4>simplification</h4>
-<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in org.example">Expression</a>&nbsp;simplification()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="Expression.html#simplification()">simplification</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in org.example">Expression</a></code></dd>
-</dl>
+<pre class="methodSignature">public&nbsp;org.example.Expression&nbsp;simplification()</pre>
+<div class="block">Функция упрощения выражения.</div>
 </li>
 </ul>
 <a id="hasVars()">
@@ -323,22 +331,40 @@ extends <a href="Expression.html" title="class in org.example">Expression</a></p
 <li class="blockList">
 <h4>hasVars</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;hasVars()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#hasVars()">hasVars</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in org.example">Expression</a></code></dd>
-</dl>
+<div class="block">Эта функция проверяет, имеются ли в выражении переменные.</div>
 </li>
 </ul>
 <a id="equals(org.example.Expression)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>equals</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(<a href="Expression.html" title="class in org.example">Expression</a>&nbsp;expr)</pre>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(org.example.Expression&nbsp;expr)</pre>
+<div class="block">Функция проверки равенства выражений.</div>
+</li>
+</ul>
+<a id="parse(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>parse</h4>
+<pre class="methodSignature">public static&nbsp;org.example.Expression&nbsp;parse&#8203;(java.lang.String&nbsp;expr)</pre>
+<div class="block">Функция, получающая из строки выражение.</div>
+</li>
+</ul>
+<a id="clone()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>clone</h4>
+<pre class="methodSignature">public&nbsp;org.example.Expression&nbsp;clone()</pre>
+<div class="block">Функция клонирования выражения.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#equals(org.example.Expression)">equals</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in org.example">Expression</a></code></dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>clone</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>

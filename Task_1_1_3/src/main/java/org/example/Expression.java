@@ -7,7 +7,7 @@ import java.util.Stack;
  * Класс, являющийся шаблоном для математических выражений.
  * Также реализует функция парсинга выражения из строки
  */
-abstract public class Expression implements Cloneable {
+abstract class Expression implements Cloneable {
     /**
      * Функция вывода на экран.
      */
@@ -137,13 +137,15 @@ abstract public class Expression implements Cloneable {
     }
 
     static private Expression getExprWithOp(String op, Expression op1, Expression op2) {
-        return switch (op) {
-            case "+" -> new Add(op1, op2);
-            case "-" -> new Sub(op1, op2);
-            case "*" -> new Mul(op1, op2);
-            case "/" -> new Div(op1, op2);
-            default -> null;
+        Expression ans;
+        switch (op) {
+            case "+" -> ans = new Add(op1, op2);
+            case "-" -> ans = new Sub(op1, op2);
+            case "*" -> ans = new Mul(op1, op2);
+            case "/" -> ans = new Div(op1, op2);
+            default -> ans = null;
         };
+        return null;
     }
 
     /**

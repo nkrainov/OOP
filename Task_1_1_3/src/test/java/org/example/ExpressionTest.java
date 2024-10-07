@@ -51,7 +51,6 @@ class ExpressionTest {
         Expression ans = new Add(new Number(367254),
                 new Div(new Mul(new Number(456), new Sub(new Variable("X"),
                         new Mul(new Number(43), new Variable("y")))), new Number(456)));
-        System.out.println();
         Assertions.assertTrue(expr.equals(ans));
     }
 

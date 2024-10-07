@@ -29,10 +29,11 @@ public class Number extends Expression{
     }
 
     public boolean equals(Expression expr) {
-        if (!(expr instanceof Number add)){
+        if (!(expr instanceof Number)){
             return false;
         }
 
-        return num.equals(add.num);
+        Number number = (Number) expr;
+        return num.equals(number.num);
     }
 }

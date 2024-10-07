@@ -48,10 +48,11 @@ public class Mul extends Expression{
     }
 
     public boolean equals(Expression expr) {
-        if (!(expr instanceof Mul add)){
+        if (!(expr instanceof Mul)){
             return false;
         }
 
-        return firstOp.equals(add.firstOp) && secondOp.equals(add.secondOp);
+        Mul mul = (Mul) expr;
+        return firstOp.equals(mul.firstOp) && secondOp.equals(mul.secondOp);
     }
 }

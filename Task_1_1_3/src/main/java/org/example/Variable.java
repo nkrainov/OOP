@@ -43,10 +43,11 @@ public class Variable extends Expression{
     }
 
     public boolean equals(Expression expr) {
-        if (!(expr instanceof Variable add)){
+        if (!(expr instanceof Variable)){
             return false;
         }
 
-        return var.equals(add.var);
+        Variable variable = (Variable) expr;
+        return var.equals(variable.var);
     }
 }

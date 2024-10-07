@@ -35,11 +35,12 @@ public class Sub extends Expression{
     }
 
     public boolean equals(Expression expr) {
-        if (!(expr instanceof Sub add)){
+        if (!(expr instanceof Sub)){
             return false;
         }
 
-        return firstOp.equals(add.firstOp) && secondOp.equals(add.secondOp);
+        Sub sub = (Sub) expr;
+        return firstOp.equals(sub.firstOp) && secondOp.equals(sub.secondOp);
     }
 }
 

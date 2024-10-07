@@ -33,10 +33,11 @@ public class Div extends Expression{
     }
 
     public boolean equals(Expression expr) {
-        if (!(expr instanceof Div add)){
+        if (!(expr instanceof Div)){
             return false;
         }
 
-        return firstOp.equals(add.firstOp) && secondOp.equals(add.secondOp);
+        Div div = (Div) expr;
+        return firstOp.equals(div.firstOp) && secondOp.equals(div.secondOp);
     }
 }

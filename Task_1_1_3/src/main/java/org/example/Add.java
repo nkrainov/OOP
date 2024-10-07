@@ -33,10 +33,10 @@ public class Add extends Expression{
     }
 
     public boolean equals(Expression expr) {
-        if (!(expr instanceof Add add)){
+        if (!(expr instanceof Add)){
             return false;
         }
-
+        Add add = (Add) expr;
         return firstOp.equals(add.firstOp) && secondOp.equals(add.secondOp);
     }
 }

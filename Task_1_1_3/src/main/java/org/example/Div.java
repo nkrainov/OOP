@@ -22,9 +22,9 @@ public class Div extends BinOp {
     /**
      * Функция нахождения производной.
      */
-    public Expression derivative() {
-        return new Div(new Sub(new Mul(super.getFirstOp().derivative(), super.getSecondOp()),
-                new Mul(super.getFirstOp(), super.getSecondOp().derivative())),
+    public Expression derivative(String derVar) {
+        return new Div(new Sub(new Mul(super.getFirstOp().derivative(derVar), super.getSecondOp()),
+                new Mul(super.getFirstOp(), super.getSecondOp().derivative(derVar))),
                 new Mul(super.getSecondOp(), super.getSecondOp()));
     }
 

@@ -16,7 +16,7 @@ abstract class Expression implements Cloneable {
     /**
      * Функция нахождения производной.
      */
-    abstract Expression derivative();
+    abstract Expression derivative(String derVar);
 
 
     /**

@@ -24,7 +24,7 @@ public class Number extends Expression {
     /**
      * Функция нахождения производной.
      */
-    public Expression derivative() {
+    public Expression derivative(String derVar) {
         return new Number(0);
     }
 

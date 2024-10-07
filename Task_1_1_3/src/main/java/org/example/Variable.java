@@ -23,8 +23,12 @@ public class Variable extends Expression {
     /**
      * Функция нахождения производной.
      */
-    public Expression derivative() {
-        return new Number(1);
+    public Expression derivative(String derVar) {
+        if (derVar.equals(var)) {
+            return new Number(1);
+        }
+
+        return new Number(0);
     }
 
     /**

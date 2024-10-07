@@ -9,7 +9,7 @@ class ExpressionTest {
     void testAddDerivative() {
         Expression expr = new Add(new Mul(new Number(5), new Variable("x")),
                 new Variable("x"));
-        Expression de = expr.derivative();
+        Expression de = expr.derivative("x");
         Expression ans = new Add(new Add(new Mul(new Number(0), new Variable("x")),
                 new Mul(new Number(5), new Number(1))), new Number(1));
         Assertions.assertTrue(ans.equals(de));
@@ -19,7 +19,7 @@ class ExpressionTest {
     void testSubDerivative() {
         Expression expr = new Sub(new Mul(new Number(5), new Variable("x")),
                 new Variable("x"));
-        Expression de = expr.derivative();
+        Expression de = expr.derivative("x");
         Expression ans = new Sub(new Add(new Mul(new Number(0), new Variable("x")),
                 new Mul(new Number(5), new Number(1))), new Number(1));
         Assertions.assertTrue(ans.equals(de));
@@ -29,7 +29,7 @@ class ExpressionTest {
     void testMulDerivative() {
         Expression expr = new Sub(new Mul(new Number(5), new Variable("x")),
                 new Variable("x"));
-        Expression de = expr.derivative();
+        Expression de = expr.derivative("x");
         Expression ans = new Sub(new Add(new Mul(new Number(0), new Variable("x")),
                 new Mul(new Number(5), new Number(1))),
                 new Number(1));
@@ -40,9 +40,9 @@ class ExpressionTest {
     void testDivDerivative() {
         Expression expr = new Div(new Variable("x"), new Variable("y"));
         Expression ans = new Div(new Sub(new Mul(new Number(1), new Variable("y")),
-                    new Mul(new Variable("x"), new Number(1))), new Mul(new Variable("y"),
+                    new Mul(new Variable("x"), new Number(0))), new Mul(new Variable("y"),
                         new Variable("y")));
-        Assertions.assertTrue(ans.equals(expr.derivative()));
+        Assertions.assertTrue(ans.equals(expr.derivative("x")));
     }
 
     @Test

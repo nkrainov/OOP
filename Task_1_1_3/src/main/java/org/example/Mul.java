@@ -22,8 +22,8 @@ public class Mul extends BinOp {
     /**
      * Функция нахождения производной.
      */
-    public Expression derivative() {
-        return new Add(new Mul(super.getFirstOp().derivative(), super.getSecondOp()), new Mul(super.getFirstOp(), super.getSecondOp().derivative()));
+    public Expression derivative(String derVar) {
+        return new Add(new Mul(super.getFirstOp().derivative(derVar), super.getSecondOp()), new Mul(super.getFirstOp(), super.getSecondOp().derivative(derVar)));
     }
 
     /**

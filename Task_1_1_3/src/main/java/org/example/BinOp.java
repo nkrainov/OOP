@@ -3,7 +3,7 @@ package org.example;
 /**
  * Этот класс расширяет Expressions для случая бинарных выражений.
  */
-abstract public class BinOp extends Expression {
+public abstract class BinOp extends Expression {
     private final Expression firstOp;
     private final Expression secondOp;
 

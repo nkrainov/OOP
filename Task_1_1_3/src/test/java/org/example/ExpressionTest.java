@@ -41,7 +41,7 @@ class ExpressionTest {
         Expression expr = new Div(new Variable("x"), new Variable("y"));
         Expression ans = new Div(new Sub(new Mul(new Number(1), new Variable("y")),
                     new Mul(new Variable("x"), new Number(1))), new Mul(new Variable("y"),
-                    new Variable("y")));
+                        new Variable("y")));
         Assertions.assertTrue(ans.equals(expr.derivative()));
     }
 

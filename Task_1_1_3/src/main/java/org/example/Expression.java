@@ -32,7 +32,7 @@ abstract class Expression implements Cloneable {
     /**
      * Функция, получающая из строки выражение.
      */
-    static public Expression parse(String expr) {
+    public static Expression parse(String expr) {
         String str = expr.replaceAll(" ", "");
 
         Stack<Expression> stackExpr = new Stack<Expression>();
@@ -136,7 +136,7 @@ abstract class Expression implements Cloneable {
 
     }
 
-    static private Expression getExprWithOp(String op, Expression op1, Expression op2) {
+    private static Expression getExprWithOp(String op, Expression op1, Expression op2) {
         Expression ans;
         if (op.equals("+")) {
             ans = new Add(op1, op2);
@@ -146,7 +146,7 @@ abstract class Expression implements Cloneable {
             ans = new Mul(op1, op2);
         } else if (op.equals("/")) {
             ans = new Div(op1, op2);
-        } else{
+        } else {
             ans = null;
         }
 

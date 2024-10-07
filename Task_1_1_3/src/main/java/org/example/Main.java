@@ -1,7 +1,7 @@
 package org.example;
 
 public class Main {
-    static public void main(String[] args) {
+    public static void main(String[] args) {
         Expression expr = Expression.parse("367254 + 456*(X-43*y) / 456");
         expr.print();
     }

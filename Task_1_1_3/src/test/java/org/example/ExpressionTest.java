@@ -1,5 +1,6 @@
 package org.example;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ExpressionTest {
@@ -37,5 +38,32 @@ class ExpressionTest {
                 new Mul(new Variable("x"), new Number(1))), new Mul(new Variable("y"),
                 new Variable("y")));
         assert ans.equals(expr.derivative());
+    }
+
+    @Test
+    void testParseCorrectString() {
+        Expression expr = Expression.parse("367254 + 456*(X-43*y) / 456");
+        Expression ans = new Add(new Number(367254),
+                new Div(new Mul(new Number(456), new Sub(new Variable("X"), new Mul(new Number(43), new Variable("y")))), new Number(456)));
+        System.out.println();
+        Assertions.assertTrue(expr.equals(ans));
+    }
+
+    @Test
+    void testSimplification() {
+        Expression expr = Expression.parse("(((0 + 13223 - 3) * (1 + (x * (3 - 3) * 1))) / 1)/x");
+        Expression simply = new Div(new Number(13220), new Variable("x"));
+        Assertions.assertTrue(expr.simplification().equals(simply));
+    }
+
+    @Test
+    void testEval() {
+        try {
+            Expression expr = Expression.parse("x * y + z - T");
+            expr.eval("x = 3");
+            Assertions.fail();
+        } catch (EvalException e) {
+            Assertions.assertTrue(true);
+        }
     }
 }

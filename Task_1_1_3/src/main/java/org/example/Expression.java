@@ -2,15 +2,36 @@ package org.example;
 
 import java.util.Stack;
 
+
+/**
+ * Класс, являющийся шаблоном для математических выражений.
+ * Также реализует функция парсинга выражения из строки
+ */
 abstract public class Expression implements Cloneable {
-    abstract public void print();
+    /**
+     * Функция вывода на экран.
+     */
+    abstract void print();
 
-    abstract public Expression derivative() ;
+    /**
+     * Функция нахождения производной.
+     */
+    abstract Expression derivative();
 
-    abstract public int eval(String varVal);
 
-    abstract public boolean hasVars();
+    /**
+     * Функция вычисления выражения при данном означивании.
+     */
+    abstract int eval(String varVal);
 
+    /**
+     * Функция проверки наличия переменных в выражении.
+     */
+    abstract boolean hasVars();
+
+    /**
+     * Функция, получающая из строки выражение.
+     */
     static public Expression parse(String expr) {
         String str = expr.replaceAll(" ", "");
 
@@ -43,7 +64,7 @@ abstract public class Expression implements Cloneable {
             } else if (str.charAt(i) == '(') {
                 stackOp.push("(");
             } else if (str.charAt(i) == ')') {
-                while (true){
+                while (true) {
                     String op = stackOp.pop();
                     if (op.equals("(")) {
                         break;
@@ -52,74 +73,55 @@ abstract public class Expression implements Cloneable {
                         Expression op1 = stackExpr.pop();
                         if (op.equals("+")) {
                             stackExpr.push(new Add(op1, op2));
-                        } else if (op.equals("-")){
+                        } else if (op.equals("-")) {
                             stackExpr.push(new Sub(op1, op2));
-                        } else if (op.equals("*")){
+                        } else if (op.equals("*")) {
                             stackExpr.push(new Mul(op1, op2));
-                        } else if (op.equals("/")){
+                        } else if (op.equals("/")) {
                             stackExpr.push(new Div(op1, op2));
                         }
                     }
                 }
             } else if (str.charAt(i) == '*') {
-                if (stackOp.empty()
-                    || stackOp.peek().equals("(")
-                    || stackOp.peek().equals("+")
-                    || stackOp.peek().equals("-")) {
-                    stackOp.push("*");
-                } else {
-                    while (!(stackOp.empty()
-                            || stackOp.peek().equals("(")
-                            || stackOp.peek().equals("+")
-                            || stackOp.peek().equals("-"))) {
-                        Expression op2 = stackExpr.pop();
-                        Expression op1 = stackExpr.pop();
-                        stackExpr.push(new Mul(op1, op2));
-                    }
-                }
-            }
-            else if (str.charAt(i) == '/') {
-                if (stackOp.empty()
+                while (!(stackOp.empty()
                         || stackOp.peek().equals("(")
                         || stackOp.peek().equals("+")
-                        || stackOp.peek().equals("-")) {
-                    stackOp.push("/");
-                } else {
-                    while (!(stackOp.empty()
-                            || stackOp.peek().equals("(")
-                            || stackOp.peek().equals("+")
-                            || stackOp.peek().equals("-"))) {
-                        Expression op2 = stackExpr.pop();
-                        Expression op1 = stackExpr.pop();
-                        stackExpr.push(new Div(op1, op2));
-                    }
+                        || stackOp.peek().equals("-"))) {
+                    Expression op2 = stackExpr.pop();
+                    Expression op1 = stackExpr.pop();
+                    String op = stackOp.pop();
+                    stackExpr.push(getExprWithOp(op, op1, op2));
                 }
-            }
-            else if (str.charAt(i) == '+') {
-                if (stackOp.empty()
-                    ||stackOp.peek().equals("(")) {
-                    stackOp.push("+");
-                } else {
-                    while (!(stackOp.empty()
-                            ||stackOp.peek().equals("("))) {
-                        Expression op2 = stackExpr.pop();
-                        Expression op1 = stackExpr.pop();
-                        stackExpr.push(new Add(op1, op2));
-                    }
+                stackOp.push("*");
+            } else if (str.charAt(i) == '/') {
+                while (!(stackOp.empty()
+                        || stackOp.peek().equals("(")
+                        || stackOp.peek().equals("+")
+                        || stackOp.peek().equals("-"))) {
+                    Expression op2 = stackExpr.pop();
+                    Expression op1 = stackExpr.pop();
+                    String op = stackOp.pop();
+                    stackExpr.push(getExprWithOp(op, op1, op2));
                 }
-            }
-            else if (str.charAt(i) == '-') {
-                if (stackOp.empty()
-                    ||stackOp.peek().equals("(")) {
-                    stackOp.push("-");
-                } else {
-                    while (!(stackOp.empty()
-                            ||stackOp.peek().equals("("))) {
-                        Expression op2 = stackExpr.pop();
-                        Expression op1 = stackExpr.pop();
-                        stackExpr.push(new Sub(op1, op2));
-                    }
+                stackOp.push("/");
+            } else if (str.charAt(i) == '+') {
+                while (!(stackOp.empty()
+                        || stackOp.peek().equals("("))) {
+                    Expression op2 = stackExpr.pop();
+                    Expression op1 = stackExpr.pop();
+                    String op = stackOp.pop();
+                    stackExpr.push(getExprWithOp(op, op1, op2));
                 }
+                stackOp.push("+");
+            } else if (str.charAt(i) == '-') {
+                while (!(stackOp.empty()
+                        || stackOp.peek().equals("("))) {
+                    Expression op2 = stackExpr.pop();
+                    Expression op1 = stackExpr.pop();
+                    String op = stackOp.pop();
+                    stackExpr.push(getExprWithOp(op, op1, op2));
+                }
+                stackOp.push("-");
             }
         }
 
@@ -127,36 +129,46 @@ abstract public class Expression implements Cloneable {
             String op = stackOp.pop();
             Expression op2 = stackExpr.pop();
             Expression op1 = stackExpr.pop();
-            if (op.equals("+")) {
-                stackExpr.push(new Add(op1, op2));
-            } else if (op.equals("-")){
-                stackExpr.push(new Sub(op1, op2));
-            } else if (op.equals("*")){
-                stackExpr.push(new Mul(op1, op2));
-            } else if (op.equals("/")){
-                stackExpr.push(new Div(op1, op2));
-            }
+            stackExpr.push(getExprWithOp(op, op1, op2));
         }
 
         return stackExpr.pop();
 
     }
 
+    static private Expression getExprWithOp(String op, Expression op1, Expression op2) {
+        return switch (op) {
+            case "+" -> new Add(op1, op2);
+            case "-" -> new Sub(op1, op2);
+            case "*" -> new Mul(op1, op2);
+            case "/" -> new Div(op1, op2);
+            default -> null;
+        };
+    }
 
-    public Expression simplification(){
-        if (!hasVars()){
+    /**
+     * Функция упрощения выражения.
+     */
+    public Expression simplification() {
+        if (!hasVars()) {
             return new Number(eval(" "));
         }
         return this.clone();
     }
 
+    /**
+     * Функция клонирования выражения.
+     */
     public Expression clone() {
-        try{
+        try {
             return (Expression) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    abstract public boolean equals(Expression expr);
+    /**
+     * Функция проверки индентичность выражений.
+     */
+    abstract boolean equals(Expression expr);
 }

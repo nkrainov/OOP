@@ -1,43 +1,77 @@
 package org.example;
 
-public class Div extends Expression{
-    private Expression firstOp;
-    private Expression secondOp;
-    public Div(Expression first, Expression second){
-        firstOp = first;
-        secondOp = second;
+/**
+ * Класс, реализующий операцию деления.
+ */
+public class Div extends BinOp {
+    public Div(Expression first, Expression second) {
+        super(first, second);
     }
 
-    public void print(){
+    /**
+     * Функция вывода на экран.
+     */
+    public void print() {
         System.out.print("(");
-        firstOp.print();
+        super.getFirstOp().print();
         System.out.print("/");
-        secondOp.print();
+        super.getSecondOp().print();
         System.out.print(")");
     }
 
-    public Expression derivative(){
-        return new Div(new Sub(new Mul(firstOp.derivative(), secondOp), new Mul(firstOp, secondOp.derivative())), new Mul(secondOp, secondOp));
+    /**
+     * Функция нахождения производной.
+     */
+    public Expression derivative() {
+        return new Div(new Sub(new Mul(super.getFirstOp().derivative(), super.getSecondOp()),
+                new Mul(super.getFirstOp(), super.getSecondOp().derivative())),
+                new Mul(super.getSecondOp(), super.getSecondOp()));
     }
 
-    public int eval(String varVal){
-        return firstOp.eval(varVal) / secondOp.eval(varVal);
+    /**
+     * Функция нахождения значения выражения.
+     */
+    public int eval(String varVal) {
+        return super.getFirstOp().eval(varVal) / super.getSecondOp().eval(varVal);
     }
 
-    public Expression simplification(){
-        return super.simplification();
+    /**
+     * Функция упрощения выражения.
+     */
+    @Override
+    public Expression simplification() {
+        Expression op1 = super.getFirstOp().simplification();
+        Expression op2 = super.getSecondOp().simplification();
+
+        if (op1 instanceof Number && op1.eval(" ") == 0) {
+            return new Number(0);
+        } else if (op2 instanceof Number && op2.eval(" ") == 1) {
+            return op1;
+        }
+
+        Div ans = new Div(op1, op2);
+        if (!ans.hasVars()) {
+            return new Number(ans.eval(" "));
+        }
+        return ans;
     }
 
+    /**
+     * Функция проверки наличия переменных в выражении.
+     */
     public boolean hasVars() {
-        return firstOp.hasVars() || secondOp.hasVars();
+        return super.getFirstOp().hasVars() || super.getSecondOp().hasVars();
     }
 
+    /**
+     * Функция проверки равенства выражений.
+     */
     public boolean equals(Expression expr) {
-        if (!(expr instanceof Div)){
+        if (!(expr instanceof Div)) {
             return false;
         }
 
         Div div = (Div) expr;
-        return firstOp.equals(div.firstOp) && secondOp.equals(div.secondOp);
+        return super.getFirstOp().equals(div.getFirstOp()) && super.getSecondOp().equals(div.getSecondOp());
     }
 }

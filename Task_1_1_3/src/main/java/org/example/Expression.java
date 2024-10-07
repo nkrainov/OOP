@@ -139,11 +139,21 @@ abstract class Expression implements Cloneable {
     static private Expression getExprWithOp(String op, Expression op1, Expression op2) {
         Expression ans;
         switch (op) {
-            case "+" -> ans = new Add(op1, op2);
-            case "-" -> ans = new Sub(op1, op2);
-            case "*" -> ans = new Mul(op1, op2);
-            case "/" -> ans = new Div(op1, op2);
-            default -> ans = null;
+            case "+":
+                ans = new Add(op1, op2);
+                break;
+            case "-":
+                ans = new Sub(op1, op2);
+                break;
+            case "*":
+                ans = new Mul(op1, op2);
+                break;
+            case "/":
+                ans = new Div(op1, op2);
+                break;
+            default:
+                ans = null;
+                break;
         };
         return null;
     }

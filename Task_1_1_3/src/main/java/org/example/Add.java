@@ -23,7 +23,8 @@ public class Add extends BinOp {
      * Функция нахождения производной.
      */
     public Expression derivative(String derVar) {
-        return new Add(super.getFirstOp().derivative(derVar), super.getSecondOp().derivative(derVar));
+        return new Add(super.getFirstOp().derivative(derVar),
+                super.getSecondOp().derivative(derVar));
     }
 
     /**
@@ -41,7 +42,8 @@ public class Add extends BinOp {
         if (!hasVars()) {
             return new Number(eval(" "));
         }
-        Expression ans = new Add(super.getFirstOp().simplification(), super.getSecondOp().simplification());
+        Expression ans = new Add(super.getFirstOp().simplification(),
+                super.getSecondOp().simplification());
         if (!ans.hasVars()) {
             return new Number(ans.eval(" "));
         }

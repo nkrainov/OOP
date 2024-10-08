@@ -47,7 +47,7 @@ public class Variable extends Expression {
             }
         }
 
-        throw new EvalException(null);
+        throw new EvalException("Matching failed");
     }
 
     /**

@@ -1,14 +1,19 @@
 package org.example;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.exceptions.EvalException;
 
-import org.expressions.*;
+import org.expressions.Add;
+import org.expressions.Div;
+import org.expressions.Expression;
+import org.expressions.Mul;
 import org.expressions.Number;
+import org.expressions.Sub;
+import org.expressions.Variable;
 
 import org.parse.Parser;
 
-import org.exceptions.EvalException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class ExpressionTest {
 

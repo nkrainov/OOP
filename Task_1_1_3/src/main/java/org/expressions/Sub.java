@@ -23,7 +23,8 @@ public class Sub extends BinOp {
      * Функция нахождения производной.
      */
     public Expression derivative(String derVar) {
-        return new Sub(super.getFirstOp().derivative(derVar), super.getSecondOp().derivative(derVar));
+        return new Sub(super.getFirstOp().derivative(derVar),
+                super.getSecondOp().derivative(derVar));
     }
 
     /**

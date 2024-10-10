@@ -72,6 +72,7 @@ public class Div extends BinOp {
         }
 
         Div div = (Div) expr;
-        return super.getFirstOp().equals(div.getFirstOp()) && super.getSecondOp().equals(div.getSecondOp());
+        return super.getFirstOp().equals(div.getFirstOp())
+                && super.getSecondOp().equals(div.getSecondOp());
     }
 }

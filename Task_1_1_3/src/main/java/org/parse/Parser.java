@@ -7,8 +7,9 @@ import org.expressions.Expression;
 import org.expressions.Mul;
 import org.expressions.Number;
 import org.expressions.Sub;
-import org.expressions.Variable;
 import java.util.Stack;
+import org.expressions.Variable;
+
 
 public class Parser {
     /**

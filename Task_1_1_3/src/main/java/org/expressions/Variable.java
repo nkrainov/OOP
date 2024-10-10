@@ -1,10 +1,8 @@
 package org.expressions;
 
-import org.exceptions.EvalException;
-
 import java.util.HashMap;
 import java.util.Map;
-
+import org.exceptions.EvalException;
 
 /**
  * Класс, реализующий переменную.

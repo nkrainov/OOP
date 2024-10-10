@@ -1,5 +1,6 @@
 package org.parse;
 
+import org.exceptions.ParseException;
 import org.expressions.Add;
 import org.expressions.Div;
 import org.expressions.Expression;
@@ -7,8 +8,6 @@ import org.expressions.Mul;
 import org.expressions.Number;
 import org.expressions.Sub;
 import org.expressions.Variable;
-import org.exceptions.ParseException;
-
 import java.util.Stack;
 
 public class Parser {

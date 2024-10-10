@@ -1,7 +1,7 @@
 package org.example;
 
-import org.parse.Parser;
 import org.expressions.Expression;
+import org.parse.Parser;
 
 public class Main {
     public static void main(String[] args) {

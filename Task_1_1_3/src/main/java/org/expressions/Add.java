@@ -1,4 +1,4 @@
-package org.example;
+package org.expressions;
 
 /**
  * Класс, реализующий игру операцию сложения.

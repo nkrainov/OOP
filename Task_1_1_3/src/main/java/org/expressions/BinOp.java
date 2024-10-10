@@ -1,4 +1,4 @@
-package org.example;
+package org.expressions;
 
 /**
  * Этот класс расширяет Expressions для случая бинарных выражений.

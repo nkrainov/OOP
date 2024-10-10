@@ -1,10 +1,10 @@
-package org.example;
+package org.expressions;
 
 /**
- * Класс, реализующий операцию вычитания.
+ * Класс, реализующий операцию деления.
  */
-public class Sub extends BinOp {
-    public Sub(Expression first, Expression second) {
+public class Div extends BinOp {
+    public Div(Expression first, Expression second) {
         super(first, second);
     }
 
@@ -14,7 +14,7 @@ public class Sub extends BinOp {
     public void print() {
         System.out.print("(");
         super.getFirstOp().print();
-        System.out.print("-");
+        System.out.print("/");
         super.getSecondOp().print();
         System.out.print(")");
     }
@@ -23,15 +23,16 @@ public class Sub extends BinOp {
      * Функция нахождения производной.
      */
     public Expression derivative(String derVar) {
-        return new Sub(super.getFirstOp().derivative(derVar), super.getSecondOp().derivative(derVar));
+        return new Div(new Sub(new Mul(super.getFirstOp().derivative(derVar), super.getSecondOp()),
+                new Mul(super.getFirstOp(), super.getSecondOp().derivative(derVar))),
+                new Mul(super.getSecondOp(), super.getSecondOp()));
     }
 
     /**
      * Функция нахождения значения выражения.
      */
     public int eval(String varVal) {
-        return super.getFirstOp().eval(varVal)
-                - super.getSecondOp().eval(varVal);
+        return super.getFirstOp().eval(varVal) / super.getSecondOp().eval(varVal);
     }
 
     /**
@@ -42,37 +43,35 @@ public class Sub extends BinOp {
         Expression op1 = super.getFirstOp().simplification();
         Expression op2 = super.getSecondOp().simplification();
 
-        if (op1.equals(op2)) {
+        if (op1 instanceof Number && op1.eval(" ") == 0) {
             return new Number(0);
+        } else if (op2 instanceof Number && op2.eval(" ") == 1) {
+            return op1;
         }
 
-        Sub ans = new Sub(op1, op2);
-
+        Div ans = new Div(op1, op2);
         if (!ans.hasVars()) {
-            return new Number((ans.eval(" ")));
+            return new Number(ans.eval(" "));
         }
         return ans;
     }
 
     /**
-     * Эта функция проверяет, имеются ли в выражении переменные.
+     * Функция проверки наличия переменных в выражении.
      */
     public boolean hasVars() {
-        return super.getFirstOp().hasVars()
-                || super.getSecondOp().hasVars();
+        return super.getFirstOp().hasVars() || super.getSecondOp().hasVars();
     }
 
     /**
      * Функция проверки равенства выражений.
      */
     public boolean equals(Expression expr) {
-        if (!(expr instanceof Sub)) {
+        if (!(expr instanceof Div)) {
             return false;
         }
 
-        Sub sub = (Sub) expr;
-        return super.getFirstOp().equals(sub.getFirstOp())
-                && super.getSecondOp().equals(sub.getSecondOp());
+        Div div = (Div) expr;
+        return super.getFirstOp().equals(div.getFirstOp()) && super.getSecondOp().equals(div.getSecondOp());
     }
 }
-

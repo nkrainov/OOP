@@ -1,34 +1,13 @@
-package org.example;
+package org.parse;
+
+import org.expressions.*;
+import org.expressions.Number;
+
+import org.exceptions.ParseException;
 
 import java.util.Stack;
 
-
-/**
- * Класс, являющийся шаблоном для математических выражений.
- * Также реализует функция парсинга выражения из строки
- */
-abstract class Expression implements Cloneable {
-    /**
-     * Функция вывода на экран.
-     */
-    abstract void print();
-
-    /**
-     * Функция нахождения производной.
-     */
-    abstract Expression derivative(String derVar);
-
-
-    /**
-     * Функция вычисления выражения при данном означивании.
-     */
-    abstract int eval(String varVal);
-
-    /**
-     * Функция проверки наличия переменных в выражении.
-     */
-    abstract boolean hasVars();
-
+public class Parser {
     /**
      * Функция, получающая из строки выражение.
      * В случае ошибки или некорректной обработки выражения выкидывает исключение.
@@ -139,7 +118,7 @@ abstract class Expression implements Cloneable {
             }
             return stackExpr.pop();
         } catch (Exception e) {
-            throw new EvalException("Parse failed");
+            throw new ParseException("Parse failed");
         }
 
     }
@@ -161,29 +140,4 @@ abstract class Expression implements Cloneable {
         return ans;
     }
 
-    /**
-     * Функция упрощения выражения.
-     */
-    public Expression simplification() {
-        if (!hasVars()) {
-            return new Number(eval(" "));
-        }
-        return this.clone();
-    }
-
-    /**
-     * Функция клонирования выражения.
-     */
-    public Expression clone() {
-        try {
-            return (Expression) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Функция проверки индентичность выражений.
-     */
-    abstract boolean equals(Expression expr);
 }

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":2,"i1":2,"i2":2,"i3":8,"i4":2,"i5":2,"i6":2,"i7":8,"i8":2,"i9":2};
+var data = {"i0":2,"i1":2,"i2":2,"i3":8,"i4":2,"i5":2,"i6":2,"i7":2,"i8":8,"i9":2,"i10":2,"i11":2};
 var tabs = {65535:["t0","All Classes"],2:["t2","Class Summary"],8:["t4","Exception Summary"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -51,7 +51,8 @@ loadScripts(document, 'script');</script>
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="org/example/package-summary.html">Package</a></li>
+<li><a href="index.html">Overview</a></li>
+<li>Package</li>
 <li>Class</li>
 <li><a href="overview-tree.html">Tree</a></li>
 <li><a href="deprecated-list.html">Deprecated</a></li>
@@ -110,55 +111,65 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><a href="org/example/Add.html" title="class in org.example">Add</a></td>
+<td class="colFirst"><a href="org/expressions/Add.html" title="class in org.expressions">Add</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс, реализующий игру операцию сложения.</div>
 </th>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><a href="org/example/BinOp.html" title="class in org.example">BinOp</a></td>
+<td class="colFirst"><a href="org/expressions/BinOp.html" title="class in org.expressions">BinOp</a></td>
 <th class="colLast" scope="row">
 <div class="block">Этот класс расширяет Expressions для случая бинарных выражений.</div>
 </th>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><a href="org/example/Div.html" title="class in org.example">Div</a></td>
+<td class="colFirst"><a href="org/expressions/Div.html" title="class in org.expressions">Div</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс, реализующий операцию деления.</div>
 </th>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><a href="org/example/EvalException.html" title="class in org.example">EvalException</a></td>
+<td class="colFirst"><a href="org/exceptions/EvalException.html" title="class in org.exceptions">EvalException</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><a href="org/expressions/Expression.html" title="class in org.expressions">Expression</a></td>
+<th class="colLast" scope="row">
+<div class="block">Класс, являющийся шаблоном для математических выражений.</div>
+</th>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><a href="org/example/Main.html" title="class in org.example">Main</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><a href="org/example/Mul.html" title="class in org.example">Mul</a></td>
+<tr id="i6" class="altColor">
+<td class="colFirst"><a href="org/expressions/Mul.html" title="class in org.expressions">Mul</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс, реализующий операцию умножения.</div>
 </th>
 </tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><a href="org/example/Number.html" title="class in org.example">Number</a></td>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><a href="org/expressions/Number.html" title="class in org.expressions">Number</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс, реализующий число.</div>
 </th>
 </tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><a href="org/example/ParseException.html" title="class in org.example">ParseException</a></td>
+<tr id="i8" class="altColor">
+<td class="colFirst"><a href="org/exceptions/ParseException.html" title="class in org.exceptions">ParseException</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><a href="org/example/Sub.html" title="class in org.example">Sub</a></td>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><a href="org/parse/Parser.html" title="class in org.parse">Parser</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><a href="org/expressions/Sub.html" title="class in org.expressions">Sub</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс, реализующий операцию вычитания.</div>
 </th>
 </tr>
-<tr id="i9" class="rowColor">
-<td class="colFirst"><a href="org/example/Variable.html" title="class in org.example">Variable</a></td>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><a href="org/expressions/Variable.html" title="class in org.expressions">Variable</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс, реализующий переменную.</div>
 </th>
@@ -179,7 +190,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="org/example/package-summary.html">Package</a></li>
+<li><a href="index.html">Overview</a></li>
+<li>Package</li>
 <li>Class</li>
 <li><a href="overview-tree.html">Tree</a></li>
 <li><a href="deprecated-list.html">Deprecated</a></li>

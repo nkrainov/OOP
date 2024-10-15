@@ -3,8 +3,7 @@ package org.graphs;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AGraph implements Graph {
     private ArrayList<ArrayList<Integer>> matrix;
@@ -71,8 +70,43 @@ public class AGraph implements Graph {
     }
 
     @Override
-    public void toposort() {
+    public ArrayList<Integer> toposort() {
+        HashMap<Integer, Integer> colors = new HashMap<>();
+        ArrayList<Integer> sort = new ArrayList<>();
+        for (int i = 0; i < matrix.size(); i++) {
+            colors.put(i, 0);
+        }
+        for (int i = 0; i < matrix.size(); i++) {
+            boolean res = dfsToposort(colors, sort, i);
+            if (!res) {
+                return null;
+            }
+        }
+        Collections.reverse(sort);
+        return sort;
+    }
 
+    private boolean dfsToposort(HashMap<Integer, Integer> colors, ArrayList<Integer> sort, Integer vertex) {
+        if (colors.get(vertex) != 0) {
+            return true;
+        }
+        colors.put(vertex, 1);
+         for (int i = 0; i < matrix.size(); i++) {
+             if (matrix.get(vertex).get(i) > 0) {
+                 if (colors.get(i) == 1 && i != vertex) {
+                     return false;
+                 } else if (colors.get(i) == 0) {
+                     boolean res = dfsToposort(colors, sort, i);
+                     if (!res) {
+                         return false;
+                     }
+                 }
+             }
+         }
+         colors.put(vertex, 2);
+         sort.add(vertex);
+
+         return true;
     }
 
     @Override
@@ -80,7 +114,7 @@ public class AGraph implements Graph {
         List<String> file = Files.readAllLines(Path.of(path));
         int countVertices = 0;
         if (file.size() > 2) {
-            if (!file.get(0).equals("Adjacency")){
+            if (!file.get(0).equals("Adjacency matrix")){
                 throw new IOException();
             }
             try {

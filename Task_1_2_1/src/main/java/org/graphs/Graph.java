@@ -16,5 +16,6 @@ public interface Graph {
 
     void readFromFile(String path) throws IOException;
 
-    void toposort();
+    ArrayList<Integer> toposort();
+
 }

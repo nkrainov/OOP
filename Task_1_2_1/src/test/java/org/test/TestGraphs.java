@@ -1,11 +1,10 @@
 package org.test;
 
-import org.graphs.AGraph;
-import org.graphs.IGraph;
-import org.graphs.LGraph;
+import org.graphs.Adjacency;
+import org.graphs.IncidentGraph;
+import org.graphs.ListGraph;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,15 +17,15 @@ public class TestGraphs {
      * Тест загрузки графа из файла.
      */
     @Test
-    void testLoadAGraph() {
+    void testLoadAdjacency() {
         String path = File.separator
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testAGraph.txt";
-        AGraph graph = null;
+                + "testAdjacency.txt";
+        Adjacency graph = null;
         try {
-            graph = new AGraph(System.getProperty("user.dir") + path);
+            graph = new Adjacency(System.getProperty("user.dir") + path);
         } catch (IOException e) {
             Assertions.fail();
         }
@@ -40,15 +39,15 @@ public class TestGraphs {
      * Тест загрузки графа из файла.
      */
     @Test
-    void testLoadLGraph() {
+    void testLoadListGraph() {
         String path = File.separator
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testLGraph.txt";
-        LGraph graph = null;
+                + "testListGraph.txt";
+        ListGraph graph = null;
         try {
-            graph = new LGraph(System.getProperty("user.dir") + path);
+            graph = new ListGraph(System.getProperty("user.dir") + path);
         } catch (IOException e) {
             Assertions.fail();
         }
@@ -62,16 +61,16 @@ public class TestGraphs {
      * Тест загрузки графа из файла.
      */
     @Test
-    void testLoadIGraph() {
+    void testLoadIncidentGraph() {
         String path = File.separator
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testIGraph.txt";
+                + "testIncidentGraph.txt";
 
-        IGraph graph = null;
+        IncidentGraph graph = null;
         try {
-            graph = new IGraph(System.getProperty("user.dir") + path);
+            graph = new IncidentGraph(System.getProperty("user.dir") + path);
         } catch (IOException e) {
             Assertions.fail();
         }
@@ -85,8 +84,8 @@ public class TestGraphs {
      * Тест создания графа с помощью add'ов и проведения топологической сортировки.
      */
     @Test
-    void testToposortAGraph() {
-        AGraph graph = new AGraph();
+    void testToposortAdjacency() {
+        Adjacency graph = new Adjacency();
         for (int i = 0; i < 5; i++) {
             graph.addVertex();
         }
@@ -115,8 +114,8 @@ public class TestGraphs {
      * Тест создания графа с помощью add'ов и проведения топологической сортировки.
      */
     @Test
-    void testToposortLGraph() {
-        LGraph graph = new LGraph();
+    void testToposortListGraph() {
+        ListGraph graph = new ListGraph();
         for (int i = 0; i < 5; i++) {
             graph.addVertex();
         }
@@ -145,8 +144,8 @@ public class TestGraphs {
      * Тест создания графа с помощью add'ов и проведения топологической сортировки.
      */
     @Test
-    void testToposortIGraph() {
-        IGraph graph = new IGraph();
+    void testToposortIncidentGraph() {
+        IncidentGraph graph = new IncidentGraph();
         for (int i = 0; i < 5; i++) {
             graph.addVertex();
         }
@@ -176,15 +175,15 @@ public class TestGraphs {
      * Тест загрузки графа из файла с некорректным форматом.
      */
     @Test
-    void testLoadBadAGraph() {
+    void testLoadBadAdjacency() {
         String path = File.separator
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testBadAGraph.txt";
-        AGraph graph = null;
+                + "testBadAdjacency.txt";
+        Adjacency graph = null;
         try {
-            graph = new AGraph(System.getProperty("user.dir") + path);
+            graph = new Adjacency(System.getProperty("user.dir") + path);
         } catch (IOException e) {
             return;
         }
@@ -195,15 +194,15 @@ public class TestGraphs {
      * Тест загрузки графа из файла с некорректным форматом.
      */
     @Test
-    void testLoadBadLGraph() {
+    void testLoadBadListGraph() {
         String path = File.separator
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testBadLGraph.txt";
-        LGraph graph = null;
+                + "testBadListGraph.txt";
+        ListGraph graph = null;
         try {
-            graph = new LGraph(System.getProperty("user.dir") + path);
+            graph = new ListGraph(System.getProperty("user.dir") + path);
         } catch (IOException e) {
             return;
         }
@@ -214,15 +213,15 @@ public class TestGraphs {
      * Тест загрузки графа из файла с некорректным форматом.
      */
     @Test
-    void testLoadBadIGraph() {
+    void testLoadBadIncidentGraph() {
         String path = File.separator
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testBadIGraph.txt";
-        IGraph graph = null;
+                + "testBadIncidentGraph.txt";
+        IncidentGraph graph = null;
         try {
-            graph = new IGraph(System.getProperty("user.dir") + path);
+            graph = new IncidentGraph(System.getProperty("user.dir") + path);
         } catch (IOException e) {
             return;
         }

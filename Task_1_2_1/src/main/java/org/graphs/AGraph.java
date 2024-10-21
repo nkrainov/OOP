@@ -11,20 +11,20 @@ import java.util.List;
 /**
  * Класс, реализующий граф с матрицей смежности.
  */
-public class AGraph implements Graph {
+public class Adjacency implements Graph {
     private ArrayList<ArrayList<Integer>> matrix;
 
     /**
      * Конструктор пустого графа.
      */
-    public AGraph() {
+    public Adjacency() {
         matrix = new ArrayList<ArrayList<Integer>>();
     }
 
     /**
      * Конструктор графа из файла.
      */
-    public AGraph(String path) throws IOException {
+    public Adjacency(String path) throws IOException {
         readFromFile(path);
     }
 
@@ -123,7 +123,8 @@ public class AGraph implements Graph {
         return sort;
     }
 
-    private boolean dfsToposort(HashMap<Integer, Integer> colors, ArrayList<Integer> sort, Integer vertex) {
+    private boolean dfsToposort(HashMap<Integer,
+            Integer> colors, ArrayList<Integer> sort, Integer vertex) {
         if (colors.get(vertex) != 0) {
             return true;
         }

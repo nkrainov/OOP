@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * Класс, реализующий граф со списком смежности.
  */
-public class LGraph implements Graph {
+public class ListGraph implements Graph {
     private HashMap<Integer, HashMap<Integer, Integer>> vertices;
     private int nextVertex;
 
     /**
      * Конструктор пустого графа.
      */
-    public LGraph() {
+    public ListGraph() {
         vertices = new HashMap<Integer, HashMap<Integer, Integer>>();
         nextVertex = 0;
     }
@@ -26,7 +26,7 @@ public class LGraph implements Graph {
     /**
      * Конструктор графа из файла.
      */
-    public LGraph(String path) throws IOException {
+    public ListGraph(String path) throws IOException {
         readFromFile(path);
     }
 
@@ -119,7 +119,8 @@ public class LGraph implements Graph {
         return sort;
     }
 
-    private boolean dfsToposort(HashMap<Integer, Integer> colors, ArrayList<Integer> sort, Integer vertex) {
+    private boolean dfsToposort(HashMap<Integer,
+            Integer> colors, ArrayList<Integer> sort, Integer vertex) {
         if (colors.get(vertex) != 0) {
             return true;
         }
@@ -179,7 +180,8 @@ public class LGraph implements Graph {
                 for (int j = 0; j < countEdges; j++) {
                     try {
                         if (newMatrix.get(i).containsKey(Integer.parseInt(str[j + 1]))) {
-                            newMatrix.get(i).put(Integer.parseInt(str[j + 1]), newMatrix.get(i).get(Integer.parseInt(str[j + 1])) + 1);
+                            newMatrix.get(i).put(Integer.parseInt(str[j + 1]),
+                                    newMatrix.get(i).get(Integer.parseInt(str[j + 1])) + 1);
                         } else {
                             newMatrix.get(i).put(Integer.parseInt(str[j + 1]), 1);
                         }

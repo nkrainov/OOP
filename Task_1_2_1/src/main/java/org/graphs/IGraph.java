@@ -11,20 +11,20 @@ import java.util.List;
 /**
  * Класс, реализующий граф с матрицей инцидентности.
  */
-public class IGraph implements Graph {
+public class IncidentGraph implements Graph {
     private ArrayList<ArrayList<Integer>> matrix;
 
     /**
      * Конструктор пустого графа.
      */
-    public IGraph() {
+    public IncidentGraph() {
         matrix = new ArrayList<ArrayList<Integer>>();
     }
 
     /**
      * Конструктор графа из файла.
      */
-    public IGraph(String path) throws IOException {
+    public IncidentGraph(String path) throws IOException {
         readFromFile(path);
     }
 
@@ -153,7 +153,8 @@ public class IGraph implements Graph {
         return sort;
     }
 
-    private boolean dfsToposort(HashMap<Integer, Integer> colors, ArrayList<Integer> sort, Integer vertex) {
+    private boolean dfsToposort(HashMap<Integer, Integer> colors,
+                                ArrayList<Integer> sort, Integer vertex) {
         if (colors.get(vertex) != 0) {
             return true;
         }
@@ -187,7 +188,8 @@ public class IGraph implements Graph {
     @Override
     public void readFromFile(String path) throws IOException {
         List<String> file = Files.readAllLines(Path.of(path));
-        int countVertices = 0, countEdges = 0;
+        int countVertices = 0;
+        int countEdges = 0;
         if (file.size() > 3) {
             if (!file.get(0).equals("Incident matrix")) {
                 throw new IOException();

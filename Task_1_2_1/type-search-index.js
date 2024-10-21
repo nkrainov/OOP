@@ -1,1 +1,1 @@
-typeSearchIndex = [{"p":"org.graphs","l":"AGraph"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.graphs","l":"Graph"},{"p":"org.graphs","l":"IGraph"},{"p":"org.graphs","l":"LGraph"},{"p":"org.graphs","l":"Main"}]
+typeSearchIndex = [{"p":"org.graphs","l":"AdjacencyGraph"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.graphs","l":"Graph"},{"p":"org.graphs","l":"IncidentGraph"},{"p":"org.graphs","l":"ListGraph"},{"p":"org.graphs","l":"Main"}]

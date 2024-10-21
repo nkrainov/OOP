@@ -8,23 +8,39 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class IGraph implements Graph{
+/**
+ * Класс, реализующий граф с матрицей инцидентности.
+ */
+public class IGraph implements Graph {
     private ArrayList<ArrayList<Integer>> matrix;
 
+    /**
+     * Конструктор пустого графа.
+     */
     public IGraph() {
         matrix = new ArrayList<ArrayList<Integer>>();
     }
 
+    /**
+     * Конструктор графа из файла.
+     */
+    public IGraph(String path) throws IOException {
+        readFromFile(path);
+    }
+
+    /**
+     * Функция добавления ребра.
+     */
     @Override
     public void addEdge(int from, int to) {
         if (from >= matrix.size() || to >= matrix.size()
-                || from < 0 || to < 0){
+                || from < 0 || to < 0) {
             return;
         }
 
         if (from == to) {
             for (int i = 0; i < matrix.size(); i++) {
-                if (i ==  from) {
+                if (i == from) {
                     matrix.get(i).add(2);
                 } else {
                     matrix.get(i).add(0);
@@ -43,15 +59,18 @@ public class IGraph implements Graph{
         }
     }
 
+    /**
+     * Функция удаления ребра.
+     */
     @Override
     public void deleteEdge(int from, int to) {
         if (from >= matrix.size() || to >= matrix.size()
-                || from < 0 || to < 0){
+                || from < 0 || to < 0) {
             return;
         }
         for (int i = 0; i < matrix.size(); i++) {
             if (matrix.get(from).get(i) == 1
-                && matrix.get(to).get(i) == -1) {
+                    && matrix.get(to).get(i) == -1) {
                 for (ArrayList<Integer> list : matrix) {
                     list.remove(i);
                 }
@@ -60,6 +79,9 @@ public class IGraph implements Graph{
         }
     }
 
+    /**
+     * Функция добавления вершины.
+     */
     @Override
     public int addVertex() {
         ArrayList<Integer> newVertex = new ArrayList<Integer>();
@@ -75,9 +97,12 @@ public class IGraph implements Graph{
         }
         matrix.add(newVertex);
 
-        return matrix.size()-1;
+        return matrix.size() - 1;
     }
 
+    /**
+     * Функция удаления вершины.
+     */
     @Override
     public void deleteVertex(int num) {
         if (num >= matrix.size() || num < 0) {
@@ -86,6 +111,9 @@ public class IGraph implements Graph{
         matrix.remove(num);
     }
 
+    /**
+     * Функция, возвращающая список соседей вершины.
+     */
     @Override
     public ArrayList<Integer> neighboursOfVertex(int num) {
         if (num >= matrix.size() || num < 0) {
@@ -93,9 +121,9 @@ public class IGraph implements Graph{
         }
         ArrayList<Integer> ans = new ArrayList<Integer>();
         for (int i = 0; i < matrix.get(num).size(); i++) {
-            if (matrix.get(num).get(i) == 1) {
+            if (matrix.get(num).get(i) == -1) {
                 for (int j = 0; j < matrix.size(); j++) {
-                    if (matrix.get(j).get(i) == -1) {
+                    if (matrix.get(j).get(i) == 1) {
                         ans.add(j);
                         break;
                     }
@@ -105,6 +133,9 @@ public class IGraph implements Graph{
         return ans;
     }
 
+    /**
+     * Функция, возвращающая топологически отсортированный список вершин.
+     */
     @Override
     public ArrayList<Integer> toposort() {
         HashMap<Integer, Integer> colors = new HashMap<>();
@@ -150,12 +181,15 @@ public class IGraph implements Graph{
         return true;
     }
 
+    /**
+     * Функция чтения графа из файла.
+     */
     @Override
     public void readFromFile(String path) throws IOException {
         List<String> file = Files.readAllLines(Path.of(path));
         int countVertices = 0, countEdges = 0;
         if (file.size() > 3) {
-            if (!file.get(0).equals("Incident matrix")){
+            if (!file.get(0).equals("Incident matrix")) {
                 throw new IOException();
             }
 
@@ -177,7 +211,7 @@ public class IGraph implements Graph{
             }
 
             for (int i = 0; i < countEdges; i++) {
-                String[] str = file.get(i+3).split(" ");
+                String[] str = file.get(i + 3).split(" ");
                 if (str.length != countVertices) {
                     throw new IOException();
                 }

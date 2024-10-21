@@ -1,37 +1,62 @@
 package org.graphs;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
+/**
+ * Класс, реализующий граф с матрицей смежности.
+ */
 public class AGraph implements Graph {
     private ArrayList<ArrayList<Integer>> matrix;
 
+    /**
+     * Конструктор пустого графа.
+     */
     public AGraph() {
         matrix = new ArrayList<ArrayList<Integer>>();
     }
 
+    /**
+     * Конструктор графа из файла.
+     */
+    public AGraph(String path) throws IOException {
+        readFromFile(path);
+    }
+
+    /**
+     * Функция добавления ребра.
+     */
     @Override
     public void addEdge(int from, int to) {
         if (from >= matrix.size() || to >= matrix.size()
-            || from < 0 || to < 0){
+                || from < 0 || to < 0) {
             return;
         }
         int val = matrix.get(from).get(to) + 1;
         matrix.get(from).set(to, val);
     }
 
+    /**
+     * Функция удаления ребра.
+     */
     @Override
     public void deleteEdge(int from, int to) {
         if (from >= matrix.size() || to >= matrix.size()
-                || from < 0 || to < 0){
+                || from < 0 || to < 0) {
             return;
         }
         int val = matrix.get(from).get(to) - 1;
         matrix.get(from).set(to, val);
     }
 
+    /**
+     * Функция добавления вершины.
+     */
     @Override
     public int addVertex() {
         ArrayList<Integer> newVertexList = new ArrayList<Integer>();
@@ -39,10 +64,14 @@ public class AGraph implements Graph {
             newVertexList.add(0);
             vertex.add(0);
         }
+        newVertexList.add(0);
         matrix.add(newVertexList);
-        return matrix.size()-1;
+        return matrix.size() - 1;
     }
 
+    /**
+     * Функция удаления вершины.
+     */
     @Override
     public void deleteVertex(int num) {
         if (num >= matrix.size() || num < 0) {
@@ -57,6 +86,9 @@ public class AGraph implements Graph {
         matrix.remove(num);
     }
 
+    /**
+     * Функция, возвращающая список соседей вершины.
+     */
     @Override
     public ArrayList<Integer> neighboursOfVertex(int num) {
         if (num >= matrix.size() || num < 0) {
@@ -64,11 +96,16 @@ public class AGraph implements Graph {
         }
         ArrayList<Integer> ans = new ArrayList<Integer>();
         for (int i = 0; i < matrix.size(); i++) {
-            ans.add(matrix.get(num).get(i));
+            if (matrix.get(i).get(num) != 0) {
+                ans.add(i);
+            }
         }
         return ans;
     }
 
+    /**
+     * Функция, возвращающая топологически отсортированный список вершин.
+     */
     @Override
     public ArrayList<Integer> toposort() {
         HashMap<Integer, Integer> colors = new HashMap<>();
@@ -91,30 +128,33 @@ public class AGraph implements Graph {
             return true;
         }
         colors.put(vertex, 1);
-         for (int i = 0; i < matrix.size(); i++) {
-             if (matrix.get(vertex).get(i) > 0) {
-                 if (colors.get(i) == 1 && i != vertex) {
-                     return false;
-                 } else if (colors.get(i) == 0) {
-                     boolean res = dfsToposort(colors, sort, i);
-                     if (!res) {
-                         return false;
-                     }
-                 }
-             }
-         }
-         colors.put(vertex, 2);
-         sort.add(vertex);
+        for (int i = 0; i < matrix.size(); i++) {
+            if (matrix.get(vertex).get(i) > 0) {
+                if (colors.get(i) == 1 && i != vertex) {
+                    return false;
+                } else if (colors.get(i) == 0) {
+                    boolean res = dfsToposort(colors, sort, i);
+                    if (!res) {
+                        return false;
+                    }
+                }
+            }
+        }
+        colors.put(vertex, 2);
+        sort.add(vertex);
 
-         return true;
+        return true;
     }
 
+    /**
+     * Функция чтения графа из файла.
+     */
     @Override
     public void readFromFile(String path) throws IOException {
         List<String> file = Files.readAllLines(Path.of(path));
         int countVertices = 0;
         if (file.size() > 2) {
-            if (!file.get(0).equals("Adjacency matrix")){
+            if (!file.get(0).equals("Adjacency matrix")) {
                 throw new IOException();
             }
             try {
@@ -123,12 +163,15 @@ public class AGraph implements Graph {
                 throw new IOException();
             }
 
+            if (countVertices != file.size() - 2) {
+                throw new IOException();
+            }
             ArrayList<ArrayList<Integer>> newMatrix = new ArrayList<>();
             for (int i = 0; i < countVertices; i++) {
                 newMatrix.add(new ArrayList<Integer>());
             }
             for (int i = 0; i < countVertices; i++) {
-                String[] str = file.get(i+2).split(" ");
+                String[] str = file.get(i + 2).split(" ");
                 if (str.length != countVertices) {
                     throw new IOException();
                 }
@@ -142,7 +185,6 @@ public class AGraph implements Graph {
             }
 
             matrix = newMatrix;
-
 
 
         } else {

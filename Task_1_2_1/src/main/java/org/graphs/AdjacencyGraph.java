@@ -11,20 +11,20 @@ import java.util.List;
 /**
  * Класс, реализующий граф с матрицей смежности.
  */
-public class Adjacency implements Graph {
+public class AdjacencyGraph implements Graph {
     private ArrayList<ArrayList<Integer>> matrix;
 
     /**
      * Конструктор пустого графа.
      */
-    public Adjacency() {
+    public AdjacencyGraph() {
         matrix = new ArrayList<ArrayList<Integer>>();
     }
 
     /**
      * Конструктор графа из файла.
      */
-    public Adjacency(String path) throws IOException {
+    public AdjacencyGraph(String path) throws IOException {
         readFromFile(path);
     }
 

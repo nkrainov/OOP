@@ -1,6 +1,6 @@
 package org.test;
 
-import org.graphs.Adjacency;
+import org.graphs.AdjacencyGraph;
 import org.graphs.IncidentGraph;
 import org.graphs.ListGraph;
 import org.junit.jupiter.api.Assertions;
@@ -22,10 +22,10 @@ public class TestGraphs {
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testAdjacency.txt";
-        Adjacency graph = null;
+                + "testAGraph.txt";
+        AdjacencyGraph graph = null;
         try {
-            graph = new Adjacency(System.getProperty("user.dir") + path);
+            graph = new AdjacencyGraph(System.getProperty("user.dir") + path);
         } catch (IOException e) {
             Assertions.fail();
         }
@@ -44,7 +44,7 @@ public class TestGraphs {
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testListGraph.txt";
+                + "testLGraph.txt";
         ListGraph graph = null;
         try {
             graph = new ListGraph(System.getProperty("user.dir") + path);
@@ -66,7 +66,7 @@ public class TestGraphs {
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testIncidentGraph.txt";
+                + "testIGraph.txt";
 
         IncidentGraph graph = null;
         try {
@@ -85,7 +85,7 @@ public class TestGraphs {
      */
     @Test
     void testToposortAdjacency() {
-        Adjacency graph = new Adjacency();
+        AdjacencyGraph graph = new AdjacencyGraph();
         for (int i = 0; i < 5; i++) {
             graph.addVertex();
         }
@@ -180,10 +180,10 @@ public class TestGraphs {
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testBadAdjacency.txt";
-        Adjacency graph = null;
+                + "testBadAGraph.txt";
+        AdjacencyGraph graph = null;
         try {
-            graph = new Adjacency(System.getProperty("user.dir") + path);
+            graph = new AdjacencyGraph(System.getProperty("user.dir") + path);
         } catch (IOException e) {
             return;
         }
@@ -199,7 +199,7 @@ public class TestGraphs {
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testBadListGraph.txt";
+                + "testBadLGraph.txt";
         ListGraph graph = null;
         try {
             graph = new ListGraph(System.getProperty("user.dir") + path);
@@ -218,7 +218,7 @@ public class TestGraphs {
                 + "src" + File.separator
                 + "test" + File.separator
                 + "resources" + File.separator
-                + "testBadIncidentGraph.txt";
+                + "testBadIGraph.txt";
         IncidentGraph graph = null;
         try {
             graph = new IncidentGraph(System.getProperty("user.dir") + path);

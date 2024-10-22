@@ -224,7 +224,9 @@ public class IncidentGraph implements Graph {
                 for (int j = 0; j < countVertices; j++) {
                     int number = Integer.parseInt(str[j]);
                     switch (number) {
-                        case 0, 2:
+                        case 0:
+                            break;
+                        case 2:
                             break;
                         case 1:
                             if (flagPos) {

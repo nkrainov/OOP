@@ -1,5 +1,7 @@
 package org.graphs;
 
+import org.exceptions.IncorrectFormat;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -156,16 +158,16 @@ public class AdjacencyGraph implements Graph {
         int countVertices = 0;
         if (file.size() > 2) {
             if (!file.get(0).equals("Adjacency matrix")) {
-                throw new IOException();
+                throw new IncorrectFormat("incorrect header");
             }
             try {
                 countVertices = Integer.parseInt(file.get(1));
             } catch (NumberFormatException e) {
-                throw new IOException();
+                throw new IncorrectFormat("incorrect format");
             }
 
             if (countVertices != file.size() - 2) {
-                throw new IOException();
+                throw new IncorrectFormat("incorrect format");
             }
             ArrayList<ArrayList<Integer>> newMatrix = new ArrayList<>();
             for (int i = 0; i < countVertices; i++) {
@@ -174,13 +176,17 @@ public class AdjacencyGraph implements Graph {
             for (int i = 0; i < countVertices; i++) {
                 String[] str = file.get(i + 2).split(" ");
                 if (str.length != countVertices) {
-                    throw new IOException();
+                    throw new IncorrectFormat("incorrect format");
                 }
                 for (int j = 0; j < countVertices; j++) {
                     try {
-                        newMatrix.get(j).add(Integer.parseInt(str[j]));
+                        int number = Integer.parseInt(str[j]);
+                        if (number < 0) {
+                            throw new IncorrectFormat("incorrect format");
+                        }
+                        newMatrix.get(j).add(number);
                     } catch (NumberFormatException e) {
-                        throw new IOException();
+                        throw new IncorrectFormat("incorrect format");
                     }
                 }
             }
@@ -189,7 +195,7 @@ public class AdjacencyGraph implements Graph {
 
 
         } else {
-            throw new IOException();
+            throw new IncorrectFormat("incorrect format");
         }
 
     }

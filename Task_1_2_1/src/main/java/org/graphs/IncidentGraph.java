@@ -1,5 +1,7 @@
 package org.graphs;
 
+import org.exceptions.IncorrectFormat;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -192,19 +194,19 @@ public class IncidentGraph implements Graph {
         int countEdges = 0;
         if (file.size() > 3) {
             if (!file.get(0).equals("Incident matrix")) {
-                throw new IOException();
+                throw new IncorrectFormat("incorrect format");
             }
 
             try {
                 countVertices = Integer.parseInt(file.get(1));
             } catch (NumberFormatException e) {
-                throw new IOException();
+                throw new IncorrectFormat("incorrect format");
             }
 
             try {
                 countEdges = Integer.parseInt(file.get(2));
             } catch (NumberFormatException e) {
-                throw new IOException();
+                throw new IncorrectFormat("incorrect format");
             }
 
             ArrayList<ArrayList<Integer>> newMatrix = new ArrayList<>();
@@ -214,20 +216,41 @@ public class IncidentGraph implements Graph {
 
             for (int i = 0; i < countEdges; i++) {
                 String[] str = file.get(i + 3).split(" ");
+                boolean flagPos = false;
+                boolean flagNeg = false;
                 if (str.length != countVertices) {
-                    throw new IOException();
+                    throw new IncorrectFormat("incorrect format");
                 }
                 for (int j = 0; j < countVertices; j++) {
+                    int number = Integer.parseInt(str[j]);
+                    switch (number) {
+                        case 0, 2:
+                            break;
+                        case 1:
+                            if (flagPos) {
+                                throw new IncorrectFormat("incorrect format");
+                            }
+                            flagPos = true;
+                            break;
+                        case -1:
+                            if (flagNeg) {
+                                throw new IncorrectFormat("incorrect format");
+                            }
+                            flagNeg = true;
+                            break;
+                        default:
+                            throw new IncorrectFormat("incorrect format");
+                    }
                     try {
                         newMatrix.get(j).add(Integer.parseInt(str[j]));
                     } catch (NumberFormatException e) {
-                        throw new IOException();
+                        throw new IncorrectFormat("incorrect format");
                     }
                 }
             }
             matrix = newMatrix;
         } else {
-            throw new IOException();
+            throw new IncorrectFormat("incorrect format");
         }
     }
 }

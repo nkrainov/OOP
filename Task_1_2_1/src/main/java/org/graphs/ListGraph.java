@@ -1,5 +1,7 @@
 package org.graphs;
 
+import org.exceptions.IncorrectFormat;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -150,13 +152,13 @@ public class ListGraph implements Graph {
         int countVertices = 0, countEdges = 0;
         if (file.size() > 2) {
             if (!file.get(0).equals("Adjacency list")) {
-                throw new IOException();
+                throw new IncorrectFormat("incorrect format");
             }
 
             try {
                 countVertices = Integer.parseInt(file.get(1));
             } catch (NumberFormatException e) {
-                throw new IOException();
+                throw new IncorrectFormat("incorrect format");
             }
 
             HashMap<Integer, HashMap<Integer, Integer>> newMatrix = new HashMap<>();
@@ -170,30 +172,34 @@ public class ListGraph implements Graph {
                 try {
                     countEdges = Integer.parseInt(str[0]);
                 } catch (NumberFormatException e) {
-                    throw new IOException();
+                    throw new IncorrectFormat("incorrect format");
                 }
 
                 if (str.length != countEdges + 1) {
-                    throw new IOException();
+                    throw new IncorrectFormat("incorrect format");
                 }
 
                 for (int j = 0; j < countEdges; j++) {
                     try {
+                        int number = Integer.parseInt(str[j + 1]);
+                        if (number < 0 || number >= countVertices) {
+                            throw new IncorrectFormat("incorrect format");
+                        }
                         if (newMatrix.get(i).containsKey(Integer.parseInt(str[j + 1]))) {
-                            newMatrix.get(i).put(Integer.parseInt(str[j + 1]),
-                                    newMatrix.get(i).get(Integer.parseInt(str[j + 1])) + 1);
+                            newMatrix.get(i).put(number,
+                                    newMatrix.get(i).get(number + 1));
                         } else {
                             newMatrix.get(i).put(Integer.parseInt(str[j + 1]), 1);
                         }
 
                     } catch (NumberFormatException e) {
-                        throw new IOException();
+                        throw new IncorrectFormat("incorrect format");
                     }
                 }
             }
             vertices = newMatrix;
         } else {
-            throw new IOException();
+            throw new IncorrectFormat("incorrect format");
         }
     }
 }

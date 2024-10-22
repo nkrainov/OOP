@@ -1,5 +1,6 @@
 package org.test;
 
+import org.exceptions.IncorrectFormat;
 import org.graphs.AdjacencyGraph;
 import org.graphs.IncidentGraph;
 import org.graphs.ListGraph;
@@ -26,7 +27,7 @@ public class TestGraphs {
         AdjacencyGraph graph = null;
         try {
             graph = new AdjacencyGraph(System.getProperty("user.dir") + path);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Assertions.fail();
         }
 
@@ -48,7 +49,7 @@ public class TestGraphs {
         ListGraph graph = null;
         try {
             graph = new ListGraph(System.getProperty("user.dir") + path);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Assertions.fail();
         }
 
@@ -71,7 +72,7 @@ public class TestGraphs {
         IncidentGraph graph = null;
         try {
             graph = new IncidentGraph(System.getProperty("user.dir") + path);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Assertions.fail();
         }
 
@@ -184,8 +185,10 @@ public class TestGraphs {
         AdjacencyGraph graph = null;
         try {
             graph = new AdjacencyGraph(System.getProperty("user.dir") + path);
-        } catch (IOException e) {
+        } catch (IncorrectFormat e) {
             return;
+        } catch (IOException e) {
+            Assertions.fail();
         }
         Assertions.fail();
     }
@@ -203,8 +206,10 @@ public class TestGraphs {
         ListGraph graph = null;
         try {
             graph = new ListGraph(System.getProperty("user.dir") + path);
-        } catch (IOException e) {
+        } catch (IncorrectFormat e) {
             return;
+        } catch (IOException e) {
+            Assertions.fail();
         }
         Assertions.fail();
     }
@@ -222,8 +227,10 @@ public class TestGraphs {
         IncidentGraph graph = null;
         try {
             graph = new IncidentGraph(System.getProperty("user.dir") + path);
-        } catch (IOException e) {
+        } catch (IncorrectFormat e) {
             return;
+        } catch (IOException e) {
+            Assertions.fail();
         }
         Assertions.fail();
     }

@@ -42,11 +42,15 @@ public class HashTableTests {
         try {
             table.put(null, null);
             Assertions.fail();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            Assertions.assertTrue(true);
+        }
         try {
             table.remove(null);
             Assertions.fail();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            Assertions.assertTrue(true);
+        }
 
         Assertions.assertEquals("val1", table.remove("test1"));
         Assertions.assertEquals("val2", table.remove("test2"));
@@ -84,11 +88,15 @@ public class HashTableTests {
         try {
             table.update(null, null);
             Assertions.fail();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            Assertions.assertTrue(true);
+        }
         try {
             table.get(null);
             Assertions.fail();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            Assertions.assertTrue(true);
+        }
 
         Assertions.assertTrue(table.update("test1", "val11"));
         Assertions.assertTrue(table.update("test2", "val12"));
@@ -153,15 +161,21 @@ public class HashTableTests {
         try {
             iter.next();
             Assertions.fail();
-        } catch (ConcurrentModificationException e) {}
+        } catch (ConcurrentModificationException e) {
+            Assertions.assertTrue(true);
+        }
         try {
             iter.remove();
             Assertions.fail();
-        } catch (ConcurrentModificationException e) {}
+        } catch (ConcurrentModificationException e) {
+            Assertions.assertTrue(true);
+        }
         try {
             iter.hasNext();
             Assertions.fail();
-        } catch (ConcurrentModificationException e) {}
+        } catch (ConcurrentModificationException e) {
+            Assertions.assertTrue(true);
+        }
     }
 
     /**

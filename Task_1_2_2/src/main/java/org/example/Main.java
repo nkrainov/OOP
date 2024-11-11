@@ -1,7 +1,6 @@
 package org.example;
 
 import org.hashtable.HashTable;
-
 import java.util.Iterator;
 
 public class Main {

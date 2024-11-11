@@ -17,7 +17,6 @@ public class HashTable<K, V> {
         V value;
         int hashcode;
         boolean alive;
-        String f;
 
 
         /**
@@ -83,8 +82,8 @@ public class HashTable<K, V> {
         modificationCount++;
         int index = (key.hashCode() & 0x7FFFFFFF) % capacity;
         while (!(table[index] == null)) {
-            if (table[index].hashcode == key.hashCode() && table[index].key.equals(key) &&
-                    table[index].alive) {
+            if (table[index].hashcode == key.hashCode() && table[index].key.equals(key)
+                    && table[index].alive) {
                 Pair<K, V> pair = (Pair<K, V>) table[index];
                 V ans = pair.value;
                 pair.value = value;
@@ -110,7 +109,9 @@ public class HashTable<K, V> {
 
         int index = (key.hashCode() & 0x7FFFFFFF) % capacity;
         while (!(table[index] == null)) {
-            if (table[index].alive && table[index].hashcode == key.hashCode() && table[index].key.equals(key)) {
+            if (table[index].alive
+                    && table[index].hashcode == key.hashCode()
+                    && table[index].key.equals(key)) {
                 Pair<K, V> pair = (Pair<K, V>) table[index];
                 V ans = pair.value;
                 pair.alive = false;
@@ -135,8 +136,9 @@ public class HashTable<K, V> {
         }
         int index = (key.hashCode() & 0x7FFFFFFF) % capacity;
         while (!(table[index] == null)) {
-            if (table[index].hashcode == key.hashCode() && table[index].key.equals(key) &&
-                    table[index].alive) {
+            if (table[index].hashcode == key.hashCode()
+                    && table[index].key.equals(key)
+                    && table[index].alive) {
                 return (V) table[index].value;
             }
             index = (index + 1) % table.length;
@@ -178,7 +180,7 @@ public class HashTable<K, V> {
      * Проверяет наличие пары с данным ключом.
      *
      * @return Если пара с таким ключом есть, то возвращает true
-     * иначе false.
+     *         иначе false.
      */
     public boolean search(K key) {
         if (key == null) {
@@ -258,11 +260,10 @@ public class HashTable<K, V> {
             }
         }
         return true;
-
     }
 
     /**
-     * Возвращает итератор по этой таблице
+     * Возвращает итератор по этой таблице.
      */
     public Iterator<Pair<K, V>> getIterator() {
         return new MyIterator<>(this);

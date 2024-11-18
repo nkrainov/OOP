@@ -1,14 +1,12 @@
 package org.hashtable;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
  * Класс, реализующий хэш-таблицу.
  */
-public class HashTable<K, V> implements Iterable<HashTable.Pair<K, V>>{
+public class HashTable<K, V> implements Iterable<HashTable.Pair<K, V>> {
     /**
      * Класс, реализующий элемент хеш-таблицы, хранящий пару
      * ключ-значение.
@@ -181,7 +179,7 @@ public class HashTable<K, V> implements Iterable<HashTable.Pair<K, V>>{
      * Проверяет наличие пары с данным ключом.
      *
      * @return Если пара с таким ключом есть, то возвращает true
-     *         иначе false.
+     * иначе false.
      */
     public boolean search(K key) {
         if (key == null) {

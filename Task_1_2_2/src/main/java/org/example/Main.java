@@ -8,7 +8,7 @@ public class Main {
         HashTable<Integer, String> h = new HashTable<>();
         h.put(1, "old");
         h.put(2, "new");
-        Iterator<HashTable.Pair<Integer, String>> f = h.getIterator();
+        Iterator<HashTable.Pair<Integer, String>> f = h.iterator();
         while (f.hasNext()) {
             System.out.println(f.next());
         }

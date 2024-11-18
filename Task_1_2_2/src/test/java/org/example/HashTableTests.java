@@ -147,7 +147,7 @@ public class HashTableTests {
         Assertions.assertNull(table.put("test1", "val1"));
         Assertions.assertNull(table.put("test2", "val2"));
         Assertions.assertNull(table.put("test3", "val3"));
-        Iterator<HashTable.Pair<String, String>> iter = table.getIterator();
+        Iterator<HashTable.Pair<String, String>> iter = table.iterator();
         Assertions.assertTrue(iter.hasNext());
         Assertions.assertNotNull(iter.next());
 
@@ -175,6 +175,10 @@ public class HashTableTests {
             Assertions.fail();
         } catch (ConcurrentModificationException e) {
             Assertions.assertTrue(true);
+        }
+
+        for (HashTable.Pair<String, String> s : table) {
+            System.out.print(s.toString());
         }
     }
 

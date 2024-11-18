@@ -1,13 +1,14 @@
 package org.hashtable;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
  * Класс, реализующий хэш-таблицу.
  */
-public class HashTable<K, V> {
-
+public class HashTable<K, V> implements Iterable<HashTable.Pair<K, V>>{
     /**
      * Класс, реализующий элемент хеш-таблицы, хранящий пару
      * ключ-значение.
@@ -265,7 +266,9 @@ public class HashTable<K, V> {
     /**
      * Возвращает итератор по этой таблице.
      */
-    public Iterator<Pair<K, V>> getIterator() {
+
+    @Override
+    public Iterator<Pair<K, V>> iterator() {
         return new MyIterator<>(this);
     }
 

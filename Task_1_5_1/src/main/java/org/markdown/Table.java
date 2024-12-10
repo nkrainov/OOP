@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Реализация таблиц.
+ */
 public class Table extends Element {
     public static final int ALIGN_RIGHT = 0;
     public static final int ALIGN_LEFT = 1;
@@ -14,11 +17,17 @@ public class Table extends Element {
     private final int countColumns;
     private final int countRows;
 
+    /**
+     * Builder для таблиц.
+     */
     public static class Builder implements org.markdown.Builder {
         private ArrayList<Integer> alignments;
         private ArrayList<ArrayList<Text>> contents = new ArrayList<ArrayList<Text>>();
         private int countOfColumn;
 
+        /**
+         * Конструктор.
+         */
         public Builder() {
             alignments = new ArrayList<>();
             alignments.add(ALIGN_CENTER);
@@ -27,9 +36,12 @@ public class Table extends Element {
             countOfColumn = 3;
         }
 
+        /**
+         * Установка выравнивания.
+         */
         public void withAlignments(int... alignments) {
             if (alignments.length != countOfColumn) {
-                throw new MarkdownSettingsException("Unequal length texts array and countOfColumn");
+                throw new IllegalArgumentException("Unequal length texts array and countOfColumn");
             }
 
             this.alignments = new ArrayList<>();
@@ -38,6 +50,9 @@ public class Table extends Element {
             }
         }
 
+        /**
+         * установка количества колонн.
+         */
         public void withCountOfColumn(int newCount) {
             countOfColumn = newCount;
             contents = new ArrayList<>();
@@ -49,6 +64,9 @@ public class Table extends Element {
         }
 
 
+        /**
+         * Добавление строки.
+         */
         public void addRow(Text... texts) {
             if (texts.length != countOfColumn) {
                 throw new MarkdownSettingsException("Unequal length texts array and countOfColumn");
@@ -59,6 +77,9 @@ public class Table extends Element {
             }
         }
 
+        /**
+         * Создание таблицы.
+         */
         public Table build() {
             int[] resall = new int[alignments.size()];
             for (int i = 0; i < alignments.size(); i++) {
@@ -69,10 +90,16 @@ public class Table extends Element {
         }
     }
 
+    /**
+     * Получение Builder'а.
+     */
     public Builder getBuilder() {
         return new Table.Builder();
     }
 
+    /**
+     * Конструктор.
+     */
     public Table(int countColumn, int countRows, ArrayList<ArrayList<Text>> texts, int[] alignments) {
         if (countColumn <= 0) {
             throw new MarkdownCreateException("Negative count of columns or rows");
@@ -89,6 +116,9 @@ public class Table extends Element {
         contents = (ArrayList<ArrayList<Text>>) texts.clone();
     }
 
+    /**
+     * Сериализация в строку.
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -137,6 +167,9 @@ public class Table extends Element {
         return str.toString();
     }
 
+    /**
+     * Проверка на равенство.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -145,10 +178,10 @@ public class Table extends Element {
 
         if (obj instanceof Table) {
             Table table = (Table) obj;
-            return countColumns == table.countColumns &&
-                    countRows == table.countRows &&
-                    contents.equals(table.contents) &&
-                    Arrays.equals(alligments, table.alligments);
+            return countColumns == table.countColumns
+                    && countRows == table.countRows
+                    && contents.equals(table.contents)
+                    && Arrays.equals(alligments, table.alligments);
         }
         return false;
     }

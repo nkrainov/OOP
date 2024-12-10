@@ -5,7 +5,13 @@ import org.markdown.List;
 import org.markdown.Table;
 import org.markdown.Text;
 
+/**
+ * Название говорит само за себя.
+ */
 public class MarkdownTest {
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testImage() {
         Link.Builder builder = new Link.Builder();
@@ -16,6 +22,9 @@ public class MarkdownTest {
         Assertions.assertEquals("![this is the link](https://my_site.com)", link.toString());
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testLink() {
         Link.Builder builder = new Link.Builder();
@@ -29,6 +38,9 @@ public class MarkdownTest {
         Assertions.assertEquals("[HAHAHA this is the link](https://my_site.com)", link.toString());
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testList() {
         List.Builder builder = new List.Builder();
@@ -41,6 +53,9 @@ public class MarkdownTest {
         Assertions.assertEquals("+ IT'S\n+ MY\n+ LIFE\n", list.toString());
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testOrderedList() {
         List.Builder builder = new List.Builder();
@@ -54,6 +69,9 @@ public class MarkdownTest {
         Assertions.assertEquals(list.toString(), "1 IT'S\n2 MY\n3 LIFE\n");
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testTaskList() {
         List.Builder builder = new List.Builder();
@@ -68,6 +86,9 @@ public class MarkdownTest {
         Assertions.assertEquals("- [ ] IT'S\n- [ ] MY\n- [x] LIFE\n", list.toString());
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testTable() {
         Table.Builder builder = new Table.Builder();
@@ -87,6 +108,9 @@ public class MarkdownTest {
 
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testText() {
         Text.Builder builder = new Text.Builder();
@@ -127,6 +151,9 @@ public class MarkdownTest {
         Assertions.assertEquals(builder.build().toString(), "`CODE`");
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testEqualsTable() {
         Table.Builder builder = new Table.Builder();
@@ -137,9 +164,13 @@ public class MarkdownTest {
         Table old = builder.build();
         Assertions.assertEquals(old, builder.build());
         builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"), new Text.Italic("Random"));
-        Assertions.assertNotEquals(old, builder.build());;
+        Assertions.assertNotEquals(old, builder.build());
+        ;
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testEqualsLinkAndImage() {
         Link.Builder builderLink = new Link.Builder();
@@ -161,6 +192,9 @@ public class MarkdownTest {
         Assertions.assertNotEquals(builderImage.build(), builderLink.build());
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testEqualsList() {
         List.Builder builder1 = new List.Builder();
@@ -182,6 +216,9 @@ public class MarkdownTest {
         Assertions.assertNotEquals(builder1.build(), builder2.build());
     }
 
+    /**
+     * Название говорит само за себя.
+     */
     @Test
     void testEqualsText() {
         Text.Builder builder1 = new Text.Builder();

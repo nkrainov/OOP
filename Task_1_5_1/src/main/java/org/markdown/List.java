@@ -2,9 +2,15 @@ package org.markdown;
 
 import java.util.ArrayList;
 
-public class List extends Element{
+/**
+ * Реализация представления списков.
+ */
+public class List extends Element {
     private final ArrayList<Text> list;
 
+    /**
+     * Builder для списков.
+     */
     public static class Builder implements org.markdown.Builder {
         public static final int LIST = 0;
         public static final int TASKLIST = 1;
@@ -13,17 +19,28 @@ public class List extends Element{
         private int type;
         private ArrayList<Boolean> completelist;
 
+        /**
+         * Конструктор.
+         */
         public Builder() {
             this.type = LIST;
             list = new ArrayList<>();
         }
 
+        /**
+         * Установка значения для списков задач.
+         */
         public void setVal(boolean val, int num) {
             if (type == TASKLIST) {
                 completelist.set(num, val);
+            } else {
+                throw new MarkdownSettingsException("List isn't TASKLIST");
             }
         }
 
+        /**
+         * Добавление пункта.
+         */
         public void add(Text text) {
             if (type == TASKLIST) {
                 if (completelist == null) {
@@ -35,6 +52,9 @@ public class List extends Element{
             list.add(text);
         }
 
+        /**
+         * Удаление пункта.
+         */
         public boolean remove(int num) {
             boolean ret = true;
             if (type == TASKLIST) {
@@ -45,6 +65,9 @@ public class List extends Element{
             return ret;
         }
 
+        /**
+         * Установка типа списка.
+         */
         public void setTypeOfList(int number) {
             if (number < 3 && number >= 0) {
                 type = number;
@@ -54,6 +77,9 @@ public class List extends Element{
 
         }
 
+        /**
+         * Создание списка.
+         */
         public List build() {
             switch (type) {
                 case LIST:
@@ -68,8 +94,15 @@ public class List extends Element{
         }
     }
 
+    /**
+     * Реализация списков задач.
+     */
     public static class TaskList extends List {
         ArrayList<Boolean> completeTasks;
+
+        /**
+         * Конструктор.
+         */
         public TaskList(ArrayList<Text> list, ArrayList<Boolean> completeList) {
             super(list);
             if (list.size() != completeList.size()) {
@@ -79,6 +112,9 @@ public class List extends Element{
             completeTasks = new ArrayList<>(completeList);
         }
 
+        /**
+         * Сериализация в строку.
+         */
         @Override
         public String toString() {
             StringBuilder str = new StringBuilder();
@@ -97,6 +133,9 @@ public class List extends Element{
             return str.toString();
         }
 
+        /**
+         * Проверка на равенство.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -112,11 +151,20 @@ public class List extends Element{
         }
     }
 
+    /**
+     * Реализация нумерованных списков.
+     */
     public static class OrderedList extends List {
+        /**
+         * Конструктор.
+         */
         public OrderedList(ArrayList<Text> list) {
             super(list);
         }
 
+        /**
+         * Сериализация в строку.
+         */
         @Override
         public String toString() {
             StringBuilder str = new StringBuilder();
@@ -129,6 +177,9 @@ public class List extends Element{
             return str.toString();
         }
 
+        /**
+         * Проверка на равенство.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -144,14 +195,23 @@ public class List extends Element{
         }
     }
 
+    /**
+     * Получение Builder'а.
+     */
     public Builder getBuilder() {
         return new List.Builder();
     }
 
+    /**
+     * Конструктор.
+     */
     public List(ArrayList<Text> listOfText) {
         list = new ArrayList<>(listOfText);
     }
 
+    /**
+     * Builder для ссылок.
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -162,6 +222,9 @@ public class List extends Element{
         return str.toString();
     }
 
+    /**
+     * Проверка на равенство.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

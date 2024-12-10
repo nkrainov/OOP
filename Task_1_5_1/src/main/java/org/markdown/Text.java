@@ -2,9 +2,15 @@ package org.markdown;
 
 import java.util.ArrayList;
 
+/**
+ * Реализация текста и его оформлений.
+ */
 public class Text extends Element {
     private final String str;
 
+    /**
+     * Builder для текста.
+     */
     public static class Builder implements org.markdown.Builder {
         public static final int TEXT = 0;
         public static final int STRIKETHROUGH = 1;
@@ -20,19 +26,31 @@ public class Text extends Element {
         private ArrayList<String> texts;
         private int type;
 
+        /**
+         * Конструктор.
+         */
         public Builder() {
             texts = new ArrayList<>();
             type = 0;
         }
 
+        /**
+         * Добавление текста.
+         */
         public void append(String text) {
             texts.add(text);
         }
 
+        /**
+         * Удаление текста.
+         */
         public boolean remove(int num) {
             return texts.remove(num) != null;
         }
 
+        /**
+         * Установка типа текста.
+         */
         public void setType(int type) {
             if (type < 0 || type > 9) {
                 throw new IllegalArgumentException("Invalid type: " + type);
@@ -41,6 +59,9 @@ public class Text extends Element {
             this.type = type;
         }
 
+        /**
+         * Создание текста.
+         */
         public Text build() {
             StringBuilder res = new StringBuilder();
             for (String text : texts) {
@@ -68,13 +89,21 @@ public class Text extends Element {
                     return new Heading(res.toString(), 3);
                 case TEXT:
                     return new Text(res.toString());
+                default:
+                    break;
             }
 
             return new Text(res.toString());
         }
     }
 
+    /**
+     * Реализация выделенного текста.
+     */
     public static class Bold extends Text {
+        /**
+         * Конструктор.
+         */
         public Bold(String str) {
             super(str);
             if (str.contains("\n")) {
@@ -82,11 +111,17 @@ public class Text extends Element {
             }
         }
 
+        /**
+         * Сериализация в строку.
+         */
         @Override
         public String toString() {
             return "**" + super.str + "**";
         }
 
+        /**
+         * Проверка на равенство.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -102,7 +137,13 @@ public class Text extends Element {
         }
     }
 
+    /**
+     * Реализация курсива.
+     */
     public static class Italic extends Text {
+        /**
+         * Конструктор.
+         */
         public Italic(String str) {
             super(str);
             if (str.contains("\n")) {
@@ -110,11 +151,17 @@ public class Text extends Element {
             }
         }
 
+        /**
+         * Сериализация в строку.
+         */
         @Override
         public String toString() {
             return "*" + super.str + "*";
         }
 
+        /**
+         * Проверка на равенство.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -130,7 +177,13 @@ public class Text extends Element {
         }
     }
 
+    /**
+     * Реализация зачеркнутого текста.
+     */
     public static class Strikethrough extends Text {
+        /**
+         * Конструктор.
+         */
         public Strikethrough(String str) {
             super(str);
             if (str.contains("\n")) {
@@ -138,11 +191,17 @@ public class Text extends Element {
             }
         }
 
+        /**
+         * Сериализация в строку.
+         */
         @Override
         public String toString() {
             return "~~" + super.str + "~~";
         }
 
+        /**
+         * Проверка на равенство.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -158,7 +217,13 @@ public class Text extends Element {
         }
     }
 
+    /**
+     * Реализация кусочка кода.
+     */
     public static class Code extends Text {
+        /**
+         * Конструктор.
+         */
         public Code(String str) {
             super(str);
             if (str.contains("\n")) {
@@ -166,11 +231,17 @@ public class Text extends Element {
             }
         }
 
+        /**
+         * Сериализация в строку.
+         */
         @Override
         public String toString() {
             return "`" + super.str + "`";
         }
 
+        /**
+         * Проверка на равенство.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -186,16 +257,28 @@ public class Text extends Element {
         }
     }
 
+    /**
+     * Реализация блока кода.
+     */
     public static class CodeBlock extends Text {
+        /**
+         * Конструктор.
+         */
         public CodeBlock(String str) {
             super(str);
         }
 
+        /**
+         * сериализация в строку.
+         */
         @Override
         public String toString() {
             return "```\n" + super.str + "\n```\n";
         }
 
+        /**
+         * Проверка на равенство.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -211,11 +294,20 @@ public class Text extends Element {
         }
     }
 
+    /**
+     * Реализация цитат.
+     */
     public static class Quote extends Text {
+        /**
+         * Конструктор.
+         */
         public Quote(String str) {
             super(str);
         }
 
+        /**
+         * Сериализация в строку.
+         */
         @Override
         public String toString() {
             StringBuilder string = new StringBuilder();
@@ -226,6 +318,9 @@ public class Text extends Element {
             return string.toString();
         }
 
+        /**
+         * Проверка на равенство.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -241,8 +336,15 @@ public class Text extends Element {
         }
     }
 
+    /**
+     * Реализация заголовков.
+     */
     public static class Heading extends Text {
         private int level = 0;
+
+        /**
+         * Конструктор.
+         */
         public Heading(String str, int level) {
             super(str);
 
@@ -253,6 +355,9 @@ public class Text extends Element {
             this.level = level;
         }
 
+        /**
+         * Сериализация в строку.
+         */
         @Override
         public String toString() {
             StringBuilder str = new StringBuilder();
@@ -260,10 +365,16 @@ public class Text extends Element {
             return str.append(super.str).append("\n").toString();
         }
 
+        /**
+         * Получение уровня заголовка.
+         */
         public int getLevel() {
             return level;
         }
 
+        /**
+         * Сравнение строк.
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -272,31 +383,46 @@ public class Text extends Element {
 
             if (obj instanceof Heading) {
                 Heading text = (Heading) obj;
-                return super.equals(text) &&
-                        text.getLevel() == level;
+                return super.equals(text)
+                        && text.getLevel() == level;
             }
 
             return false;
         }
     }
 
+    /**
+     * Получение билдера.
+     */
     public Builder getBuilder() {
         return new Text.Builder();
     }
 
+    /**
+     * Конструктор.
+     */
     public Text(String str) {
         this.str = str;
     }
 
+    /**
+     * Получение внутренней строки.
+     */
     public String getString() {
         return str;
     }
 
+    /**
+     * Сериализация в строку.
+     */
     @Override
     public String toString() {
         return str;
     }
 
+    /**
+     * Проверка на равенство.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

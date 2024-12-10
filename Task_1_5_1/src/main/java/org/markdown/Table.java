@@ -65,7 +65,7 @@ public class Table extends Element {
                 resall[i] = alignments.get(i);
             }
 
-            return new Table(countOfColumn, contents.getFirst().size(), contents, resall);
+            return new Table(countOfColumn, contents.get(0).size(), contents, resall);
         }
     }
 
@@ -95,7 +95,7 @@ public class Table extends Element {
 
         str.append("|");
         for (int i = 0; i < countColumns; i++) {
-            str.append(contents.get(i).getFirst());
+            str.append(contents.get(i).get(0));
             str.append("|");
         }
 

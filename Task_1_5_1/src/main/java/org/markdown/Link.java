@@ -1,19 +1,17 @@
 package org.markdown;
 
-import java.util.Objects;
-
 public class Link extends Element{
     private final String url;
     private final Text text;
 
-    public static class Builder {
+    public static class Builder implements org.markdown.Builder {
         private String url;
         private Text.Builder text;
         private boolean image;
 
-        public Builder(boolean image) {
+        public Builder() {
             text = new Text.Builder();
-            this.image = image;
+            this.image = false;
         }
 
         public void urlReplace(String str) {
@@ -28,7 +26,7 @@ public class Link extends Element{
             return this.text.remove(num);
         }
 
-        public void changeType(boolean image) {
+        public void isImage(boolean image) {
             this.image = image;
         }
 
@@ -56,12 +54,17 @@ public class Link extends Element{
                 return false;
             }
 
-            if (obj instanceof Image image) {
+            if (obj instanceof Image) {
+                Image image = (Image) obj;
                 return super.equals(image);
             }
 
             return false;
         }
+    }
+
+    public Builder getBuilder() {
+        return new Link.Builder();
     }
 
     public Link(String url, Text text) {
@@ -88,7 +91,8 @@ public class Link extends Element{
             return false;
         }
 
-        if (obj instanceof Link link) {
+        if (obj instanceof Link) {
+            Link link = (Link) obj;
             return link.url.equals(url) && link.text.equals(text);
         }
 

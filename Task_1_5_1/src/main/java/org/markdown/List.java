@@ -3,7 +3,9 @@ package org.markdown;
 import java.util.ArrayList;
 
 public class List extends Element{
-    public static class Builder {
+    private final ArrayList<Text> list;
+
+    public static class Builder implements org.markdown.Builder {
         public static final int LIST = 0;
         public static final int TASKLIST = 1;
         public static final int ORDEREDLIST = 2;
@@ -11,11 +13,8 @@ public class List extends Element{
         private int type;
         private ArrayList<Boolean> completelist;
 
-        public Builder(int type) {
-            if (type < 0 || type > 2) {
-                throw new MarkdownSettingsException("Incorrect type");
-            }
-            this.type = type;
+        public Builder() {
+            this.type = LIST;
             if (type == TASKLIST) {
                 completelist = new ArrayList<>();
             }
@@ -47,6 +46,15 @@ public class List extends Element{
             return ret;
         }
 
+        public void setTypeOfList(int number) {
+            if (number < 3 && number >= 0) {
+                type = number;
+            } else {
+                throw new IllegalArgumentException("Invalid list type");
+            }
+
+        }
+
         public List build() {
             switch (type) {
                 case LIST:
@@ -66,7 +74,7 @@ public class List extends Element{
         public TaskList(ArrayList<Text> list, ArrayList<Boolean> completeList) {
             super(list);
             if (list.size() != completeList.size()) {
-                throw new MarkdownCreateException("Unequal lists");
+                throw new IllegalArgumentException("Unequal list size");
             }
 
             completeTasks = new ArrayList<>(completeList);
@@ -96,8 +104,9 @@ public class List extends Element{
                 return false;
             }
 
-            if (obj instanceof TaskList list1) {
-                return super.equals(list1);
+            if (obj instanceof TaskList) {
+                TaskList taskList = (TaskList) obj;
+                return super.equals(taskList);
             }
 
             return false;
@@ -127,15 +136,18 @@ public class List extends Element{
                 return false;
             }
 
-            if (obj instanceof OrderedList list1) {
-                return super.equals(list1);
+            if (obj instanceof OrderedList) {
+                OrderedList orderedList = (OrderedList) obj;
+                return super.equals(orderedList);
             }
 
             return false;
         }
     }
 
-    private final ArrayList<Text> list;
+    public Builder getBuilder() {
+        return new List.Builder();
+    }
 
     public List(ArrayList<Text> listOfText) {
         list = new ArrayList<>(listOfText);
@@ -157,7 +169,8 @@ public class List extends Element{
             return false;
         }
 
-        if (obj instanceof List list1) {
+        if (obj instanceof List) {
+            List list1 = (List) obj;
             return list.equals(list1.list);
         }
 

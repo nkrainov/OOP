@@ -7,8 +7,9 @@ import org.markdown.Text;
 
 public class MarkdownTest {
     @Test
-    void TestImage() {
-        Link.Builder builder = new Link.Builder(true);
+    void testImage() {
+        Link.Builder builder = new Link.Builder();
+        builder.isImage(true);
         builder.textAppend(new Text("this is the link"));
         builder.urlReplace("https://my_site.com");
         Link link = builder.build();
@@ -16,9 +17,9 @@ public class MarkdownTest {
     }
 
     @Test
-    void TestLink() {
-        Link.Builder builder = new Link.Builder(true);
-        builder.changeType(false);
+    void testLink() {
+        Link.Builder builder = new Link.Builder();
+        builder.isImage(false);
         builder.textAppend(new Text("dddddddd"));
         builder.textRemove(0);
         builder.textAppend(new Text("HAHAHA "));
@@ -29,20 +30,21 @@ public class MarkdownTest {
     }
 
     @Test
-    void TestList() {
-        List.Builder builder = new List.Builder(List.Builder.LIST);
+    void testList() {
+        List.Builder builder = new List.Builder();
         builder.add(new Text("IT'S"));
         builder.add(new Text("MY"));
         builder.add(new Text("DIE"));
         builder.remove(2);
         builder.add(new Text("LIFE"));
         List list = builder.build();
-        Assertions.assertEquals(list.toString(), "+ IT'S\n+ MY\n+ LIFE\n");
+        Assertions.assertEquals("+ IT'S\n+ MY\n+ LIFE\n", list.toString());
     }
 
     @Test
-    void TestOrderedList() {
-        List.Builder builder = new List.Builder(List.Builder.ORDEREDLIST);
+    void testOrderedList() {
+        List.Builder builder = new List.Builder();
+        builder.setTypeOfList(List.Builder.ORDEREDLIST);
         builder.add(new Text("IT'S"));
         builder.add(new Text("MY"));
         builder.add(new Text("DIE"));
@@ -53,8 +55,9 @@ public class MarkdownTest {
     }
 
     @Test
-    void TestTaskList() {
-        List.Builder builder = new List.Builder(List.Builder.TASKLIST);
+    void testTaskList() {
+        List.Builder builder = new List.Builder();
+        builder.setTypeOfList(List.Builder.TASKLIST);
         builder.add(new Text("IT'S"));
         builder.add(new Text("MY"));
         builder.add(new Text("DIE"));
@@ -66,20 +69,26 @@ public class MarkdownTest {
     }
 
     @Test
-    void TestTable() {
+    void testTable() {
         Table.Builder builder = new Table.Builder();
         builder.withCountOfColumn(3);
         builder.withAlignments(Table.ALIGN_CENTER, Table.ALIGN_RIGHT, Table.ALIGN_RIGHT);
-        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"), new Text.Italic("Random"));
-        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"), new Text.Italic("Random"));
-        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"), new Text.Italic("Random"));
+        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"),
+                new Text.Italic("Random"));
+        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"),
+                new Text.Italic("Random"));
+        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"),
+                new Text.Italic("Random"));
         Assertions.assertEquals(builder.build().toString(),
-                "|~~Header~~|`Code`|*Random*|\n|:-:|-:|-:|\n|~~Header~~|`Code`|*Random*|\n|~~Header~~|`Code`|*Random*|\n");
+                "|~~Header~~|`Code`|*Random*|\n" +
+                        "|:-:|-:|-:|\n" +
+                        "|~~Header~~|`Code`|*Random*|\n" +
+                        "|~~Header~~|`Code`|*Random*|\n");
 
     }
 
     @Test
-    void TestText() {
+    void testText() {
         Text.Builder builder = new Text.Builder();
         builder.append(new Text.Heading("HEADING\n", 2));
         builder.append(new Text("Wrong text"));
@@ -91,7 +100,7 @@ public class MarkdownTest {
     }
 
     @Test
-    void TestEqualTable() {
+    void testEqualTable() {
         Table.Builder builder = new Table.Builder();
         builder.withCountOfColumn(3);
         builder.withAlignments(Table.ALIGN_CENTER, Table.ALIGN_RIGHT, Table.ALIGN_RIGHT);

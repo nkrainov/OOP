@@ -9,7 +9,12 @@ public class Table extends Element {
     public static final int ALIGN_LEFT = 1;
     public static final int ALIGN_CENTER = 2;
 
-    public static class Builder {
+    private ArrayList<ArrayList<Text>> contents = new ArrayList<ArrayList<Text>>();
+    private final int[] alligments;
+    private final int countColumns;
+    private final int countRows;
+
+    public static class Builder implements org.markdown.Builder {
         private ArrayList<Integer> alignments;
         private ArrayList<ArrayList<Text>> contents = new ArrayList<ArrayList<Text>>();
         private int countOfColumn;
@@ -64,12 +69,11 @@ public class Table extends Element {
         }
     }
 
-    private ArrayList<ArrayList<Text>> contents = new ArrayList<ArrayList<Text>>();
-    private final int[] alligments;
-    private final int countColumns;
-    private final int countRows;
+    public Builder getBuilder() {
+        return new Table.Builder();
+    }
 
-    public Table(int countColumn, int countRows, ArrayList<ArrayList<Text>> texts, int[] alligments) {
+    public Table(int countColumn, int countRows, ArrayList<ArrayList<Text>> texts, int[] alignments) {
         if (countColumn <= 0) {
             throw new MarkdownCreateException("Negative count of columns or rows");
         }
@@ -78,7 +82,7 @@ public class Table extends Element {
             throw new MarkdownCreateException("Too few values for create table");
         }
 
-        this.alligments = alligments.clone();
+        this.alligments = alignments.clone();
         this.countColumns = countColumn;
         this.countRows = countRows;
 
@@ -139,7 +143,8 @@ public class Table extends Element {
             return false;
         }
 
-        if (obj instanceof Table table) {
+        if (obj instanceof Table) {
+            Table table = (Table) obj;
             return countColumns == table.countColumns &&
                     countRows == table.countRows &&
                     contents.equals(table.contents) &&

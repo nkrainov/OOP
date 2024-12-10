@@ -3,7 +3,9 @@ package org.markdown;
 import java.util.ArrayList;
 
 public class Text extends Element {
-    public static class Builder {
+    private final String str;
+
+    public static class Builder implements org.markdown.Builder {
         ArrayList<Text> texts;
 
         public Builder() {
@@ -47,7 +49,8 @@ public class Text extends Element {
                 return false;
             }
 
-            if (obj instanceof Bold text) {
+            if (obj instanceof Bold) {
+                Bold text = (Bold) obj;
                 return super.equals(text);
             }
 
@@ -74,7 +77,8 @@ public class Text extends Element {
                 return false;
             }
 
-            if (obj instanceof Italic text) {
+            if (obj instanceof Italic) {
+                Italic text = (Italic) obj;
                 return super.equals(text);
             }
 
@@ -101,7 +105,8 @@ public class Text extends Element {
                 return false;
             }
 
-            if (obj instanceof Strikethrough text) {
+            if (obj instanceof Strikethrough) {
+                Strikethrough text = (Strikethrough) obj;
                 return super.equals(text);
             }
 
@@ -128,7 +133,8 @@ public class Text extends Element {
                 return false;
             }
 
-            if (obj instanceof Code text) {
+            if (obj instanceof Code) {
+                Code text = (Code) obj;
                 return super.equals(text);
             }
 
@@ -152,7 +158,8 @@ public class Text extends Element {
                 return false;
             }
 
-            if (obj instanceof CodeBlock text) {
+            if (obj instanceof CodeBlock) {
+                CodeBlock text = (CodeBlock) obj;
                 return super.equals(text);
             }
 
@@ -181,7 +188,8 @@ public class Text extends Element {
                 return false;
             }
 
-            if (obj instanceof Quote text) {
+            if (obj instanceof Quote) {
+                Quote text = (Quote) obj;
                 return super.equals(text);
             }
 
@@ -219,7 +227,8 @@ public class Text extends Element {
                 return false;
             }
 
-            if (obj instanceof Heading text) {
+            if (obj instanceof Heading) {
+                Heading text = (Heading) obj;
                 return super.equals(text) &&
                         text.getLevel() == level;
             }
@@ -228,7 +237,9 @@ public class Text extends Element {
         }
     }
 
-    private final String str;
+    public Builder getBuilder() {
+        return new Text.Builder();
+    }
 
     public Text(String str) {
         this.str = str;
@@ -249,7 +260,8 @@ public class Text extends Element {
             return false;
         }
 
-        if (obj instanceof Text text) {
+        if (obj instanceof Text) {
+            Text text = (Text) obj;
             return str.equals(text.getString());
         }
 

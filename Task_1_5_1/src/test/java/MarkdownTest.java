@@ -65,7 +65,7 @@ public class MarkdownTest {
         builder.add(new Text("LIFE"));
         builder.setVal(true, 2);
         List list = builder.build();
-        Assertions.assertEquals(list.toString(), "- [ ] IT'S\n- [ ] MY\n- [x] LIFE\n");
+        Assertions.assertEquals("- [ ] IT'S\n- [ ] MY\n- [x] LIFE\n", list.toString());
     }
 
     @Test

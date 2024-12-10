@@ -15,10 +15,6 @@ public class List extends Element{
 
         public Builder() {
             this.type = LIST;
-            if (type == TASKLIST) {
-                completelist = new ArrayList<>();
-            }
-
             list = new ArrayList<>();
         }
 
@@ -30,6 +26,9 @@ public class List extends Element{
 
         public void add(Text text) {
             if (type == TASKLIST) {
+                if (completelist == null) {
+                    completelist = new ArrayList<>();
+                }
                 completelist.add(false);
             }
 

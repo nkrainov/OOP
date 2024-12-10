@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -88,13 +88,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -147,6 +147,74 @@ implements <a href="Builder.html" title="interface in org.markdown">Builder</a><
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="field.summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="memberSummary">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Field</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#BOLD">BOLD</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#CODE">CODE</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#CODEBLOCK">CODEBLOCK</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#HEADING1">HEADING1</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#HEADING2">HEADING2</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#HEADING3">HEADING3</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ITALIC">ITALIC</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#QUOTE">QUOTE</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#STRIKETHROUGH">STRIKETHROUGH</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#TEXT">TEXT</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -184,7 +252,7 @@ implements <a href="Builder.html" title="interface in org.markdown">Builder</a><
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#append(org.markdown.Text)">append</a></span>&#8203;(<a href="Text.html" title="class in org.markdown">Text</a>&nbsp;text)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#append(java.lang.String)">append</a></span>&#8203;(java.lang.String&nbsp;text)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -195,6 +263,11 @@ implements <a href="Builder.html" title="interface in org.markdown">Builder</a><
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remove(int)">remove</a></span>&#8203;(int&nbsp;num)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setType(int)">setType</a></span>&#8203;(int&nbsp;type)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -214,6 +287,146 @@ implements <a href="Builder.html" title="interface in org.markdown">Builder</a><
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="field.detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a id="TEXT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>TEXT</h4>
+<pre>public static final&nbsp;int TEXT</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.TEXT">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="STRIKETHROUGH">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>STRIKETHROUGH</h4>
+<pre>public static final&nbsp;int STRIKETHROUGH</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.STRIKETHROUGH">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="ITALIC">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>ITALIC</h4>
+<pre>public static final&nbsp;int ITALIC</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.ITALIC">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="CODE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>CODE</h4>
+<pre>public static final&nbsp;int CODE</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.CODE">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="CODEBLOCK">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>CODEBLOCK</h4>
+<pre>public static final&nbsp;int CODEBLOCK</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.CODEBLOCK">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="QUOTE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>QUOTE</h4>
+<pre>public static final&nbsp;int QUOTE</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.QUOTE">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="HEADING1">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>HEADING1</h4>
+<pre>public static final&nbsp;int HEADING1</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.HEADING1">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="HEADING2">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>HEADING2</h4>
+<pre>public static final&nbsp;int HEADING2</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.HEADING2">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="HEADING3">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>HEADING3</h4>
+<pre>public static final&nbsp;int HEADING3</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.HEADING3">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="BOLD">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>BOLD</h4>
+<pre>public static final&nbsp;int BOLD</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#org.markdown.Text.Builder.BOLD">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section>
 <ul class="blockList">
@@ -240,13 +453,13 @@ implements <a href="Builder.html" title="interface in org.markdown">Builder</a><
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="append(org.markdown.Text)">
+<a id="append(java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>append</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;append&#8203;(<a href="Text.html" title="class in org.markdown">Text</a>&nbsp;text)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;append&#8203;(java.lang.String&nbsp;text)</pre>
 </li>
 </ul>
 <a id="remove(int)">
@@ -256,6 +469,15 @@ implements <a href="Builder.html" title="interface in org.markdown">Builder</a><
 <li class="blockList">
 <h4>remove</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;remove&#8203;(int&nbsp;num)</pre>
+</li>
+</ul>
+<a id="setType(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setType</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setType&#8203;(int&nbsp;type)</pre>
 </li>
 </ul>
 <a id="build()">
@@ -322,13 +544,13 @@ implements <a href="Builder.html" title="interface in org.markdown">Builder</a><
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

@@ -100,7 +100,8 @@ public class Table extends Element {
     /**
      * Конструктор.
      */
-    public Table(int countColumn, int countRows, ArrayList<ArrayList<Text>> texts, int[] alignments) {
+    public Table(int countColumn, int countRows,
+                 ArrayList<ArrayList<Text>> texts, int[] alignments) {
         if (countColumn <= 0) {
             throw new MarkdownCreateException("Negative count of columns or rows");
         }

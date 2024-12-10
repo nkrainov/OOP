@@ -100,11 +100,11 @@ public class MarkdownTest {
                 new Text.Italic("Random"));
         builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"),
                 new Text.Italic("Random"));
-        Assertions.assertEquals(builder.build().toString(),
-                "|~~Header~~|`Code`|*Random*|\n" +
-                        "|:-:|-:|-:|\n" +
-                        "|~~Header~~|`Code`|*Random*|\n" +
-                        "|~~Header~~|`Code`|*Random*|\n");
+        Assertions.assertEquals("|~~Header~~|`Code`|*Random*|\n"
+                + "|:-:|-:|-:|\n"
+                + "|~~Header~~|`Code`|*Random*|\n"
+                + "|~~Header~~|`Code`|*Random*|\n",
+                builder.build().toString());
 
     }
 
@@ -131,9 +131,9 @@ public class MarkdownTest {
         builder.remove(0);
         builder.append("CODE");
         builder.setType(Text.Builder.CODEBLOCK);
-        Assertions.assertEquals(builder.build().toString(), "```\n" +
-                "CODE\n" +
-                "```\n");
+        Assertions.assertEquals(builder.build().toString(), "```\n"
+                + "CODE\n"
+                + "```\n");
 
         builder.remove(0);
         builder.append("ITALIC");
@@ -159,11 +159,14 @@ public class MarkdownTest {
         Table.Builder builder = new Table.Builder();
         builder.withCountOfColumn(3);
         builder.withAlignments(Table.ALIGN_CENTER, Table.ALIGN_RIGHT, Table.ALIGN_RIGHT);
-        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"), new Text.Italic("Random"));
-        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"), new Text.Italic("Random"));
+        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"),
+                new Text.Italic("Random"));
+        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"),
+                new Text.Italic("Random"));
         Table old = builder.build();
         Assertions.assertEquals(old, builder.build());
-        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"), new Text.Italic("Random"));
+        builder.addRow(new Text.Strikethrough("Header"), new Text.Code("Code"),
+                new Text.Italic("Random"));
         Assertions.assertNotEquals(old, builder.build());
         ;
     }
@@ -200,9 +203,9 @@ public class MarkdownTest {
         List.Builder builder1 = new List.Builder();
         List.Builder builder2 = new List.Builder();
         builder1.add(new Text("first"));
+        builder2.add(new Text("first"));
         builder1.add(new Text("second"));
         builder1.add(new Text("third"));
-        builder2.add(new Text("first"));
         builder2.add(new Text("second"));
 
         Assertions.assertNotEquals(builder1.build(), builder2.build());

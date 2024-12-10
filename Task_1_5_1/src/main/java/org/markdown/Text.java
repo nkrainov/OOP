@@ -205,16 +205,15 @@ public class Text extends Element {
             if (level < 0 || level > 3) {
                 throw new MarkdownCreateException("Incorrect level of heading");
             }
+
+            this.level = level;
         }
 
         @Override
         public String toString() {
             StringBuilder str = new StringBuilder();
-            for (int i = 0; i < level; i++) {
-                str.append("#");
-            }
-
-            return str.append(super.str).toString();
+            str.append("#".repeat(Math.max(0, level))).append(" ");
+            return str.append(super.str).append("\n").toString();
         }
 
         public int getLevel() {

@@ -90,13 +90,20 @@ public class MarkdownTest {
     @Test
     void testText() {
         Text.Builder builder = new Text.Builder();
-        builder.append(new Text.Heading("HEADING\n", 2));
-        builder.append(new Text("Wrong text"));
-        builder.remove(1);
+        builder.append(new Text.Heading("HEADING", 2));
+        builder.append(new Text.Strikethrough("Wrong text"));
         builder.append(new Text.Quote("Quote"));
-        builder.append(new Text("\n"));
         builder.append(new Text.CodeBlock("CODE"));
-        Assertions.assertEquals(builder.build().toString(), "HEADING\n>Quote\n\n```\nCODE\n```\n");
+        builder.append(new Text.Italic("Italic"));
+        builder.append(new Text.Bold("Bold"));
+        builder.append(new Text.Code("Code"));
+        System.out.print(builder.build());
+        Assertions.assertEquals(builder.build().toString(), "## HEADING\n" +
+                "~~Wrong text~~>Quote\n" +
+                "```\n" +
+                "CODE\n" +
+                "```\n" +
+                "*Italic***Bold**`Code`");
     }
 
     @Test

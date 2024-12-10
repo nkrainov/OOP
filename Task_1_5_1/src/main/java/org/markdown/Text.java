@@ -6,13 +6,26 @@ public class Text extends Element {
     private final String str;
 
     public static class Builder implements org.markdown.Builder {
-        ArrayList<Text> texts;
+        public static final int TEXT = 0;
+        public static final int STRIKETHROUGH = 1;
+        public static final int ITALIC = 2;
+        public static final int CODE = 3;
+        public static final int CODEBLOCK = 4;
+        public static final int QUOTE = 5;
+        public static final int HEADING1 = 6;
+        public static final int HEADING2 = 7;
+        public static final int HEADING3 = 8;
+        public static final int BOLD = 9;
+
+        private ArrayList<String> texts;
+        private int type;
 
         public Builder() {
             texts = new ArrayList<>();
+            type = 0;
         }
 
-        public void append(Text text) {
+        public void append(String text) {
             texts.add(text);
         }
 
@@ -20,10 +33,41 @@ public class Text extends Element {
             return texts.remove(num) != null;
         }
 
+        public void setType(int type) {
+            if (type < 0 || type > 9) {
+                throw new IllegalArgumentException("Invalid type: " + type);
+            }
+
+            this.type = type;
+        }
+
         public Text build() {
             StringBuilder res = new StringBuilder();
-            for (Text text : texts) {
+            for (String text : texts) {
                 res.append(text);
+            }
+
+            switch (type) {
+                case BOLD:
+                    return new Bold(res.toString());
+                case STRIKETHROUGH:
+                    return new Strikethrough(res.toString());
+                case ITALIC:
+                    return new Italic(res.toString());
+                case CODE:
+                    return new Code(res.toString());
+                case CODEBLOCK:
+                    return new CodeBlock(res.toString());
+                case QUOTE:
+                    return new Quote(res.toString());
+                case HEADING1:
+                    return new Heading(res.toString(), 1);
+                case HEADING2:
+                    return new Heading(res.toString(), 2);
+                case HEADING3:
+                    return new Heading(res.toString(), 3);
+                case TEXT:
+                    return new Text(res.toString());
             }
 
             return new Text(res.toString());

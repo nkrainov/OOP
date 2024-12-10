@@ -1,17 +1,20 @@
 package org.markdown;
 
+import java.util.ArrayList;
+
 public class Link extends Element{
     private final String url;
-    private final Text text;
+    private final String text;
 
     public static class Builder implements org.markdown.Builder {
         private String url;
-        private Text.Builder text;
+        private ArrayList<Text> text;
         private boolean image;
 
         public Builder() {
-            text = new Text.Builder();
+            text = new ArrayList<>();
             this.image = false;
+            url = "";
         }
 
         public void urlReplace(String str) {
@@ -19,11 +22,11 @@ public class Link extends Element{
         }
 
         public void textAppend(Text text) {
-            this.text.append(text);
+            this.text.add(text);
         }
 
         public boolean textRemove(int num) {
-            return this.text.remove(num);
+            return (this.text.remove(num) != null);
         }
 
         public void isImage(boolean image) {
@@ -31,15 +34,20 @@ public class Link extends Element{
         }
 
         public Link build() {
-            if (image) {
-                return new Image(url, text.build());
+            StringBuilder str = new StringBuilder();
+            for (Text text : text) {
+                str.append(text.toString());
             }
-            return new Link(url, text.build());
+
+            if (image) {
+                return new Image(url, str.toString());
+            }
+            return new Link(url, str.toString());
         }
     }
 
     public static class Image extends Link {
-        public Image(String url, Text text) {
+        public Image(String url, String text) {
             super(url, text);
         }
 
@@ -67,12 +75,12 @@ public class Link extends Element{
         return new Link.Builder();
     }
 
-    public Link(String url, Text text) {
+    public Link(String url, String text) {
         this.url = url;
         this.text = text;
     }
 
-    public Text getText() {
+    public String getText() {
         return text;
     }
 

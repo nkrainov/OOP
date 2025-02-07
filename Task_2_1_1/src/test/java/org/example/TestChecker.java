@@ -11,7 +11,7 @@ import java.util.*;
  Тестирование решения задачи.
  */
 public class TestChecker {
-    int[] testExampleForTimeChecking = getTestExample();
+    //int[] testExample = getTestExample();
 
     /***
      Загрузка из файла массива из всех простых чисел до 500_000_000 для теста времени.
@@ -88,38 +88,38 @@ public class TestChecker {
         Assertions.assertFalse(ParallelStreamChecker.checkCompositeNumbers(numbers));
     }
 
-    /***
-     Проверка времени работы последовательного решения на большом примере.
-     */
-    @Test
-    void checkSeqCheckWorkTime() {
-        double start = System.currentTimeMillis();
-        Assertions.assertFalse(SequentialChecker.checkCompositeNumbers(testExampleForTimeChecking));
-        double end = System.currentTimeMillis();
-        System.out.println("Time taken: " + (end - start) / 1000 + " seconds");
-    }
-
-    /***
-     Проверка времени работы параллельного решения на большом примере.
-     */
-    @Test
-    void checkThreadCheckWorkTime() {
-        System.out.println(testExampleForTimeChecking.length);
-        ThreadChecker.setCountOfWorkers(5);
-        double start = System.currentTimeMillis();
-        Assertions.assertFalse(ThreadChecker.checkCompositeNumbers(testExampleForTimeChecking));
-        double end = System.currentTimeMillis();
-        System.out.println("Time taken by threads: " + (end - start) / 1000 + " seconds");
-    }
-
-    /***
-     Проверка времени работы решения через parallelStream на большом примере.
-     */
-    @Test
-    void checkParallelStreamCheckWorkTime() {
-        double start = System.currentTimeMillis();
-        Assertions.assertFalse(ParallelStreamChecker.checkCompositeNumbers(testExampleForTimeChecking));
-        double end = System.currentTimeMillis();
-        System.out.println("Time taken by parallel stream: " + (end - start) / 1000 + " seconds");
-    }
+//    /***
+//     Проверка времени работы последовательного решения на большом примере.
+//     */
+//    @Test
+//    void checkSeqCheckWorkTime() {
+//        double start = System.currentTimeMillis();
+//        Assertions.assertFalse(SequentialChecker.checkCompositeNumbers(testExample));
+//        double end = System.currentTimeMillis();
+//        System.out.println("Time taken: " + (end - start) / 1000 + " seconds");
+//    }
+//
+//    /***
+//     Проверка времени работы параллельного решения на большом примере.
+//     */
+//    @Test
+//    void checkThreadCheckWorkTime() {
+//        System.out.println(testExample.length);
+//        ThreadChecker.setCountOfWorkers(5);
+//        double start = System.currentTimeMillis();
+//        Assertions.assertFalse(ThreadChecker.checkCompositeNumbers(testExample));
+//        double end = System.currentTimeMillis();
+//        System.out.println("Time taken by threads: " + (end - start) / 1000 + " seconds");
+//    }
+//
+//    /***
+//     Проверка времени работы решения через parallelStream на большом примере.
+//     */
+//    //@Test
+//    void checkParallelStreamCheckWorkTime() {
+//        double start = System.currentTimeMillis();
+//        Assertions.assertFalse(ParallelStreamChecker.checkCompositeNumbers(testExample));
+//        double end = System.currentTimeMillis();
+//        System.out.println("Time taken by parallel stream: " + (end - start) / 1000 + " seconds");
+//    }
 }

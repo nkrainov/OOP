@@ -7,14 +7,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-/***
- Тестирование решения задачи.
+/**
+    Тестирование решения задачи.
  */
 public class TestChecker {
     //int[] testExample = getTestExample();
 
-    /***
-     Загрузка из файла массива из всех простых чисел до 500_000_000 для теста времени.
+    /**
+        Загрузка из файла массива из всех простых чисел до 500_000_000 для теста времени.
      */
     int[] getTestExample() {
         String path = System.getProperty("user.dir") +
@@ -49,8 +49,8 @@ public class TestChecker {
         return arr;
     }
 
-    /***
-     Проверка корректности последовательного нахождения составного числа в массиве.
+    /**
+        Проверка корректности последовательного нахождения составного числа в массиве.
      */
     @Test
     void testSequentialChecker() {
@@ -63,8 +63,8 @@ public class TestChecker {
 
     }
 
-    /***
-     Тестирование параллельного решения задачи.
+    /**
+        Тестирование параллельного решения задачи.
      */
     @Test
     void testThreadChecker() {
@@ -76,8 +76,8 @@ public class TestChecker {
         Assertions.assertFalse(ThreadChecker.checkCompositeNumbers(numbers));
     }
 
-    /***
-     Тестирование решения задачи с помощью parallelStream.
+    /**
+        Тестирование решения задачи с помощью parallelStream.
      */
     @Test
     void testParallelStreamChecker() {

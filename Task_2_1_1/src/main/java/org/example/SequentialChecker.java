@@ -1,12 +1,12 @@
 package org.example;
 
-/***
- Однопоточное решение задачи нахождения составного числа в массиве.
+/**
+    Однопоточное решение задачи нахождения составного числа в массиве.
  */
 public class SequentialChecker {
 
-    /***
-     Метод, реализующий это решение.
+    /**
+        Метод, реализующий это решение.
      */
     public static boolean checkCompositeNumbers(int[] numbers) {
         for (int number : numbers) {

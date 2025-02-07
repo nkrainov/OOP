@@ -3,14 +3,14 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/***
- Параллельное решение задачи.
+/**
+    Параллельное решение задачи.
  */
 public class ThreadChecker {
     private static int countOfWorkers = 1;
 
-    /***
-     Сеттер для количества рабочих потоков.
+    /**
+        Сеттер для количества рабочих потоков.
      */
     public static void setCountOfWorkers(int newCountOfWorkers) {
         if (countOfWorkers >= 1) {
@@ -18,8 +18,8 @@ public class ThreadChecker {
         }
     }
 
-    /***
-     Реализация потока, проверяющие вхождение составного числа в части массива.
+    /**
+        Реализация потока, проверяющие вхождение составного числа в части массива.
      */
     private static class Worker extends Thread {
         private int[] numbers;
@@ -53,8 +53,8 @@ public class ThreadChecker {
         }
     }
 
-    /***
-     Метод, реализующий решение задачи.
+    /**
+        Метод, реализующий решение задачи.
      */
     public static boolean checkCompositeNumbers(int[] numbers) {
         ArrayList<Worker> workers = new ArrayList<>();

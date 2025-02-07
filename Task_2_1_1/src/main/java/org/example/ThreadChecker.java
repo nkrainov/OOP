@@ -35,7 +35,7 @@ public class ThreadChecker {
 
         @Override
         public void run() {
-            for (int number: numbers) {
+            for (int number : numbers) {
                 int sqrt = (int) Math.ceil(Math.sqrt(number));
                 for (int i = 2; i <= sqrt; i++) {
                     if (number % i == 0) {
@@ -69,7 +69,7 @@ public class ThreadChecker {
             }
 
             int start = i * step;
-            int end = (i+1) * step < numbers.length ? start + step : numbers.length;
+            int end = (i + 1) * step < numbers.length ? start + step : numbers.length;
 
             int[] workerNumbers = Arrays.copyOfRange(numbers, start, end);
             Worker worker = new Worker(workerNumbers);

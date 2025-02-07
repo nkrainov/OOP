@@ -14,7 +14,7 @@ public class TestChecker {
     int[] testExampleForTimeChecking = getTestExample();
 
     /***
-        Загрузка из файла массива из всех простых чисел до 500_000_000 для теста времени.
+     Загрузка из файла массива из всех простых чисел до 500_000_000 для теста времени.
      */
     int[] getTestExample() {
         String path = System.getProperty("user.dir") +
@@ -36,8 +36,7 @@ public class TestChecker {
                 if (count == 0) {
                     count = Integer.parseInt(line);
                     arr = new int[count];
-                }
-                else {
+                } else {
                     arr[index] = Integer.parseInt(line);
                     index++;
                 }
@@ -45,7 +44,6 @@ public class TestChecker {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
 
 
         return arr;
@@ -58,7 +56,7 @@ public class TestChecker {
     void testSequentialChecker() {
         int[] numbers = {6, 8, 7, 13, 5, 9, 4};
         Assertions.assertTrue(SequentialChecker.checkCompositeNumbers(numbers));
-        
+
         int[] number = {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
                 6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
         Assertions.assertFalse(SequentialChecker.checkCompositeNumbers(number));
@@ -98,7 +96,7 @@ public class TestChecker {
         double start = System.currentTimeMillis();
         Assertions.assertFalse(SequentialChecker.checkCompositeNumbers(testExampleForTimeChecking));
         double end = System.currentTimeMillis();
-        System.out.println("Time taken: " + (end - start)/1000 + " seconds");
+        System.out.println("Time taken: " + (end - start) / 1000 + " seconds");
     }
 
     /***
@@ -111,7 +109,7 @@ public class TestChecker {
         double start = System.currentTimeMillis();
         Assertions.assertFalse(ThreadChecker.checkCompositeNumbers(testExampleForTimeChecking));
         double end = System.currentTimeMillis();
-        System.out.println("Time taken by threads: " + (end - start)/1000 + " seconds");
+        System.out.println("Time taken by threads: " + (end - start) / 1000 + " seconds");
     }
 
     /***
@@ -122,6 +120,6 @@ public class TestChecker {
         double start = System.currentTimeMillis();
         Assertions.assertFalse(ParallelStreamChecker.checkCompositeNumbers(testExampleForTimeChecking));
         double end = System.currentTimeMillis();
-        System.out.println("Time taken by parallel stream: " + (end - start)/1000 + " seconds");
+        System.out.println("Time taken by parallel stream: " + (end - start) / 1000 + " seconds");
     }
 }

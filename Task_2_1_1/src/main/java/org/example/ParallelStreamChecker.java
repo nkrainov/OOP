@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.stream.*;
+import java.util.stream.IntStream;
 
 /**
     Решение задачи через parallelStream.

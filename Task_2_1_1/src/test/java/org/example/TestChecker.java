@@ -2,10 +2,9 @@ package org.example;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Scanner;
 
 /**
     Тестирование решения задачи.
@@ -18,14 +17,14 @@ public class TestChecker {
      */
     int[] getTestExample() {
         String path = System.getProperty("user.dir") +
-                File.separator +
-                "src" +
-                File.separator +
-                "test" +
-                File.separator +
-                "resources" +
-                File.separator +
-                "primeNumbers.txt";
+                File.separator
+                + "src"
+                + File.separator
+                + "test"
+                + File.separator
+                + "resources"
+                + File.separator
+                + "primeNumbers.txt";
         int count = 0;
         int index = 0;
         int[] arr = null;

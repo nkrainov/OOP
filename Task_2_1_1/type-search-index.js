@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"org.example","l":"ParallelStreamChecker"},{"p":"org.example","l":"SequentialChecker"},{"p":"org.example","l":"ThreadChecker"}];updateSearchResults();

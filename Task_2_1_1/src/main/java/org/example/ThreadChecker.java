@@ -1,13 +1,13 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 /**
     Параллельное решение задачи.
  */
 public class ThreadChecker {
     private static int countOfWorkers = 1;
+    private static final Object lock = new Object();
 
     /**
         Сеттер для количества рабочих потоков.
@@ -40,16 +40,25 @@ public class ThreadChecker {
                 for (int i = 2; i <= sqrt; i++) {
                     if (number % i == 0) {
                         result = true;
+                        synchronized (lock) {
+                            lock.notify();
+                        }
                         return;
                     }
                 }
 
                 if (interrupted()) {
+                    synchronized (lock) {
+                        lock.notify();
+                    }
                     return;
                 }
             }
 
             result = false;
+            synchronized (lock) {
+                lock.notify();
+            }
         }
     }
 
@@ -78,21 +87,32 @@ public class ThreadChecker {
         }
 
 
-        try {
-            for (Worker worker : workers) {
-                worker.join();
-                if (worker.getResult()) {
-                    for (Worker worker2 : workers) {
-                        worker2.interrupt();
-                    }
-                    return true;
+        while (!workers.isEmpty()) {
+            synchronized (lock) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException ignored) {
                 }
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
+            for (int i = 0; i < workers.size(); i++) {
+                if (!workers.get(i).isAlive()) {
+                    if (workers.get(i).getResult()) {
+                        killWorkers(workers);
+                        return true;
+                    } else {
+                        workers.remove(workers.get(i));
+                    }
+                }
+            }
         }
 
         return false;
+
+    }
+
+    private static void killWorkers(Collection<Worker> workers) {
+        for (Worker worker : workers) {
+            worker.interrupt();
+        }
     }
 }

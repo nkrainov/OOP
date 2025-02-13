@@ -25,7 +25,12 @@ public class ThreadChecker {
      */
     private static class Worker extends Thread {
         private int[] numbers;
-        private boolean result;
+        private boolean result = false;
+        private boolean done = false;
+
+        public boolean isDone() {
+            return done;
+        }
 
         public boolean getResult() {
             return result;
@@ -42,6 +47,7 @@ public class ThreadChecker {
                 for (int i = 2; i <= sqrt; i++) {
                     if (number % i == 0) {
                         result = true;
+                        done = true;
                         synchronized (lock) {
                             lock.notify();
                         }
@@ -50,14 +56,12 @@ public class ThreadChecker {
                 }
 
                 if (interrupted()) {
-                    synchronized (lock) {
-                        lock.notify();
-                    }
                     return;
                 }
             }
 
             result = false;
+            done = true;
             synchronized (lock) {
                 lock.notify();
             }
@@ -96,13 +100,14 @@ public class ThreadChecker {
                 } catch (InterruptedException ignored) {
                 }
             }
-            for (int i = 0; i < workers.size(); i++) {
-                if (!workers.get(i).isAlive()) {
+
+            for (int i = workers.size() - 1; i >= 0; i--) {
+                if (workers.get(i).isDone()) {
                     if (workers.get(i).getResult()) {
                         killWorkers(workers);
                         return true;
                     } else {
-                        workers.remove(workers.get(i));
+                        workers.remove(i);
                     }
                 }
             }

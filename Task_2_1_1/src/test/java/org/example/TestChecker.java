@@ -12,41 +12,41 @@ import java.util.Scanner;
 public class TestChecker {
     //int[] testExample = getTestExample();
 
-    /**
-        Загрузка из файла массива из всех простых чисел до 500_000_000 для теста времени.
-     */
-    int[] getTestExample() {
-        String path = System.getProperty("user.dir") +
-                File.separator
-                + "src"
-                + File.separator
-                + "test"
-                + File.separator
-                + "resources"
-                + File.separator
-                + "primeNumbers.txt";
-        int count = 0;
-        int index = 0;
-        int[] arr = null;
-
-        try (Scanner scanner = new Scanner(new File(path))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                if (count == 0) {
-                    count = Integer.parseInt(line);
-                    arr = new int[count];
-                } else {
-                    arr[index] = Integer.parseInt(line);
-                    index++;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        return arr;
-    }
+//    /**
+//        Загрузка из файла массива из всех простых чисел до 500_000_000 для теста времени.
+//     */
+//    int[] getTestExample() {
+//        String path = System.getProperty("user.dir") +
+//                File.separator
+//                + "src"
+//                + File.separator
+//                + "test"
+//                + File.separator
+//                + "resources"
+//                + File.separator
+//                + "primeNumbers.txt";
+//        int count = 0;
+//        int index = 0;
+//        int[] arr = null;
+//
+//        try (Scanner scanner = new Scanner(new File(path))) {
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                if (count == 0) {
+//                    count = Integer.parseInt(line);
+//                    arr = new int[count];
+//                } else {
+//                    arr[index] = Integer.parseInt(line);
+//                    index++;
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        return arr;
+//    }
 
     /**
         Проверка корректности последовательного нахождения составного числа в массиве.

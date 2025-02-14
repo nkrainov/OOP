@@ -93,25 +93,7 @@ public class ThreadChecker {
         }
 
 
-        while (!workers.isEmpty()) {
-            synchronized (lock) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException ignored) {
-                }
-            }
-
-            for (int i = workers.size() - 1; i >= 0; i--) {
-                if (workers.get(i).isDone()) {
-                    if (workers.get(i).getResult()) {
-                        killWorkers(workers);
-                        return true;
-                    } else {
-                        workers.remove(i);
-                    }
-                }
-            }
-        }
+        
 
         return false;
 

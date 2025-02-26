@@ -24,7 +24,9 @@ public class Clock extends Thread {
      * Включение часов.
      */
     void turnOn() {
-        if (isWorking) return;
+        if (isWorking) {
+            return;
+        }
 
         isWorking = true;
         if (lock == null) {

@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Класс, реализующий пекаря.
  */
-class Baker extends Thread{
+class Baker extends Thread {
     private final Warehouse warehouse;
     private final OrderQueue orderQueue;
     private final int maxTimeForCooking;
@@ -14,10 +14,11 @@ class Baker extends Thread{
 
     /**
      * Конструктор.
-     * @param id id пекаря.
+     *
+     * @param id                id пекаря.
      * @param maxTimeForCooking максимальное время, которое тратится на приготовление пиццы.
-     * @param orderQueue очередь, из которой берутся заказы.
-     * @param warehouse склад, куда отправляются пиццы.
+     * @param orderQueue        очередь, из которой берутся заказы.
+     * @param warehouse         склад, куда отправляются пиццы.
      */
     Baker(int id, Warehouse warehouse, OrderQueue orderQueue, int maxTimeForCooking) {
         this.id = id;
@@ -29,7 +30,8 @@ class Baker extends Thread{
 
     /**
      * Алгоритм работы пекаря таков: берем заказ из очереди, ждем случайное время
-     * (но не дольше maxTimeForCooking), имитируя таким образом приготовление пиццы, затем кладем пиццу на склад.
+     * (но не дольше maxTimeForCooking), имитируя таким образом приготовление пиццы,
+     * затем кладем пиццу на склад.
      * Если рабочий день закончился, то мы доделываем текущий заказ, после ожидаем пробуждения.
      * Если пиццерия завершит работу, то и поток завершит своё выполнение.
      */
@@ -43,7 +45,8 @@ class Baker extends Thread{
                     try {
                         Logger.write("baker " + id + " has completed his workday");
                         wait();
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
                 }
             }
 
@@ -62,7 +65,8 @@ class Baker extends Thread{
             flag = interrupted();
             try {
                 sleep(bakingTime);
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            }
             if (flag) interrupt();
 
             Pizza pizza = new Pizza(order);

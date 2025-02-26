@@ -1,9 +1,8 @@
 package org.pizzahunt;
 
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.Thread.sleep;
 
@@ -17,13 +16,13 @@ public class PizzaHuntTests {
      */
     @Test
     void simpleTest() throws IOException, InterruptedException {
-        PizzaHunt r = new PizzaHunt(new File("src" +
-                File.separator +
-                "test" +
-                File.separator +
-                "resources" +
-                File.separator +
-                "simpleTestConfiguration"), System.out);
+        PizzaHunt r = new PizzaHunt(new File("src"
+                + File.separator
+                + "test"
+                + File.separator
+                + "resources"
+                + File.separator
+                + "simpleTestConfiguration"), System.out);
 
         r.startWorkDay();
         r.makeOrder();

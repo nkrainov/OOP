@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"org.pizzahunt","l":"Clock"},{"p":"org.pizzahunt","l":"Configuration"},{"p":"org.pizzahunt","l":"PizzaHunt"}];updateSearchResults();

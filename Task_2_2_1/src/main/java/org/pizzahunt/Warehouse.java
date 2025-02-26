@@ -1,20 +1,29 @@
-package org.example;
+package org.pizzahunt;
 
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
+/**
+ * Класс, реализующий склад.
+ */
 class Warehouse {
     private final LinkedList<Pizza> queue = new LinkedList<>();
     private final Semaphore semaphorePut;
     private final Semaphore semaphoreGet;
 
 
-    public Warehouse(int maxCountOfPizza) {
+    /**
+     * Конструктор.
+     */
+    Warehouse(int maxCountOfPizza) {
         semaphoreGet = new Semaphore(0, true);
         semaphorePut = new Semaphore(maxCountOfPizza, true);
     }
 
-    public void putPizza(Pizza pizza) {
+    /**
+     * Метод добавления пиццы на склад. Блокируется, если склад полон.
+     */
+    void putPizza(Pizza pizza) {
         try {
             semaphorePut.acquire();
             synchronized (queue) {
@@ -26,7 +35,10 @@ class Warehouse {
         }
     }
 
-    public Pizza getPizza() {
+    /**
+     * Метод взятия пиццы со склада. Блокируется, если на складе нет пицц.
+     */
+    Pizza getPizza() {
         Pizza pizza = null;
         try {
             semaphoreGet.acquire();

@@ -1,5 +1,8 @@
-package org.example;
+package org.pizzahunt;
 
+/**
+ * Класс конфигурации, описывающий формат json-файла для инициализации пиццерии.
+ */
 public class Configuration {
     public int countOfBakers = 1;
     public int countOfCouriers = 1;

@@ -1,23 +1,32 @@
-package org.example;
+package org.pizzahunt;
 
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
+/**
+ * Очередь заказов.
+ */
 class OrderQueue {
     private final LinkedList<Order> queue = new LinkedList<>();
     private final Semaphore semaphorePut;
     private final Semaphore semaphoreGet;
 
-    public OrderQueue(int capacity) {
+    /**
+     * Конструктор.
+     */
+    OrderQueue(int capacity) {
         semaphoreGet = new Semaphore(0, true);
         semaphorePut = new Semaphore(capacity, true);
     }
 
-    public void makeOrder(long id) {
+    /**
+     * Метод добавления заказа в очередь. Блокируется, если в очереди нет места.
+     */
+    void makeOrder(Order order) {
         try {
             semaphorePut.acquire();
             synchronized (queue) {
-                queue.add(new Order(id));
+                queue.add(order);
             }
             semaphoreGet.release();
         } catch (InterruptedException ignored) {
@@ -26,12 +35,15 @@ class OrderQueue {
 
     }
 
-    public Order poll() {
+    /**
+     * Метод взятия заказа из очереди. Блокируется, если в очереди нет заказов.
+     */
+    Order poll() {
         Order order = null;
         try {
             semaphoreGet.acquire();
             synchronized (queue) {
-                order = queue.removeFirst();
+                order = queue.remove(0);
             }
             semaphorePut.release();
         } catch (InterruptedException ignored) {

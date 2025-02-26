@@ -8,7 +8,7 @@ import java.util.Date;
  * Класс логирования.
  */
 class Logger {
-    static private OutputStream out = null;
+    private static OutputStream out = null;
 
     /**
      * Установка потока, куда пишутся логи.

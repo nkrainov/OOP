@@ -1,7 +1,6 @@
 package org.pizzahunt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -23,7 +22,8 @@ public class PizzaHunt {
     private final Clock clock;
 
     /**
-     * Инициализирует объекты, необходимые для работы пиццерии. Их настройки берутся из файла в формате JSON.
+     * Инициализирует объекты, необходимые для работы пиццерии.
+     * Их настройки берутся из файла в формате JSON.
      *
      * @param json - json-файл со структурой, определенной в классе Configuration.
      * @param log  - OutputStream, куда записываются логи объектов в работе пиццерии.
@@ -46,8 +46,11 @@ public class PizzaHunt {
      * Если рабочий день в процессе или пиццерия закрыта (isClosed), то ничего не делает.
      * В ином случае запускает или пробуждает потоки основных объектов (Clock, Baker, Courier).
      */
-    synchronized public void startWorkDay() {
-        if (isWorking || isClosed) return;
+    public synchronized void startWorkDay() {
+        if (isWorking || isClosed) {
+            return;
+        }
+
         isWorking = true;
 
         if (!isStarted) {
@@ -81,8 +84,10 @@ public class PizzaHunt {
      * Закрывает пиццерию. Потоки основных объектов завершают свое выполнение.
      * Если пиццерия уже закрыта, то ничего не делает.
      */
-    synchronized public void closePizzaHunt() throws InterruptedException {
-        if (isClosed) return;
+    public synchronized void closePizzaHunt() throws InterruptedException {
+        if (isClosed) {
+            return;
+        }
 
         clock.brokeClock();
 
@@ -102,14 +107,14 @@ public class PizzaHunt {
     /**
      * Возвращает true, если рабочий день в процессе.
      */
-    synchronized public boolean isWorking() {
+    public synchronized boolean isWorking() {
         return isWorking;
     }
 
     /**
      * Добавляет заказ в очередь заказов.
      */
-    synchronized public void makeOrder() {
+    public synchronized void makeOrder() {
         if (isWorking) {
             queue.makeOrder(new Order(id));
             id++;

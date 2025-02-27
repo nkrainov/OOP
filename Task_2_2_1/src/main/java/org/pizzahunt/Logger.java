@@ -8,6 +8,9 @@ import java.util.Date;
  * Класс логирования.
  */
 class Logger {
+    private Logger() {
+    }
+
     private static OutputStream out = null;
 
     /**

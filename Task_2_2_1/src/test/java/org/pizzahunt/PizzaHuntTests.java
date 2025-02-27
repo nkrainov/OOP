@@ -41,7 +41,7 @@ public class PizzaHuntTests {
      * Если нам дали JSON с неверно обозначенными пекарями или курьерами, ты мы должны рухнуть.
      */
     @Test
-    void incorrectWorkersJSONTest() throws IOException {
+    void incorrectWorkersJsonTest() throws IOException {
         try {
             PizzaHunt pizzahunt = new PizzaHunt(new File("src"
                     + File.separator

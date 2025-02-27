@@ -61,7 +61,8 @@ class Baker extends Thread {
             if (order == null) {
                 continue;
             }
-            Logger.write("baker " + name + " just received order " + order.getId() + " and started cooking");
+            Logger.write("baker " + name + " just received order "
+                    + order.getId() + " and started cooking");
             int bakingTime = random.nextInt(maxTimeForCooking);
             flag = interrupted();
             try {

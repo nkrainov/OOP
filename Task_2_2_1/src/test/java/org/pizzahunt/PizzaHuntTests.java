@@ -69,6 +69,9 @@ public class PizzaHuntTests {
         }
     }
 
+    /**
+     * Если нам дали json с неправильными параметрами пиццерии, то мы должны получить исключение.
+     */
     @Test
     void incorrectPizzaHuntJsonTest() throws IOException {
         try {
@@ -85,6 +88,9 @@ public class PizzaHuntTests {
         }
     }
 
+    /**
+     * Тест закрытия пиццерии.
+     */
     @Test
     void closePizzaHuntTest() throws IOException, InterruptedException {
         PizzaHunt pizzahunt = new PizzaHunt(new File("src"

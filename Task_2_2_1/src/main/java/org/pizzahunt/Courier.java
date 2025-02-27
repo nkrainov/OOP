@@ -1,16 +1,16 @@
 package org.pizzahunt;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Класс, реализующий курьера.
  */
-class Courier extends Thread {
+class Courier extends Worker {
     private BlockedQueue<Pizza> warehouse;
     private int trunkCapacity;
     private int maxmaxTimeForDelivering;
-    private volatile boolean isDismissal;
-    private final String name;
+    private Random random = new Random();
 
     /**
      * Конструктор.
@@ -25,83 +25,68 @@ class Courier extends Thread {
         this.warehouse = warehouse;
         this.trunkCapacity = trunkCapacity;
         this.maxmaxTimeForDelivering = maxTimeForDelivering;
-        isDismissal = false;
-        this.name = name;
+        setWorkerName(name);
     }
 
     /**
-     * Алгоритм работы курьера таков: берем определенное количество пицц (не больше trunkCapacity)
-     * из очереди, ждем случайное время (но не дольше maxTimeForDelivering),
-     * имитируя таким образом доставку пиццы, записываем в логи факт окончания доставки.
-     * Если рабочий день закончился, то мы доделываем текущий заказ, после ожидаем пробуждения.
-     * Если пиццерия завершит работу, то и поток завершит своё выполнение.
+     * Реализация получения задачи.
      */
     @Override
-    public void run() {
-        Random rand = new Random();
-        Pizza[] pizzas = new Pizza[trunkCapacity];
-        while (true) {
-            if (interrupted()) {
-                synchronized (this) {
-                    try {
-                        Logger.write("courier " + name + " has completed his workday");
-                        wait();
-                    } catch (InterruptedException ignored) {
-                    }
-                }
+    Object getTask() {
+        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+        Logger.write("courier " + getWorkerName() + " try to get pizzas");
+
+        for (int i = 0; i < trunkCapacity; i++) {
+            Pizza pizza = warehouse.poll();
+            if (pizza == null) {
+                return null;
             }
+            pizzas.add(pizza);
+        }
+        Logger.write("courier " + getWorkerName() + " got "
+                + pizzas.size() + " pizza(s)");
 
-            if (isDismissal) {
-                Logger.write("courier " + name + " was dismissal");
-                return;
-            }
+        return pizzas;
+    }
 
-            Logger.write("courier " + name + " try to get pizzas");
-            int countNotNull = 0;
-            for (int i = 0; i < trunkCapacity; i++) {
-                pizzas[i] = warehouse.poll();
-                if (pizzas[i] == null) {
-                    break;
-                }
-                countNotNull++;
-            }
-            Logger.write("courier " + name + " got " + countNotNull + " pizza(s)");
+    /**
+     * Реализация выполнения задачи.
+     */
+    @Override
+    Object doTask(Object task) {
+        if (!(task instanceof ArrayList)) {
+            return null;
+        }
 
-            boolean flag = interrupted();
+        @SuppressWarnings("unchecked")
+        ArrayList<Pizza> pizzas = (ArrayList<Pizza>) task;
+        for (int i = 0; i < pizzas.size(); i++) {
+            Logger.write("courier " + getWorkerName()
+                    + " start delivering pizzas " + pizzas.get(i).getId());
+            int maxTimeForDelivering = random.nextInt(maxmaxTimeForDelivering);
 
-            for (int i = 0; i < countNotNull; i++) {
-                Logger.write("courier " + name + " start delivering pizzas " + pizzas[i].getId());
-                int maxTimeForDelivering = rand.nextInt(maxmaxTimeForDelivering);
-
-                try {
-                    sleep(maxTimeForDelivering);
-                } catch (InterruptedException ignored) {
-                    interrupt();
-                }
-
-                Logger.write("courier " + name + " delivered pizza " + pizzas[i].getId());
-
-            }
-
-            if (flag) {
+            try {
+                sleep(maxTimeForDelivering);
+            } catch (InterruptedException ignored) {
                 interrupt();
             }
 
+            Logger.write("courier " + getWorkerName()
+                    + " delivered pizza " + pizzas.get(i).getId());
         }
+
+        return new Object();
     }
 
     /**
-     * Возвращает true, если работник уволен (пиццерия закрыта).
+     * Класс, реализующий сообщение результата.
      */
-    boolean isDismissal() {
-        return isDismissal;
-    }
+    @Override
+    void showResult(Object result) {
+        if (result == null) {
+            return;
+        }
 
-    /**
-     * Увольняет курьера. Приводит к завершению работы после выполнения текущего заказа.
-     */
-    synchronized void dismiss() {
-        isDismissal = true;
-        notify();
+        Logger.write("courier " + getWorkerName() + " delivered pizzas");
     }
 }

@@ -15,7 +15,11 @@
 <script type="text/javascript" src="../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="package-declaration-page">
-<script type="text/javascript">var pathtoroot = "../../";
+<script type="text/javascript">var evenRowColor = "even-row-color";
+var oddRowColor = "odd-row-color";
+var tableTab = "table-tab";
+var activeTableTab = "active-table-tab";
+var pathtoroot = "../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -62,21 +66,35 @@ loadScripts(document, 'script');</script>
 <ul class="summary-list">
 <li>
 <div id="class-summary">
-<div class="caption"><span>Classes</span></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="class-summary-tab0" role="tab" aria-selected="true" aria-controls="class-summary.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary', 2)" class="active-table-tab">All Classes and Interfaces</button><button id="class-summary-tab2" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab2', 2)" class="table-tab">Classes</button><button id="class-summary-tab5" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab5', 2)" class="table-tab">Exceptions</button></div>
+<div id="class-summary.tabpanel" role="tabpanel" aria-labelledby="class-summary-tab0">
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="Clock.html" title="class in org.pizzahunt">Clock</a></div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="BakerConf.html" title="class in org.pizzahunt">BakerConf</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">Класс конфигурации пекаря.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="Clock.html" title="class in org.pizzahunt">Clock</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Класс, реализующий часы, отсчитывающий время работы пиццерии.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="Configuration.html" title="class in org.pizzahunt">Configuration</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="Configuration.html" title="class in org.pizzahunt">Configuration</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Класс конфигурации, описывающий формат json-файла для инициализации пиццерии.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="PizzaHunt.html" title="class in org.pizzahunt">PizzaHunt</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="CourierConf.html" title="class in org.pizzahunt">CourierConf</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">Класс конфигурации курьера.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="InvalidFormatException.html" title="class in org.pizzahunt">InvalidFormatException</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">
+<div class="block">Исключение, выкидывающееся при обнаружении некорректных настроек в файле конфигурации.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="PizzaHunt.html" title="class in org.pizzahunt">PizzaHunt</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Класс, реализующий работу пиццерии.</div>
+</div>
 </div>
 </div>
 </div>

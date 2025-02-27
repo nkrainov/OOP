@@ -1,4 +1,4 @@
-package org.pizzahunt;
+package org.pizzahunt.exceptions;
 
 /**
  * Исключение, выкидывающееся при обнаружении некорректных настроек в файле конфигурации.

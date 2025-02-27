@@ -6,7 +6,7 @@ import java.util.Random;
  * Класс, реализующий курьера.
  */
 class Courier extends Thread {
-    private Warehouse warehouse;
+    private BlockedQueue<Pizza> warehouse;
     private int trunkCapacity;
     private int maxmaxTimeForDelivering;
     private volatile boolean isDismissal;
@@ -20,7 +20,7 @@ class Courier extends Thread {
      * @param maxTimeForDelivering максимальное время, которое может доставляться отдельная пицца.
      * @param warehouse            склад, откуда берутся пиццы.
      */
-    Courier(String name, Warehouse warehouse, int trunkCapacity, int maxTimeForDelivering) {
+    Courier(String name, BlockedQueue<Pizza> warehouse, int trunkCapacity, int maxTimeForDelivering) {
         this.warehouse = warehouse;
         this.trunkCapacity = trunkCapacity;
         this.maxmaxTimeForDelivering = maxTimeForDelivering;
@@ -58,7 +58,7 @@ class Courier extends Thread {
             Logger.write("courier " + name + " try to get pizzas");
             int countNotNull = 0;
             for (int i = 0; i < trunkCapacity; i++) {
-                pizzas[i] = warehouse.getPizza();
+                pizzas[i] = warehouse.poll();
                 if (pizzas[i] == null) {
                     break;
                 }

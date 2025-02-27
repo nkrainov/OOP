@@ -6,8 +6,8 @@ import java.util.Random;
  * Класс, реализующий пекаря.
  */
 class Baker extends Thread {
-    private final Warehouse warehouse;
-    private final OrderQueue orderQueue;
+    private final BlockedQueue<Pizza> warehouse;
+    private final BlockedQueue<Order> orderQueue;
     private final int maxTimeForCooking;
     private volatile boolean isDismissal;
     private final String name;
@@ -20,7 +20,7 @@ class Baker extends Thread {
      * @param orderQueue        очередь, из которой берутся заказы.
      * @param warehouse         склад, куда отправляются пиццы.
      */
-    Baker(String name, Warehouse warehouse, OrderQueue orderQueue, int maxTimeForCooking) {
+    Baker(String name, BlockedQueue<Pizza> warehouse, BlockedQueue<Order> orderQueue, int maxTimeForCooking) {
         this.name = name;
         this.warehouse = warehouse;
         this.orderQueue = orderQueue;
@@ -72,7 +72,7 @@ class Baker extends Thread {
             Pizza pizza = new Pizza(order);
 
             Logger.write("baker " + name + " try to put pizza " + pizza.getId() + " to warehouse");
-            warehouse.putPizza(pizza);
+            warehouse.add(pizza);
             Logger.write("baker " + name + " putted pizza " + pizza.getId() + " to warehouse");
         }
     }

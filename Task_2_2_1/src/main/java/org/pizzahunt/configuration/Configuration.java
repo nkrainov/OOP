@@ -1,4 +1,4 @@
-package org.pizzahunt;
+package org.pizzahunt.configuration;
 
 import java.util.List;
 

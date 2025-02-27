@@ -1,6 +1,11 @@
 package org.pizzahunt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.pizzahunt.configuration.BakerConf;
+import org.pizzahunt.configuration.Configuration;
+import org.pizzahunt.configuration.CourierConf;
+import org.pizzahunt.exceptions.InvalidFormatException;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,10 +17,10 @@ import java.util.ArrayList;
 public class PizzaHunt {
     private volatile boolean isWorking;
     private volatile Long id = 0L;
-    private final OrderQueue queue;
+    private final BlockedQueue<Order> queue;
     private ArrayList<Baker> bakers;
     private ArrayList<Courier> couriers;
-    private final Warehouse warehouse;
+    private final BlockedQueue<Pizza> warehouse;
     private final Configuration conf;
     private boolean isStarted = false;
     private volatile boolean isClosed;
@@ -39,8 +44,16 @@ public class PizzaHunt {
             throw new InvalidFormatException("Count of couriers is zero");
         }
 
-        queue = new OrderQueue(conf.capacityOfOrderQueue);
-        warehouse = new Warehouse(conf.capacityOfWarehouse);
+        if (conf.capacityOfOrderQueue <= 0) {
+            throw new InvalidFormatException("Capacity of order queue is zero");
+        }
+
+        if (conf.capacityOfWarehouse <= 0) {
+            throw new InvalidFormatException("Capacity of warehouse is zero");
+        }
+
+        queue = new BlockedQueue<>(conf.capacityOfOrderQueue);
+        warehouse = new BlockedQueue<>(conf.capacityOfWarehouse);
         clock = new Clock(conf.timeOfWorking, this);
 
         initBakers();
@@ -99,6 +112,10 @@ public class PizzaHunt {
             return;
         }
 
+        if (isWorking) {
+            wait();
+        }
+
         clock.brokeClock();
 
         for (Baker baker : bakers) {
@@ -111,6 +128,7 @@ public class PizzaHunt {
             courier.join();
         }
 
+        Logger.write("PizzaHunt is closed");
         isClosed = true;
     }
 
@@ -126,7 +144,7 @@ public class PizzaHunt {
      */
     public synchronized void makeOrder() {
         if (isWorking) {
-            queue.makeOrder(new Order(id));
+            queue.add(new Order(id));
             id++;
         }
     }
@@ -142,6 +160,8 @@ public class PizzaHunt {
         for (Courier courier : couriers) {
             courier.interrupt();
         }
+
+        this.notify();
     }
 
     /**

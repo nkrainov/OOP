@@ -1,4 +1,4 @@
-package org.pizzahunt;
+package org.pizzahunt.configuration;
 
 /**
  * Класс конфигурации пекаря.

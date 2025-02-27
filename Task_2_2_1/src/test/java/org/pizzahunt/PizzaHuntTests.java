@@ -3,7 +3,6 @@ package org.pizzahunt;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.pizzahunt.exceptions.InvalidFormatException;

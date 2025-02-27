@@ -1,15 +1,14 @@
 package org.pizzahunt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.pizzahunt.configuration.BakerConf;
-import org.pizzahunt.configuration.Configuration;
-import org.pizzahunt.configuration.CourierConf;
-import org.pizzahunt.exceptions.InvalidFormatException;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import org.pizzahunt.configuration.BakerConf;
+import org.pizzahunt.configuration.Configuration;
+import org.pizzahunt.configuration.CourierConf;
+import org.pizzahunt.exceptions.InvalidFormatException;
 
 /**
  * Класс, реализующий работу пиццерии. Создает все необходимые объекты для работы.

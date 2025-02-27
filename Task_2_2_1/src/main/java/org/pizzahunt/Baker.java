@@ -15,12 +15,13 @@ class Baker extends Thread {
     /**
      * Конструктор.
      *
-     * @param name                name пекаря.
+     * @param name              name пекаря.
      * @param maxTimeForCooking максимальное время, которое тратится на приготовление пиццы.
      * @param orderQueue        очередь, из которой берутся заказы.
      * @param warehouse         склад, куда отправляются пиццы.
      */
-    Baker(String name, BlockedQueue<Pizza> warehouse, BlockedQueue<Order> orderQueue, int maxTimeForCooking) {
+    Baker(String name, BlockedQueue<Pizza> warehouse,
+          BlockedQueue<Order> orderQueue, int maxTimeForCooking) {
         this.name = name;
         this.warehouse = warehouse;
         this.orderQueue = orderQueue;

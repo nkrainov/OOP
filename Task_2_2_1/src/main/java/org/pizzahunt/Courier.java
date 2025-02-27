@@ -20,7 +20,8 @@ class Courier extends Thread {
      * @param maxTimeForDelivering максимальное время, которое может доставляться отдельная пицца.
      * @param warehouse            склад, откуда берутся пиццы.
      */
-    Courier(String name, BlockedQueue<Pizza> warehouse, int trunkCapacity, int maxTimeForDelivering) {
+    Courier(String name, BlockedQueue<Pizza> warehouse,
+            int trunkCapacity, int maxTimeForDelivering) {
         this.warehouse = warehouse;
         this.trunkCapacity = trunkCapacity;
         this.maxmaxTimeForDelivering = maxTimeForDelivering;

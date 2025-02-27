@@ -31,14 +31,24 @@ public class PizzaHunt {
     public PizzaHunt(File json, OutputStream log) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         conf = objectMapper.readValue(json, Configuration.class);
+
+        if (conf.bakers == null || conf.bakers.isEmpty()) {
+            throw new InvalidFormatException("Count of bakers is zero");
+        }
+        if (conf.couriers == null || conf.couriers.isEmpty()) {
+            throw new InvalidFormatException("Count of couriers is zero");
+        }
+
         queue = new OrderQueue(conf.capacityOfOrderQueue);
         warehouse = new Warehouse(conf.capacityOfWarehouse);
-        isClosed = false;
         clock = new Clock(conf.timeOfWorking, this);
+
         initBakers();
         initCouriers();
+
         Logger.setOutputStream(log);
         Logger.write("init PizzaHunt");
+        isClosed = false;
     }
 
     /**
@@ -139,8 +149,12 @@ public class PizzaHunt {
      */
     private void initBakers() {
         bakers = new ArrayList<>();
-        for (int i = 0; i < conf.countOfBakers; i++) {
-            bakers.add(new Baker(i, warehouse, queue, conf.maxBakingTime));
+        for (BakerConf bakerConf : conf.bakers) {
+            if (bakerConf.name == null || bakerConf.name.isEmpty()
+                    || bakerConf.maxTimeOfCooking <= 0) {
+                throw new InvalidFormatException("invalid settings for courier");
+            }
+            bakers.add(new Baker(bakerConf.name, warehouse, queue, bakerConf.maxTimeOfCooking));
         }
     }
 
@@ -149,8 +163,16 @@ public class PizzaHunt {
      */
     private void initCouriers() {
         couriers = new ArrayList<>();
-        for (int i = 0; i < conf.countOfCouriers; i++) {
-            couriers.add(new Courier(i, warehouse, conf.trunksCapacity[i], conf.maxCourierTime));
+        for (CourierConf courierConf : conf.couriers) {
+            if (courierConf.name == null || courierConf.name.isEmpty()
+                || courierConf.maxTimeOfDelivery <= 0 || courierConf.trunkCapacity <= 0) {
+                throw new InvalidFormatException("invalid settings for courier");
+            }
+
+            couriers.add(new Courier(courierConf.name,
+                                    warehouse,
+                                    courierConf.trunkCapacity,
+                                    courierConf.maxTimeOfDelivery));
         }
     }
 }

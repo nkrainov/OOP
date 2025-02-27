@@ -10,18 +10,18 @@ class Baker extends Thread {
     private final OrderQueue orderQueue;
     private final int maxTimeForCooking;
     private volatile boolean isDismissal;
-    private final int id;
+    private final String name;
 
     /**
      * Конструктор.
      *
-     * @param id                id пекаря.
+     * @param name                name пекаря.
      * @param maxTimeForCooking максимальное время, которое тратится на приготовление пиццы.
      * @param orderQueue        очередь, из которой берутся заказы.
      * @param warehouse         склад, куда отправляются пиццы.
      */
-    Baker(int id, Warehouse warehouse, OrderQueue orderQueue, int maxTimeForCooking) {
-        this.id = id;
+    Baker(String name, Warehouse warehouse, OrderQueue orderQueue, int maxTimeForCooking) {
+        this.name = name;
         this.warehouse = warehouse;
         this.orderQueue = orderQueue;
         this.maxTimeForCooking = maxTimeForCooking;
@@ -43,7 +43,7 @@ class Baker extends Thread {
             if (interrupted()) {
                 synchronized (this) {
                     try {
-                        Logger.write("baker " + id + " has completed his workday");
+                        Logger.write("baker " + name + " has completed his workday");
                         wait();
                     } catch (InterruptedException ignored) {
                     }
@@ -51,16 +51,16 @@ class Baker extends Thread {
             }
 
             if (isDismissal) {
-                Logger.write("baker " + id + " was dismissal");
+                Logger.write("baker " + name + " was dismissal");
                 return;
             }
 
-            Logger.write("baker " + id + " try to get order");
+            Logger.write("baker " + name + " try to get order");
             Order order = orderQueue.poll();
             if (order == null) {
                 continue;
             }
-            Logger.write("baker " + id + " just received order " + order.getId() + " and started cooking");
+            Logger.write("baker " + name + " just received order " + order.getId() + " and started cooking");
             int bakingTime = random.nextInt(maxTimeForCooking);
             flag = interrupted();
             try {
@@ -71,9 +71,9 @@ class Baker extends Thread {
 
             Pizza pizza = new Pizza(order);
 
-            Logger.write("baker " + id + " try to put pizza " + pizza.getId() + " to warehouse");
+            Logger.write("baker " + name + " try to put pizza " + pizza.getId() + " to warehouse");
             warehouse.putPizza(pizza);
-            Logger.write("baker " + id + " putted pizza " + pizza.getId() + " to warehouse");
+            Logger.write("baker " + name + " putted pizza " + pizza.getId() + " to warehouse");
         }
     }
 

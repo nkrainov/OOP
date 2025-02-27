@@ -10,22 +10,22 @@ class Courier extends Thread {
     private int trunkCapacity;
     private int maxmaxTimeForDelivering;
     private volatile boolean isDismissal;
-    private final int id;
+    private final String name;
 
     /**
      * Конструктор.
      *
-     * @param id                   id пекаря.
+     * @param name                 имя пекаря.
      * @param trunkCapacity        вместимость багажника.
      * @param maxTimeForDelivering максимальное время, которое может доставляться отдельная пицца.
      * @param warehouse            склад, откуда берутся пиццы.
      */
-    Courier(int id, Warehouse warehouse, int trunkCapacity, int maxTimeForDelivering) {
+    Courier(String name, Warehouse warehouse, int trunkCapacity, int maxTimeForDelivering) {
         this.warehouse = warehouse;
         this.trunkCapacity = trunkCapacity;
         this.maxmaxTimeForDelivering = maxTimeForDelivering;
         isDismissal = false;
-        this.id = id;
+        this.name = name;
     }
 
     /**
@@ -43,7 +43,7 @@ class Courier extends Thread {
             if (interrupted()) {
                 synchronized (this) {
                     try {
-                        Logger.write("courier " + id + " has completed his workday");
+                        Logger.write("courier " + name + " has completed his workday");
                         wait();
                     } catch (InterruptedException ignored) {
                     }
@@ -51,11 +51,11 @@ class Courier extends Thread {
             }
 
             if (isDismissal) {
-                Logger.write("courier " + id + " was dismissal");
+                Logger.write("courier " + name + " was dismissal");
                 return;
             }
 
-            Logger.write("courier " + id + " try to get pizzas");
+            Logger.write("courier " + name + " try to get pizzas");
             int countNotNull = 0;
             for (int i = 0; i < trunkCapacity; i++) {
                 pizzas[i] = warehouse.getPizza();
@@ -64,11 +64,12 @@ class Courier extends Thread {
                 }
                 countNotNull++;
             }
-            Logger.write("courier " + id + " got " + countNotNull + " pizza(s)");
+            Logger.write("courier " + name + " got " + countNotNull + " pizza(s)");
 
             boolean flag = interrupted();
-            Logger.write("courier " + id + " start delivering pizzas");
+
             for (int i = 0; i < countNotNull; i++) {
+                Logger.write("courier " + name + " start delivering pizzas " + pizzas[i].getId());
                 int maxTimeForDelivering = rand.nextInt(maxmaxTimeForDelivering);
 
                 try {
@@ -77,7 +78,7 @@ class Courier extends Thread {
                     interrupt();
                 }
 
-                Logger.write("courier " + id + " delivered pizza " + pizzas[i].getId());
+                Logger.write("courier " + name + " delivered pizza " + pizzas[i].getId());
 
             }
 

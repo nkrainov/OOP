@@ -1,9 +1,0 @@
-{"countOfBakers": 1,
-  "countOfCouriers":1,
-  "maxBakingTime": 1,
-  "timeOfWorking": 1000,
-  "maxCourierTime": 1,
-  "capacityOfOrderQueue": 5,
-  "capacityOfWarehouse": 5,
-  "trunksCapacity": [1]
-}

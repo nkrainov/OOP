@@ -22,7 +22,7 @@ public class PizzaHuntTests {
                 + File.separator
                 + "resources"
                 + File.separator
-                + "simpleTestConfiguration"), System.out);
+                + "simpleTestConfiguration.json"), System.out);
 
         r.startWorkDay();
         r.makeOrder();

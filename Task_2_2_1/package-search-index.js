@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.pizzahunt"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.pizzahunt"},{"l":"org.pizzahunt.configuration"},{"l":"org.pizzahunt.exceptions"}];updateSearchResults();

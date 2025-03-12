@@ -17,8 +17,8 @@ public class PizzaHunt {
     private volatile boolean isWorking;
     private volatile Long id = 0L;
     private final BlockedQueue<Order> queue;
-    private ArrayList<Baker> bakers;
-    private ArrayList<Courier> couriers;
+    private ArrayList<Worker> bakers;
+    private ArrayList<Worker> couriers;
     private final BlockedQueue<Pizza> warehouse;
     private final Configuration conf;
     private boolean isStarted = false;
@@ -78,11 +78,11 @@ public class PizzaHunt {
         if (!isStarted) {
             isStarted = true;
 
-            for (Baker baker : bakers) {
+            for (Worker baker : bakers) {
                 baker.start();
             }
 
-            for (Courier courier : couriers) {
+            for (Worker courier : couriers) {
                 courier.start();
             }
 
@@ -90,11 +90,11 @@ public class PizzaHunt {
             return;
         }
 
-        for (Baker baker : bakers) {
+        for (Worker baker : bakers) {
             baker.notify();
         }
 
-        for (Courier courier : couriers) {
+        for (Worker courier : couriers) {
             courier.notify();
         }
 
@@ -117,12 +117,12 @@ public class PizzaHunt {
 
         clock.brokeClock();
 
-        for (Baker baker : bakers) {
+        for (Worker baker : bakers) {
             baker.dismiss();
             baker.join();
         }
 
-        for (Courier courier : couriers) {
+        for (Worker courier : couriers) {
             courier.dismiss();
             courier.join();
         }
@@ -152,11 +152,11 @@ public class PizzaHunt {
      * Делает interrupt ко всем потокам.
      */
     synchronized void shutdown() {
-        for (Baker baker : bakers) {
+        for (Worker baker : bakers) {
             baker.interrupt();
         }
 
-        for (Courier courier : couriers) {
+        for (Worker courier : couriers) {
             courier.interrupt();
         }
 

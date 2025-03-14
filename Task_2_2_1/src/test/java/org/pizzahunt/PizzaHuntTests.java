@@ -133,9 +133,9 @@ public class PizzaHuntTests {
                 return;
             }
 
-            if (str[str.length-3].equals("delivered")
-                    && str[str.length-2].equals("pizza")) {
-                arr[Integer.parseInt(str[str.length-1].trim())] = true;
+            if (str[str.length - 3].equals("delivered")
+                    && str[str.length - 2].equals("pizza")) {
+                arr[Integer.parseInt(str[str.length - 1].trim())] = true;
             }
         }
     }

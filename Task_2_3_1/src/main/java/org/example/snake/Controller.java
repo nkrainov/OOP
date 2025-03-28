@@ -102,6 +102,7 @@ public class Controller {
 
             this.field.addRow(x, images);
         }
+        this.field.setGridLinesVisible(false);
         this.field.setGridLinesVisible(true);
     }
 

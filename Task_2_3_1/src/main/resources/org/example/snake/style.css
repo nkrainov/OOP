@@ -1,0 +1,25 @@
+/* Стиль для GridPane */
+.grid-pane {
+    -fx-background-color: transparent;
+}
+
+/* Стиль для всех ячеек GridPane */
+.grid-pane > * {
+    -fx-border-color: #cccccc; /* Цвет разделителей */
+    -fx-border-width: 0 1px 1px 0; /* Границы: справа и снизу */
+}
+
+/* Убираем правую границу у последнего столбца */
+.grid-pane > *.column-last {
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* Убираем нижнюю границу у последней строки */
+.grid-pane > *.row-last {
+    -fx-border-width: 0 1px 0 0;
+}
+
+/* Убираем границы у последней ячейки */
+.grid-pane > *.column-last.row-last {
+    -fx-border-width: 0;
+}

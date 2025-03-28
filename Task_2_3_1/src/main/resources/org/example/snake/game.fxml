@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="root" gridLinesVisible="true" styleClass="grid-pane" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snake.Controller"
+          onKeyPressed="#onKeyPressed">
+    <columnConstraints>
+        <ColumnConstraints prefWidth="480"/> <!-- 1 часть -->
+        <ColumnConstraints hgrow="ALWAYS"/> <!-- 3 части -->
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints prefHeight="480" />
+    </rowConstraints>
+
+
+    <GridPane fx:id="field" GridPane.columnIndex="0">
+
+    </GridPane>
+
+    <GridPane gridLinesVisible="true" GridPane.columnIndex="1">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" percentWidth="100" /> <!-- 3 части -->
+        </columnConstraints>
+
+        <rowConstraints>
+            <RowConstraints percentHeight="75"/>
+            <RowConstraints percentHeight="25" valignment="CENTER"/>
+        </rowConstraints>
+
+        <Label fx:id="label" GridPane.rowIndex="0"/>
+        <Button fx:id="start" onMouseClicked="#onStart" text="START" GridPane.rowIndex="1" />
+    </GridPane>
+</GridPane>

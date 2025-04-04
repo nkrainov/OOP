@@ -17,22 +17,25 @@ public class HelloApplication extends Application {
         stage.setResizable(false);
         stage.setTitle("Snake");
         stage.setScene(scene);
-        scene.setOnKeyPressed(event -> {switch (event.getCode()) {
-            case W:
-                GameMain.getInstance().moveUp();
-                break;
-            case S:
-                GameMain.getInstance().moveDown();
-                break;
-            case A:
-                GameMain.getInstance().moveLeft();
-                break;
-            case D:
-                GameMain.getInstance().moveRight();
-                break;
-        }});
+
+        scene.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case W:
+                    GameMain.getInstance().moveUp();
+                    break;
+                case S:
+                    GameMain.getInstance().moveDown();
+                    break;
+                case A:
+                    GameMain.getInstance().moveLeft();
+                    break;
+                case D:
+                    GameMain.getInstance().moveRight();
+                    break;
+                }
+            }
+        );
         stage.show();
-        scene.getRoot().requestFocus();
     }
 
     public static void main(String[] args) {

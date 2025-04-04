@@ -1,16 +1,13 @@
 package org.example.snake;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class Controller {
     @FXML
@@ -22,28 +19,12 @@ public class Controller {
     @FXML
     private Label label;
 
-    public void onStart() {
-        GameMain.getInstance().startGame(this);
-    }
-
     @FXML
-    public void onKeyPressed(KeyEvent event) {
-        switch (event.getCode()) {
-            case UP:
-                GameMain.getInstance().moveUp();
-                break;
-            case DOWN:
-                GameMain.getInstance().moveDown();
-                break;
-            case LEFT:
-                GameMain.getInstance().moveLeft();
-                break;
-            case RIGHT:
-                GameMain.getInstance().moveRight();
-                break;
-        }
+    private Spinner<Integer> spinner;
 
-
+    public void onStart() {
+        int xy = spinner.getValue();
+        GameMain.getInstance().startGame(this, xy);
     }
 
     public Node getNodeByCell(GridPane gridPane, int column, int row) {

@@ -8,7 +8,7 @@ public class GameMain extends Thread {
 
     static private GameMain gameMain = null;
 
-    static public enum GameState {
+    public enum GameState {
         wait,
         playing
     }
@@ -16,24 +16,34 @@ public class GameMain extends Thread {
     private GameState state = GameState.wait;
     private Field field;
     private Field.Direction curDirection = Field.Direction.Down;
+    private Field.Direction oldDirection = Field.Direction.Down;
     private Controller controller;
     private int countFood = 0;
-    private Random random = new Random();
+    private int xy;
+    private final Random random = new Random();
 
     synchronized public void moveRight() {
-        curDirection = Field.Direction.Right;
+        if (oldDirection != Field.Direction.Left) {
+            curDirection = Field.Direction.Right;
+        }
     }
 
     synchronized public void moveLeft() {
-        curDirection = Field.Direction.Left;
+        if (oldDirection != Field.Direction.Right) {
+            curDirection = Field.Direction.Left;
+        }
     }
 
     synchronized public void moveUp() {
-        curDirection = Field.Direction.Up;
+        if (oldDirection != Field.Direction.Down) {
+            curDirection = Field.Direction.Up;
+        }
     }
 
     synchronized public void moveDown() {
-        curDirection = Field.Direction.Down;
+        if (oldDirection != Field.Direction.Up) {
+            curDirection = Field.Direction.Down;
+        }
     }
 
     static public GameMain getInstance() {
@@ -49,10 +59,11 @@ public class GameMain extends Thread {
 
     }
 
-    public void startGame(Controller controller) {
+    public void startGame(Controller controller, int xy) {
         if (state == GameState.playing) {
             return;
         }
+        this.xy = xy;
         state = GameState.playing;
         this.controller = controller;
         random.setSeed(System.currentTimeMillis());
@@ -63,7 +74,7 @@ public class GameMain extends Thread {
     }
 
     void initField() {
-        field = new Field(this);
+        field = new Field(this, xy);
         field.setSnake(0, 0);
     }
 
@@ -96,32 +107,39 @@ public class GameMain extends Thread {
                 } catch (InterruptedException ignored) {
                 }
 
+                Field.Direction dir;
+                synchronized (this) {
+                    dir = curDirection;
+                }
 
-                if (!field.move(curDirection)) {
+                if (!field.move(dir)) {
                     state = GameState.wait;
                 }
 
                 if (countFood == 0) {
                     countFood++;
-                    int x = random.nextInt(10);
-                    int y = random.nextInt(10);
+                    int x = random.nextInt(xy);
+                    int y = random.nextInt(xy);
 
                     while (field.getCells()[y][x].getState() == Field.Cell.CellState.Snake) {
                         x++;
-                        if (x >= 10) {
+                        if (x >= xy) {
                             x = 0;
                             y++;
-                            if (y >= 10) {
+                            if (y >= xy) {
                                 y = 0;
                             }
                         }
                     }
 
                     field.setFood(x, y);
-                    time = time / 2 + time / 4;
+                    time = time - time / 8;
                 }
 
                 drawField(false);
+                synchronized (this) {
+                    oldDirection = curDirection;
+                }
 
             }
 

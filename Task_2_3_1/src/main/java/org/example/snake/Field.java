@@ -5,6 +5,8 @@ public class Field {
         Up, Down, Left, Right
     }
 
+    private int xy;
+
     static public class Cell {
         public enum CellState {
             Snake,
@@ -53,18 +55,20 @@ public class Field {
     private int head_y;
     private int curSnakeLen;
 
-    public Field(GameMain game) {
+    public Field(GameMain game, int xy) {
         this.game = game;
-        cells = new Cell[10][10];
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
+        cells = new Cell[xy][xy];
+        for (int x = 0; x < xy; x++) {
+            for (int y = 0; y < xy; y++) {
                 cells[y][x] = new Cell();
             }
         }
+
+        this.xy = xy;
     }
 
     public void setSnake(int x, int y) {
-        if (x >= 10 || y >= 10 || x < 0 || y < 0) {
+        if (x >= xy || y >= xy || x < 0 || y < 0) {
             throw new IllegalArgumentException("x or y out of borders");
         }
 
@@ -82,17 +86,17 @@ public class Field {
         switch (direction) {
             case Up:
                 head_y = head_y - 1;
-                head_y = head_y < 0 ? 9 : head_y;
+                head_y = head_y < 0 ? xy - 1 : head_y;
                 break;
             case Down:
-                head_y = (head_y + 1) % 10;
+                head_y = (head_y + 1) % xy;
                 break;
             case Left:
                 head_x = head_x - 1;
-                head_x = head_x < 0 ? 9 : head_x;
+                head_x = head_x < 0 ? xy - 1 : head_x;
                 break;
             case Right:
-                head_x = (head_x + 1) % 10;
+                head_x = (head_x + 1) % xy;
                 break;
         }
 

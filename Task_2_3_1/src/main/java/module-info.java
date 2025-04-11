@@ -10,6 +10,8 @@ module org.example.snake {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires com.fasterxml.jackson.databind;
+    requires java.desktop;
 
     opens org.example.snake to javafx.fxml;
     exports org.example.snake;

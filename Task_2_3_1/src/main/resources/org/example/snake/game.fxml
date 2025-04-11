@@ -1,56 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.util.* ?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.* ?>
-<?import javafx.scene.layout.* ?>
-
-<GridPane fx:id="root" gridLinesVisible="true" styleClass="grid-pane" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snake.Controller">
-    <columnConstraints>
-        <ColumnConstraints prefWidth="480"/>
-        <ColumnConstraints hgrow="ALWAYS"/>
-    </columnConstraints>
-
-    <rowConstraints>
-        <RowConstraints prefHeight="480" />
-    </rowConstraints>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.Pane?>
 
 
-    <GridPane fx:id="field" GridPane.columnIndex="0">
-
-    </GridPane>
-
-    <GridPane gridLinesVisible="true" GridPane.columnIndex="1">
-        <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
-        </columnConstraints>
-
-        <rowConstraints>
-            <RowConstraints vgrow="ALWAYS" percentHeight="75" valignment="CENTER"/>
-            <RowConstraints vgrow="ALWAYS" percentHeight="25" valignment="CENTER"/>
-        </rowConstraints>
-
-        <Label fx:id="label" GridPane.rowIndex="0"/>
-        <GridPane GridPane.rowIndex="1">
-            <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
-                </columnConstraints>
-
-            <rowConstraints>
-                <RowConstraints vgrow="ALWAYS" percentHeight="25" valignment="CENTER"/>
-                <RowConstraints vgrow="ALWAYS" percentHeight="25" valignment="CENTER"/>
-                <RowConstraints vgrow="ALWAYS" percentHeight="50" valignment="CENTER"/>
-            </rowConstraints>
-
-            <Spinner fx:id="spinner" GridPane.rowIndex="0">
-                <valueFactory>
-                    <SpinnerValueFactory.IntegerSpinnerValueFactory min="5" max="10"/>
-                </valueFactory>
-            </Spinner>
-
-            <Button onMouseClicked="#onStart" text="START" GridPane.rowIndex="2" />
-        </GridPane>
-    </GridPane>
-</GridPane>
+<?import javafx.scene.layout.AnchorPane?>
+<Pane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="pane">
+    <Canvas fx:id="canvas"/>
+</Pane>

@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
     id 'application'
     id 'org.jetbrains.kotlin.jvm' version '2.1.0'
     id 'org.javamodularity.moduleplugin' version '1.8.12'
@@ -27,7 +28,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'org.example.snake'
-    mainClass = 'org.example.snake.HelloApplication'
+    mainClass = 'org.example.snake.Main'
 }
 
 javafx {
@@ -36,6 +37,7 @@ javafx {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
     implementation('org.controlsfx:controlsfx:11.2.1')
     implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
         exclude(group: 'org.openjfx')
@@ -71,4 +73,10 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
 }

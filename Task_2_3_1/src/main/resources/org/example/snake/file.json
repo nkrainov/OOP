@@ -1,0 +1,6 @@
+{
+  "path_to_game": "file:\\\\",
+  "class_name_game": "org.example.snake.defaultMod.DefaultGame",
+  "class_name_painter": "org.example.snake.defaultMod.DefaultPainter",
+  "path_to_painter": "file:\\\\"
+}

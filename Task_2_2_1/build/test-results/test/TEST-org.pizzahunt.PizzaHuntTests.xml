@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.pizzahunt.PizzaHuntTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-14T08:47:41" hostname="DESKTOP-1KC1DIG" time="6.577">
-  <properties/>
-  <testcase name="allPizzaOnTheTargetTest()" classname="org.pizzahunt.PizzaHuntTests" time="6.577"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

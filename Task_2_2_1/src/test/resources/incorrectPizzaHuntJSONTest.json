@@ -1,0 +1,18 @@
+{
+  "timeOfWorking": -5000,
+  "capacityOfOrderQueue": 0,
+  "capacityOfWarehouse": 0,
+  "bakers" : [
+    {
+      "name": "John Connor",
+      "maxTimeOfCooking" : 10
+    }
+  ],
+  "couriers" : [
+    {
+      "name": "James Bond",
+      "maxTimeOfDelivery": 10,
+      "trunkCapacity" : 1
+    }
+  ]
+}

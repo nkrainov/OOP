@@ -52,7 +52,7 @@ public class DefaultPainter implements GamePainter {
         GraphicsContext context = canvas.getGraphicsContext2D();
         context.setFill(Color.ORANGE);
         context.fillRect(cell.x * (double) size / width, cell.y * (double) size / width,
-                    (double) size / width, (double) size / height);
+                (double) size / width, (double) size / height);
 
         drawBounds(canvas, cell.x, cell.y);
     }
@@ -81,7 +81,7 @@ public class DefaultPainter implements GamePainter {
     private void drawGrid(Canvas canvas) {
         GraphicsContext context = canvas.getGraphicsContext2D();
         context.setFill(new Color(0, 0.9, 0, 1));
-        context.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
+        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         context.setFill(Color.BLACK);
         context.setLineWidth(1.0);
         for (int x = 0; x < width + 1; x++) {

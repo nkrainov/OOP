@@ -3,7 +3,9 @@ package org.example.snake.defaultMod;
 import org.example.snake.Direction;
 import org.example.snake.Game;
 
-import java.util.*;
+import java.util.BitSet;
+import java.util.LinkedList;
+import java.util.Random;
 
 import static java.lang.Thread.sleep;
 
@@ -57,7 +59,8 @@ public class DefaultGame implements Game {
         try {
             System.out.println(timeForTick - (System.currentTimeMillis() - prevTime));
             sleep(timeForTick - (System.currentTimeMillis() - prevTime));
-        } catch (InterruptedException ignored) {}
+        } catch (InterruptedException ignored) {
+        }
 
         prevTime = System.currentTimeMillis();
         return true;
@@ -83,7 +86,8 @@ public class DefaultGame implements Game {
 
         if (head_x == food_x && head_y == food_y) {
             length++;
-            food_x = -1; food_y = -1;
+            food_x = -1;
+            food_y = -1;
 
             infoBox.forRemove = null;
 

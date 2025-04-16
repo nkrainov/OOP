@@ -6,11 +6,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 public class Main extends Application {
     @Override
@@ -22,7 +21,9 @@ public class Main extends Application {
 
         for (Node node : scene.getRoot().getChildrenUnmodifiable()) {
             if (node instanceof CheckBox) {
-                node.setOnMouseClicked(event -> {menu.check();});
+                node.setOnMouseClicked(event -> {
+                    menu.check();
+                });
             } else if (node instanceof Button) {
                 node.setOnMouseClicked(event -> {
                     try {

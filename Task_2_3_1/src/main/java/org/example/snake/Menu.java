@@ -101,7 +101,10 @@ public class Menu {
                 }
             });
 
-            stage.setOnCloseRequest(event -> {gameMain.interrupt(); this.stage.show();});
+            stage.setOnCloseRequest(event -> {
+                gameMain.interrupt();
+                this.stage.show();
+            });
             label.getScene().getWindow().hide();
             stage.show();
             gameMain.setDaemon(true);

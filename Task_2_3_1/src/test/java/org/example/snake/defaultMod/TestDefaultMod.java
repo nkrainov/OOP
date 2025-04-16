@@ -1,11 +1,7 @@
 package org.example.snake.defaultMod;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
 import org.example.snake.Direction;
 import org.example.snake.Game;
-import org.example.snake.GamePainter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

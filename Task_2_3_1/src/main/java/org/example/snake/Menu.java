@@ -61,12 +61,12 @@ public class Menu {
                 File file = new File(path.getText());
                 Config config = new ObjectMapper().readValue(file, Config.class);
 
-                try (URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{new URL(config.path_to_game)})) {
+                try (URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{})) {
                     Class<?> loadedClassGame = classLoader.loadClass(config.class_name_game);
                     game = (Game) loadedClassGame.getConstructors()[0].newInstance();
                 }
 
-                try (URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{new URL(config.path_to_painter)})) {
+                try (URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{})) {
                     Class<?> loadedClassGame = classLoader.loadClass(config.class_name_painter);
                     painter = (GamePainter) loadedClassGame.getConstructors()[0].newInstance();
                 }

@@ -13,8 +13,8 @@ public class GameMain extends Thread {
         controller.setPainter(painter);
         this.game = game;
         this.gameController = controller;
-        game.init();
-        controller.init();
+        Object info = game.init();
+        controller.init(info);
     }
 
     void startGame() {
@@ -32,6 +32,10 @@ public class GameMain extends Thread {
 
     @Override
     public void run() {
+        try {
+            sleep(3000);
+        } catch (InterruptedException ignored) {
+        }
         while (game.tick()) {
             if (flag) {
                 return;

@@ -3,7 +3,7 @@ package org.example.snake;
 import javafx.scene.canvas.Canvas;
 
 public interface GamePainter {
-    Canvas init();
+    Canvas init(Object object);
 
     void drawField(Object info, Canvas canvas);
 

@@ -1,15 +1,16 @@
-package org.example.snake.defaultMod;
+package org.example.snake.wallMod;
 
 import org.example.snake.Direction;
 import org.example.snake.Game;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.Random;
 
 import static java.lang.Thread.sleep;
 
-public class DefaultGame implements Game {
+public class WallGame implements Game {
     static class Cell {
         int x, y;
 
@@ -22,7 +23,9 @@ public class DefaultGame implements Game {
     private final LinkedList<Cell> snake = new LinkedList<Cell>();
     private final int height = 10;
     private final int width = 10;
+    private final int countWalls = 10;
     private final BitSet snakeField = new BitSet(height * width);
+    private final BitSet snakeWall = new BitSet(height * width);
     private int food_x = -1;
     private int food_y = -1;
     private int head_x;
@@ -43,8 +46,24 @@ public class DefaultGame implements Game {
         head_y = height / 2;
 
         snakeField.set(head_y * width + head_x);
+        InfoBox infoBox = new InfoBox();
+        infoBox.forPaint = new Cell(head_x, head_y);
+        infoBox.special = new ArrayList<>();
+        for (int i = 0; i < countWalls; i++) {
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+            int index = snakeWall.nextClearBit(y * width + x);
 
-        return null;
+            if ((x == head_x && head_y == y) || index >= width * height) {
+                i--;
+                continue;
+            }
+
+            snakeWall.set(index);
+            infoBox.special.add(new Cell(x, y));
+        }
+
+        return infoBox;
     }
 
     @Override
@@ -106,15 +125,23 @@ public class DefaultGame implements Game {
 
         if (food_y == -1 && food_x == -1) {
             generateFood();
-            infoBox.food = new Cell(food_x, food_y);
+            if (food_y != -1 && food_x != -1) {
+                infoBox.special = new ArrayList<>();
+                infoBox.special.add(new Cell(food_x, food_y));
 
-            timeForTick = (long) (1000 / (1 + 0.2 * (length - 1)));
-            if (timeForTick < 100) {
-                timeForTick = 100;
+                timeForTick = (long) (1000 / (1 + 0.2 * (length - 1)));
+                if (timeForTick < 100) {
+                    timeForTick = 100;
+                }
             }
         }
 
         infoBox.forPaint = new Cell(head_x, head_y);
+
+        if (snakeWall.get(head_y * width + head_x)) {
+            gameOver = true;
+            infoBox.forPaint = null;
+        }
 
         if (snakeField.cardinality() != length) {
             gameOver = true;
@@ -156,15 +183,18 @@ public class DefaultGame implements Game {
     private void generateFood() {
         int x = random.nextInt(width);
         int y = random.nextInt(height);
+        BitSet snakeFieldWithWalls = new BitSet(width * height);
+        snakeFieldWithWalls.or(snakeField);
+        snakeFieldWithWalls.or(snakeWall);
 
-        int coordN = snakeField.nextClearBit(y * width + x);
+        int coordN = snakeFieldWithWalls.nextClearBit(y * width + x);
         if (coordN < width * height) {
             food_y = coordN / width;
             food_x = coordN - food_y * width;
             return;
         }
 
-        int coordP = snakeField.previousClearBit(y * width + x);
+        int coordP = snakeFieldWithWalls.previousClearBit(y * width + x);
         if (coordP != -1) {
             food_y = coordP / width;
             food_x = coordP - food_y * width;
@@ -185,3 +215,4 @@ public class DefaultGame implements Game {
         return dir;
     }
 }
+

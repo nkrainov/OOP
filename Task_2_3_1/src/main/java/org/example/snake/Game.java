@@ -2,7 +2,7 @@ package org.example.snake;
 
 public interface Game {
 
-    public void init();
+    public Object init();
 
     public boolean tick();
 

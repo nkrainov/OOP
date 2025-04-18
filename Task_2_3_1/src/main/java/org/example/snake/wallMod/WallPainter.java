@@ -1,4 +1,4 @@
-package org.example.snake.defaultMod;
+package org.example.snake.wallMod;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,14 +7,19 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import org.example.snake.GamePainter;
 
-public class DefaultPainter implements GamePainter {
+public class WallPainter implements GamePainter {
 
     private final int width = 10;
     private final int height = 10;
     private final int size = 500;
 
     @Override
-    public Canvas init(Object info) {
+    public Canvas init(Object object) {
+        if (!(object instanceof InfoBox)) {
+            return null;
+        }
+        InfoBox infoBox = (InfoBox) object;
+
         Canvas canvas = new Canvas();
 
         canvas.setWidth(size);
@@ -22,7 +27,11 @@ public class DefaultPainter implements GamePainter {
 
         drawGrid(canvas);
 
-        drawCell(new DefaultGame.Cell(5, 5), canvas);
+        drawCell(infoBox.forPaint, canvas);
+
+        for (WallGame.Cell cell : infoBox.special) {
+            drawWall(cell, canvas);
+        }
 
         return canvas;
     }
@@ -43,12 +52,14 @@ public class DefaultPainter implements GamePainter {
             drawCell(infoBox.forPaint, canvas);
         }
 
-        if (infoBox.food != null) {
-            drawFood(infoBox.food, canvas);
+        if (infoBox.special != null) {
+            for (WallGame.Cell cell : infoBox.special) {
+                drawFood(cell, canvas);
+            }
         }
     }
 
-    private void drawCell(DefaultGame.Cell cell, Canvas canvas) {
+    private void drawCell(WallGame.Cell cell, Canvas canvas) {
         GraphicsContext context = canvas.getGraphicsContext2D();
         context.setFill(Color.ORANGE);
         context.fillRect(cell.x * (double) size / width, cell.y * (double) size / width,
@@ -57,7 +68,16 @@ public class DefaultPainter implements GamePainter {
         drawBounds(canvas, cell.x, cell.y);
     }
 
-    private void removeCell(DefaultGame.Cell cell, Canvas canvas) {
+    private void drawWall(WallGame.Cell cell, Canvas canvas) {
+        GraphicsContext context = canvas.getGraphicsContext2D();
+        context.setFill(Color.GRAY);
+        context.fillRect(cell.x * (double) size / width, cell.y * (double) size / width,
+                (double) size / width, (double) size / height);
+
+        drawBounds(canvas, cell.x, cell.y);
+    }
+
+    private void removeCell(WallGame.Cell cell, Canvas canvas) {
         GraphicsContext context = canvas.getGraphicsContext2D();
         double x = cell.x * (double) size / width;
         double y = cell.y * (double) size / height;
@@ -97,7 +117,7 @@ public class DefaultPainter implements GamePainter {
         }
     }
 
-    private void drawFood(DefaultGame.Cell cell, Canvas canvas) {
+    private void drawFood(WallGame.Cell cell, Canvas canvas) {
         GraphicsContext context = canvas.getGraphicsContext2D();
         context.setFill(Color.RED);
         context.fillRect(cell.x * (double) size / width, cell.y * (double) size / width,

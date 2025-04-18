@@ -1,0 +1,4 @@
+{
+  "class_name_game": "org.example.snake.wallMod.WallGame",
+  "class_name_painter": "org.example.snake.wallMod.WallPainter"
+}

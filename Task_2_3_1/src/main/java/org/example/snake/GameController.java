@@ -24,9 +24,9 @@ public class GameController {
         this.stage = stage;
     }
 
-    void init() {
+    void init(Object info) {
         pane.getChildren().remove(canvas);
-        canvas = painter.init();
+        canvas = painter.init(info);
         canvas.snapshot(null, null); //we need it for forced rendering of canvas
         pane.getChildren().add(canvas);
 

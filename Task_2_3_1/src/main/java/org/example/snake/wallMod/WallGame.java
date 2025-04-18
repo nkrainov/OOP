@@ -41,11 +41,12 @@ public class WallGame implements Game {
     @Override
     public Object init() {
         random.setSeed(System.currentTimeMillis());
+
         snake.add(new Cell(height / 2, width / 2));
         head_x = width / 2;
         head_y = height / 2;
-
         snakeField.set(head_y * width + head_x);
+
         InfoBox infoBox = new InfoBox();
         infoBox.forPaint = new Cell(head_x, head_y);
         infoBox.special = new ArrayList<>();
@@ -78,7 +79,6 @@ public class WallGame implements Game {
         }
 
         try {
-            System.out.println(timeForTick - (System.currentTimeMillis() - prevTime));
             sleep(timeForTick - (System.currentTimeMillis() - prevTime));
         } catch (InterruptedException ignored) {
         }

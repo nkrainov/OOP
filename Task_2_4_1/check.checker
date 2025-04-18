@@ -1,0 +1,11 @@
+tasks {
+    task(1, "Task_1_1_1", 2.0, "", "")
+}
+
+groups {
+    group("23216") {
+        student("Nikita", "nkrainov", "https://github.com/nkrainov/OOP")
+        student("Timofey", "ttomilov", "https://github.com/ttomilov/OOP")
+    }
+
+}

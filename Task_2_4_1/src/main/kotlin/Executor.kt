@@ -3,6 +3,7 @@ package org.example
 import java.io.File
 import java.nio.file.Paths
 
+//проверь ошибки ВЕЗДЕ
 class Executor(val tasks: Tasks, val groups: Groups) {
     fun execute(command: Command) {
         when (command) {
@@ -18,30 +19,30 @@ class Executor(val tasks: Tasks, val groups: Groups) {
         }
     }
 
-    private fun find(needLoad : Boolean) : List<Groups.Group.Student> {
-        val res = ArrayList<Groups.Group.Student>()
+    private fun find(needLoad : Boolean) : List<String> {
+        val res = ArrayList<String>()
         val runtime = Runtime.getRuntime()
         for (group in groups.groups) {
             for (student in group.students) {
                 val dir = student.name + group.name
-                var args : Array<String>;
+                var args : Array<String>
                 val folder = File(Paths.get("").toAbsolutePath().toString() + File.separator + dir)
                 var ret : Int
 
                 if (folder.exists()) {
                     if (!needLoad) {
-                        res.add(student)
+                        res.add(dir)
                         continue
                     }
 
-                    args = arrayOf("git", "fetch")
+                    args = arrayOf("git", "pull")
                     ret = runtime.exec(args).waitFor()
                     if (ret != 0) {
                         println("error")
                         continue
                     }
 
-                    res.add(student)
+                    res.add(dir)
                     continue
                 }
 
@@ -62,7 +63,22 @@ class Executor(val tasks: Tasks, val groups: Groups) {
                     continue
                 }
 
-                res.add(student)
+                args = arrayOf("git", "fetch")
+
+                ret = runtime.exec(args, null, folder).waitFor()
+                if (ret != 0) {
+                    println("error")
+                    continue
+                }
+
+                args = arrayOf("git", "checkout", "main")
+                ret = Runtime.getRuntime().exec(args, null, File(dir)).waitFor()
+                if (ret != 0) {
+                    println("error1")
+                    continue
+                }
+
+                res.add(dir)
             }
         }
 
@@ -70,33 +86,71 @@ class Executor(val tasks: Tasks, val groups: Groups) {
     }
 
     private fun check() {
-        find(true)
-        compile()
-        test()
-        checkstyle()
+        test(checkstyle(compile(find(true))))
     }
 
-    fun checkstyle() {
-
+    private fun checkstyle() {
+        checkstyle(find(true))
     }
 
-    fun doc() {
-
+    private fun checkstyle(list: List<String>) : List<String> {
+        return list
     }
 
-    fun test() {
+    private fun doc() {
 
     }
 
-    fun calc() {
+    private fun test() {
+        test(find(false))
+    }
+
+    private fun test(list: List<String>) {
+        for (dir : String in list) {
+            for (task : Tasks.Task in tasks.tasks) {
+
+                val path = File(dir + File.separator + task.name + File.separator + "gradlew.bat").absolutePath.toString()
+
+                val args = arrayOf(path, "test")
+                val ret : Int = Runtime.getRuntime().exec(args, null, File(dir + File.separator + task.name)).waitFor()
+                if (ret != 0) {
+                    println("error2")
+                    continue
+                }
+                println("good test!")
+            }
+        }
+    }
+
+    private fun calc() {
 
     }
 
-    fun report() {
+    private fun report() {
 
     }
 
-    fun compile() {
-        
+    private fun compile() {
+        compile(find(false))
+    }
+
+    private fun compile(list : List<String>) : List<String> {
+        if (list.isEmpty()) return emptyList()
+
+        var args : Array<String>
+        for (dir : String in list) {
+            for (task : Tasks.Task in tasks.tasks) {
+
+                val path = File(dir + File.separator + task.name + File.separator + "gradlew.bat").absolutePath.toString()
+
+                args = arrayOf(path, "build")
+                val ret : Int = Runtime.getRuntime().exec(args, null, File(dir + File.separator + task.name)).waitFor()
+                if (ret != 0) {
+                    println("error2")
+                    continue
+                }
+            }
+        }
+        return list
     }
 }

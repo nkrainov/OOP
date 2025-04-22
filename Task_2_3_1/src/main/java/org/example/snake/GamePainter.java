@@ -8,4 +8,6 @@ public interface GamePainter {
     void drawField(Object info, Canvas canvas);
 
     void gameOver(Canvas canvas);
+
+    void victory(Canvas canvas);
 }

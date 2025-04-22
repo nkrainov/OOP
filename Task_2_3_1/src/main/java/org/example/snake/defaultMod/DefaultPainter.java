@@ -78,6 +78,14 @@ public class DefaultPainter implements GamePainter {
         context.fillText("GAME OVER", (double) size / 2, (double) size / 2, 300);
     }
 
+    @Override
+    public void victory(Canvas canvas) {
+        GraphicsContext context = canvas.getGraphicsContext2D();
+        context.setTextAlign(TextAlignment.CENTER);
+        context.setFont(Font.font(100));
+        context.fillText("VICTORY", (double) size / 2, (double) size / 2, 300);
+    }
+
     private void drawGrid(Canvas canvas) {
         GraphicsContext context = canvas.getGraphicsContext2D();
         context.setFill(new Color(0, 0.9, 0, 1));

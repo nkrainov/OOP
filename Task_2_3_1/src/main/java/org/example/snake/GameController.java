@@ -6,9 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class GameController {
-
     private GamePainter painter;
-    private Stage stage;
 
     @FXML
     private Pane pane;
@@ -18,10 +16,6 @@ public class GameController {
 
     void setPainter(GamePainter painter) {
         this.painter = painter;
-    }
-
-    void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     void init(Object info) {
@@ -38,5 +32,9 @@ public class GameController {
 
     void gameOver() {
         painter.gameOver(canvas);
+    }
+
+    void victory() {
+        painter.victory(canvas);
     }
 }

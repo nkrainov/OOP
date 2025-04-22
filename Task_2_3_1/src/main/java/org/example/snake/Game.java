@@ -7,4 +7,6 @@ public interface Game {
     public boolean tick();
 
     public Object update(Direction dir);
+
+    public boolean victory();
 }

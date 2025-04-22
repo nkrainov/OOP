@@ -89,51 +89,30 @@ public class WallGame implements Game {
 
     @Override
     public Object update(Direction dir) {
-        if (prev == null) {
-            prev = dir;
-        } else if (length > 1) {
+        if (length > 1) {
             dir = oppositeDir(dir);
         }
-
         prev = dir;
 
         InfoBox infoBox = new InfoBox();
-
         Cell cell = snake.peek();
 
         moveHead(dir);
-
+        snakeField.set(head_y * width + head_x);
         infoBox.forRemove = new Cell(cell.x, cell.y);
 
-        if (head_x == food_x && head_y == food_y) {
-            length++;
-            food_x = -1;
-            food_y = -1;
+        boolean eaten = checkFoodEaten(infoBox, cell);
+        if (eaten) {
+            changeTimeForTick();
 
-            infoBox.forRemove = null;
-
-            snake.add(new Cell(head_x, head_y));
-        } else {
-            snakeField.clear(cell.y * width + cell.x);
-            snake.poll();
-            cell.x = head_x;
-            cell.y = head_y;
-            snake.add(cell);
-        }
-
-        snakeField.set(head_y * width + head_x);
-
-        if (food_y == -1 && food_x == -1) {
-            generateFood();
-            if (food_y != -1 && food_x != -1) {
+            if (generateFood()) {
                 infoBox.special = new ArrayList<>();
                 infoBox.special.add(new Cell(food_x, food_y));
-
-                timeForTick = (long) (1000 / (1 + 0.2 * (length - 1)));
-                if (timeForTick < 100) {
-                    timeForTick = 100;
-                }
             }
+        } else if (food_y == -1 && food_x == -1) {
+            generateFood();
+            infoBox.special = new ArrayList<>();
+            infoBox.special.add(new Cell(food_x, food_y));
         }
 
         infoBox.forPaint = new Cell(head_x, head_y);
@@ -149,6 +128,11 @@ public class WallGame implements Game {
         }
 
         return infoBox;
+    }
+
+    @Override
+    public boolean victory() {
+        return false;
     }
 
     private void moveHead(Direction dir) {
@@ -180,7 +164,7 @@ public class WallGame implements Game {
         }
     }
 
-    private void generateFood() {
+    private boolean generateFood() {
         int x = random.nextInt(width);
         int y = random.nextInt(height);
         BitSet snakeFieldWithWalls = new BitSet(width * height);
@@ -191,14 +175,17 @@ public class WallGame implements Game {
         if (coordN < width * height) {
             food_y = coordN / width;
             food_x = coordN - food_y * width;
-            return;
+            return true;
         }
 
         int coordP = snakeFieldWithWalls.previousClearBit(y * width + x);
         if (coordP != -1) {
             food_y = coordP / width;
             food_x = coordP - food_y * width;
+            return true;
         }
+
+        return false;
     }
 
     private Direction oppositeDir(Direction dir) {
@@ -213,6 +200,29 @@ public class WallGame implements Game {
         }
 
         return dir;
+    }
+
+    private boolean checkFoodEaten(InfoBox infoBox, Cell cell) {
+        if (head_x == food_x && head_y == food_y) {
+            length++;
+            infoBox.forRemove = null;
+            snake.add(new Cell(head_x, head_y));
+            return true;
+        }
+
+        snakeField.clear(cell.y * width + cell.x);
+        snake.poll();
+        cell.x = head_x;
+        cell.y = head_y;
+        snake.add(cell);
+        return false;
+    }
+
+    private void changeTimeForTick() {
+        timeForTick = (long) (1000 / (1 + 0.2 * (length - 1)));
+        if (timeForTick < 100) {
+            timeForTick = 100;
+        }
     }
 }
 

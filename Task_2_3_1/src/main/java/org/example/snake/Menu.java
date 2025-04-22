@@ -73,7 +73,6 @@ public class Menu {
             }
 
             GameController controller = new GameController();
-            controller.setStage(stage);
             fxmlLoader.setController(controller);
 
             stage.setScene(new Scene(fxmlLoader.load(), 500, 500));
@@ -112,7 +111,7 @@ public class Menu {
 
             errorLabel.setVisible(false);
         } catch (Exception e) {
-            errorLabel.setText("Произошла ошибка при загрузке мода");
+            errorLabel.setText("Произошла ошибка при загрузке мода: " + e.getMessage());
         }
 
 

@@ -2,6 +2,7 @@ package org.example.snake.defaultMod;
 
 import org.example.snake.Direction;
 import org.example.snake.Game;
+import org.example.snake.wallMod.WallGame;
 
 import java.util.BitSet;
 import java.util.LinkedList;
@@ -31,7 +32,9 @@ public class DefaultGame implements Game {
     private final Random random = new Random();
     private long prevTime = 0;
     private boolean gameOver = false;
+    private boolean win = false;
     private int length = 1;
+    private final int winLength = 15;
     private Direction prev = null;
 
 
@@ -59,7 +62,6 @@ public class DefaultGame implements Game {
         }
 
         try {
-            System.out.println(timeForTick - (System.currentTimeMillis() - prevTime));
             sleep(timeForTick - (System.currentTimeMillis() - prevTime));
         } catch (InterruptedException ignored) {
         }
@@ -70,48 +72,28 @@ public class DefaultGame implements Game {
 
     @Override
     public Object update(Direction dir) {
-        if (prev == null) {
-            prev = dir;
-        } else if (length > 1) {
+        if (length > 1) {
             dir = oppositeDir(dir);
         }
-
         prev = dir;
 
         InfoBox infoBox = new InfoBox();
-
         Cell cell = snake.peek();
 
         moveHead(dir);
-
         infoBox.forRemove = new Cell(cell.x, cell.y);
-
-        if (head_x == food_x && head_y == food_y) {
-            length++;
-            food_x = -1;
-            food_y = -1;
-
-            infoBox.forRemove = null;
-
-            snake.add(new Cell(head_x, head_y));
-        } else {
-            snakeField.clear(cell.y * width + cell.x);
-            snake.poll();
-            cell.x = head_x;
-            cell.y = head_y;
-            snake.add(cell);
-        }
-
         snakeField.set(head_y * width + head_x);
 
-        if (food_y == -1 && food_x == -1) {
+        boolean eaten = checkFoodEaten(infoBox, cell);
+        if (eaten) {
+            changeTimeForTick();
+
+            if (generateFood()) {
+                infoBox.food = new Cell(food_x, food_y);
+            }
+        } else if (food_y == -1 && food_x == -1) {
             generateFood();
             infoBox.food = new Cell(food_x, food_y);
-
-            timeForTick = (long) (1000 / (1 + 0.2 * (length - 1)));
-            if (timeForTick < 100) {
-                timeForTick = 100;
-            }
         }
 
         infoBox.forPaint = new Cell(head_x, head_y);
@@ -119,9 +101,17 @@ public class DefaultGame implements Game {
         if (snakeField.cardinality() != length) {
             gameOver = true;
             infoBox.forPaint = null;
+        } else if (length > winLength) {
+            gameOver = true;
+            win = true;
         }
 
         return infoBox;
+    }
+
+    @Override
+    public boolean victory() {
+        return win;
     }
 
     private void moveHead(Direction dir) {
@@ -153,7 +143,7 @@ public class DefaultGame implements Game {
         }
     }
 
-    private void generateFood() {
+    private boolean generateFood() {
         int x = random.nextInt(width);
         int y = random.nextInt(height);
 
@@ -161,14 +151,17 @@ public class DefaultGame implements Game {
         if (coordN < width * height) {
             food_y = coordN / width;
             food_x = coordN - food_y * width;
-            return;
+            return true;
         }
 
         int coordP = snakeField.previousClearBit(y * width + x);
         if (coordP != -1) {
             food_y = coordP / width;
             food_x = coordP - food_y * width;
+            return true;
         }
+
+        return false;
     }
 
     private Direction oppositeDir(Direction dir) {
@@ -183,5 +176,28 @@ public class DefaultGame implements Game {
         }
 
         return dir;
+    }
+
+    private boolean checkFoodEaten(InfoBox infoBox, Cell cell) {
+        if (head_x == food_x && head_y == food_y) {
+            length++;
+            infoBox.forRemove = null;
+            snake.add(new Cell(head_x, head_y));
+            return true;
+        }
+
+        snakeField.clear(cell.y * width + cell.x);
+        snake.poll();
+        cell.x = head_x;
+        cell.y = head_y;
+        snake.add(cell);
+        return false;
+    }
+
+    private void changeTimeForTick() {
+        timeForTick = (long) (1000 / (1 + 0.2 * (length - 1)));
+        if (timeForTick < 100) {
+            timeForTick = 100;
+        }
     }
 }

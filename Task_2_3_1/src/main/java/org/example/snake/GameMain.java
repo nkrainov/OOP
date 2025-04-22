@@ -48,6 +48,11 @@ public class GameMain extends Thread {
             Platform.runLater(() -> gameController.drawField(info));
         }
 
-        Platform.runLater(() -> gameController.gameOver());
+        if (game.victory()) {
+            Platform.runLater(() -> gameController.victory());
+        } else {
+            Platform.runLater(() -> gameController.gameOver());
+        }
+
     }
 }

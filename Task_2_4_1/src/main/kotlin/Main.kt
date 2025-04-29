@@ -11,23 +11,27 @@ fun main(args: Array<String>) {
     }
 
     val command = getCommand(args[0])
-
     if (command == Command.noCommand) {
         printHelp()
         return
     }
 
     val config = Config()
-
     config.readConfig()
 
     val executor = Executor(config.tasks, config.groups)
-
     executor.execute(command)
 }
 
-fun printHelp() {
-    TODO("Not yet implemented")
+private fun printHelp() {
+    println("""
+        usage: checker [command]
+        
+        load            load repos
+        compile         compile task from repositories
+        checkstyle      check code style for tasks 
+        test            test tasks
+    """.trimIndent())
 }
 
 private fun getCommand(name: String): Command {

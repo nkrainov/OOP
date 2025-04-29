@@ -4,7 +4,7 @@ import java.io.File
 import java.nio.file.Paths
 
 //проверь ошибки ВЕЗДЕ
-class Executor(val tasks: Tasks, val groups: Groups) {
+class Executor(private val tasks: Tasks, private val groups: Groups) {
     fun execute(command: Command) {
         when (command) {
             Command.doc -> doc()
@@ -38,7 +38,7 @@ class Executor(val tasks: Tasks, val groups: Groups) {
                     args = arrayOf("git", "pull")
                     ret = runtime.exec(args).waitFor()
                     if (ret != 0) {
-                        println("error")
+                        System.err.println("Failed git pull")
                         continue
                     }
 
@@ -51,7 +51,7 @@ class Executor(val tasks: Tasks, val groups: Groups) {
                 args = arrayOf("git", "init", dir)
                 ret = runtime.exec(args).waitFor()
                 if (ret != 0) {
-                    println("error")
+                    System.err.println("Failed git init")
                     continue
                 }
 
@@ -59,7 +59,7 @@ class Executor(val tasks: Tasks, val groups: Groups) {
 
                 ret = runtime.exec(args, null, folder).waitFor()
                 if (ret != 0) {
-                    println("error")
+                    System.err.println("Failed git remote add origin")
                     continue
                 }
 
@@ -67,14 +67,14 @@ class Executor(val tasks: Tasks, val groups: Groups) {
 
                 ret = runtime.exec(args, null, folder).waitFor()
                 if (ret != 0) {
-                    println("error")
+                    System.err.println("Failed git fetch")
                     continue
                 }
 
                 args = arrayOf("git", "checkout", "main")
                 ret = Runtime.getRuntime().exec(args, null, File(dir)).waitFor()
                 if (ret != 0) {
-                    println("error1")
+                    System.err.println("Failed git checkout main")
                     continue
                 }
 
@@ -85,19 +85,51 @@ class Executor(val tasks: Tasks, val groups: Groups) {
         return res
     }
 
+    private fun compile(list : List<String>) : List<String> {
+        if (list.isEmpty()) return emptyList()
+
+        val retList = ArrayList<String>()
+
+        var args : Array<String>
+        for (dir : String in list) {
+            for (task : Tasks.Task in tasks.tasks) {
+                val path = File(dir + File.separator + task.name + File.separator + "gradlew.bat").absolutePath.toString()
+
+                args = arrayOf(path, "build")
+                val ret : Int = Runtime.getRuntime().exec(args, null, File(dir + File.separator + task.name)).waitFor()
+                if (ret != 0) {
+                    System.err.println("Failed gradlew.bat build")
+                    continue
+                }
+
+                retList.add(dir)
+            }
+        }
+
+        return retList
+    }
+
+    private fun checkstyle(list: List<String>) : List<String> {
+        val checkstyleJar = this.javaClass.getResource("checkstyle.jar")?.path
+        for (dir in list) {
+
+        }
+        return list
+    }
+
     private fun check() {
-        test(checkstyle(compile(find(true))))
+        doc(test(checkstyle(compile(find(true)))))
     }
 
     private fun checkstyle() {
         checkstyle(find(true))
     }
 
-    private fun checkstyle(list: List<String>) : List<String> {
-        return list
+    private fun doc() {
+
     }
 
-    private fun doc() {
+    private fun doc(list : List<String>) {
 
     }
 
@@ -105,7 +137,7 @@ class Executor(val tasks: Tasks, val groups: Groups) {
         test(find(false))
     }
 
-    private fun test(list: List<String>) {
+    private fun test(list: List<String>) : List<String> {
         for (dir : String in list) {
             for (task : Tasks.Task in tasks.tasks) {
 
@@ -120,6 +152,8 @@ class Executor(val tasks: Tasks, val groups: Groups) {
                 println("good test!")
             }
         }
+
+        return emptyList() //TEMPORARY
     }
 
     private fun calc() {
@@ -132,25 +166,5 @@ class Executor(val tasks: Tasks, val groups: Groups) {
 
     private fun compile() {
         compile(find(false))
-    }
-
-    private fun compile(list : List<String>) : List<String> {
-        if (list.isEmpty()) return emptyList()
-
-        var args : Array<String>
-        for (dir : String in list) {
-            for (task : Tasks.Task in tasks.tasks) {
-
-                val path = File(dir + File.separator + task.name + File.separator + "gradlew.bat").absolutePath.toString()
-
-                args = arrayOf(path, "build")
-                val ret : Int = Runtime.getRuntime().exec(args, null, File(dir + File.separator + task.name)).waitFor()
-                if (ret != 0) {
-                    println("error2")
-                    continue
-                }
-            }
-        }
-        return list
     }
 }

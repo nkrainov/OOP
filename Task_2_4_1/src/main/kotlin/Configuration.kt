@@ -1,9 +1,5 @@
 package org.example
 
-import org.example.Groups.Group.Student
-import java.util.Date
-import java.net.URI
-
 class Tasks(var tasks: ArrayList<Task> = ArrayList()) {
     data class Task(var id: Int, var name: String,
                var max: Double, var soft: String,

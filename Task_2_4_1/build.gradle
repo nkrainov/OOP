@@ -1,0 +1,35 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21'
+    id 'jacoco'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    runtimeOnly("org.jetbrains.kotlin:kotlin-main-kts:2.0.21")
+    runtimeOnly("org.jetbrains.kotlin:kotlin-scripting-jsr223:2.0.21")
+    testRuntimeOnly("org.jetbrains.kotlin:kotlin-main-kts:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.9.22")
+    testImplementation("junit:junit:4.13.1")
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1"
+    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.12.0")
+}
+
+test {
+    useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(21)
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}

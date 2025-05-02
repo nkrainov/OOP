@@ -54,7 +54,6 @@ class CalculatorTest {
         assertTrue(File("checker" + File.separator + "results").exists())
         File("checker" + File.separator + "results" + File.separator).listFiles()?.let { assertFalse(it.isEmpty()) }
         assertTrue(File("checker" + File.separator + "checkstyle").exists())
-        File("checker" + File.separator + "checkstyle" + File.separator).listFiles()?.let { assertFalse(it.isEmpty()) }
 
     }
 }

@@ -1,10 +1,9 @@
 package org.example
 
 import java.io.File
-import kotlinx.coroutines.*
-import java.io.IOException
-import javax.xml.parsers.DocumentBuilderFactory
 import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class Executor(private val tasks: Tasks, val groups: Groups,
                private val checkTasks: CheckTasks, val criteria: Criteria, val points: ControlPoints) {
@@ -49,7 +48,9 @@ class Executor(private val tasks: Tasks, val groups: Groups,
 
         val file = File(workDir + File.separator + "results")
         file.mkdir()
-        reportBuilder.build(File(workDir + File.separator + "results" + File.separator + "check" + LocalDate.now().toString() + ".html"))
+        reportBuilder.build(File(workDir + File.separator + "results" + File.separator + "check_" +
+                LocalDate.now().toString() + "_" +
+                LocalTime.now().format(DateTimeFormatter.ofPattern("HH-mm")) + ".html"))
 
 
     }

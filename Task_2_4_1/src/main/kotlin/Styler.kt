@@ -33,7 +33,9 @@ class Styler(val checkstyleDir : String, val possibleCountWarnings : Int) {
         val jobs = builtTasks.map { pair ->
             async(Dispatchers.IO) {
                 val res = checkStyleTask(pair.first.name, pair.second, tempJar, File(checkStyleConfig.toURI()))
-                if (res.isEmpty()) null else Pair(pair.first, res)
+                if (res.isEmpty())
+                    null
+                else Pair(pair.first, res)
             }
         }
 
@@ -51,15 +53,20 @@ class Styler(val checkstyleDir : String, val possibleCountWarnings : Int) {
         return students.mapNotNull { student ->
             try {
                 val dir = File(student.second.absolutePath + File.separator + name)
-                val args : Array<String>
+                val args : List<String>
                 val ret : Int
                 val file = File(checkstyleDir).absolutePath + File.separator + student.first.nickname + "_" + name + "_out.txt"
 
-                args = arrayOf("java", "-jar" , checkStyleJar.absolutePath, "-o",
+                args = listOf("java", "-jar" , checkStyleJar.absolutePath, "-o",
                     file,
                     "-c", checkStyleConfig.toString(), "src")
 
-                ret = runtime.exec(args, null, dir).waitFor()
+                ret = ProcessBuilder()
+                    .command(args)
+                    .directory(dir)
+                    .redirectOutput(ProcessBuilder.Redirect.DISCARD)
+                    .redirectError(ProcessBuilder.Redirect.DISCARD)
+                    .start().waitFor()
                 if (ret != 0) {
                     return@mapNotNull null
                 }

@@ -42,7 +42,7 @@ class Executor(private val tasks: Tasks, val groups: Groups,
         val styleTasks = styler.checkStyleTasks(builtTasks)
         reportBuilder.markStyle(styleTasks);
 
-        val tester = Tester(tasks, groups, checkTasks)
+        val tester = Tester()
         val res = tester.testTasks(builtTasks)
         reportBuilder.markTests(res)
 

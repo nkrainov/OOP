@@ -8,7 +8,7 @@ import java.io.File
 import java.io.IOException
 import javax.xml.parsers.DocumentBuilderFactory
 
-class Tester(val tasks: Tasks, val groups: Groups, private val checkTasks: CheckTasks) {
+class Tester() {
     fun testTasks(builtTasks: List<Pair<Tasks.Task, List<Pair<Groups.Group.Student, File>>>>)
             : List<Pair<Tasks.Task, List<Pair<Groups.Group.Student, Triple<Int, Int, Int>>>>> = runBlocking {
         val jobs = builtTasks.map { pair ->
@@ -61,7 +61,7 @@ class Tester(val tasks: Tasks, val groups: Groups, private val checkTasks: Check
                 System.err.println("error: ${e.message}")
                 null
             } catch (e : NullPointerException) {
-                System.err.println("test results for ${student.first.name}")
+                System.err.println("error: " + e.message)
                 null
             }
         }

@@ -46,7 +46,10 @@ class Docer {
                     }
 
                     student
-                } else null
+                } else {
+                    println(dir.toString() + "doesn't exist")
+                    null
+                }
             } catch (e : IOException) {
                 System.err.println("error: ${e.message}")
                 null

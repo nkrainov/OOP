@@ -1,0 +1,10 @@
+{
+  "inetInterface": "loopback",
+  "pathToNumbers": "numbers.txt",
+  "workers" : [
+    {
+      "host": "localhost",
+      "port": 30000
+    }
+  ]
+}

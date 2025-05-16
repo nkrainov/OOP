@@ -29,11 +29,7 @@ class Docer {
                 val ret : Int
 
                 if (dir.exists()) {
-                    args = if (System.getProperty("os.name").lowercase().contains("win")) {
-                        listOf("./gradlew.bat", "javadoc")
-                    } else {
-                        listOf("./gradlew", "javadoc")
-                    }
+                    args = listOf("./gradlew", "javadoc")
 
                     ret = ProcessBuilder()
                         .command(args)

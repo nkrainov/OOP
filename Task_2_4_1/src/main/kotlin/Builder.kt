@@ -35,12 +35,8 @@ class Builder {
                 val ret : Int
 
                 if (dir.exists()) {
-                    args = if (System.getProperty("os.name").lowercase().contains("win")) {
-                        arrayOf("./gradlew.bat", "assemble")
-                    } else {
-                        arrayOf("./gradlew", "assemble")
-                    }
-
+                    args = arrayOf("./gradlew", "assemble")
+                    
                     ret = runtime.exec(args, null, dir).waitFor()
                     if (ret != 0) {
                         return@mapNotNull null

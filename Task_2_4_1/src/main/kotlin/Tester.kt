@@ -30,11 +30,7 @@ class Tester() {
                 val args : List<String>
                 val ret : Int
 
-                args = if (System.getProperty("os.name").lowercase().contains("win")) {
-                    listOf("./gradlew.bat", "test")
-                } else {
-                    listOf("./gradlew", "test")
-                }
+                args = listOf("./gradlew", "test")
 
                 ret = ProcessBuilder()
                     .command(args)

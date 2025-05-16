@@ -38,18 +38,15 @@ class Docer {
                     ret = ProcessBuilder()
                         .command(args)
                         .directory(dir)
-                        .redirectOutput(ProcessBuilder.Redirect.INHERIT)
-                        .redirectError(ProcessBuilder.Redirect.INHERIT)
+                        .redirectOutput(ProcessBuilder.Redirect.DISCARD)
+                        .redirectError(ProcessBuilder.Redirect.DISCARD)
                         .start().waitFor()
                     if (ret != 0) {
                         return@mapNotNull null
                     }
 
                     student
-                } else {
-                    println(dir.toString() + "doesn't exist")
-                    null
-                }
+                } else null
             } catch (e : IOException) {
                 System.err.println("error: ${e.message}")
                 null

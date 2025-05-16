@@ -206,6 +206,7 @@ class CalculatorTest {
                 ))))
 
         val ret = docer.docTasks(taskList)
+        println("size=" + ret.size)
         assertTrue(ret.size == 1)
         assertTrue(File(tempDir.toString() + File.separator + "Task_2_1_1" + File.separator + "build"
                     + File.separator + "docs").exists())

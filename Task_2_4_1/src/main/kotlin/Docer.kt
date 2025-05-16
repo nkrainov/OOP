@@ -38,8 +38,8 @@ class Docer {
                     ret = ProcessBuilder()
                         .command(args)
                         .directory(dir)
-                        .redirectOutput(ProcessBuilder.Redirect.DISCARD)
-                        .redirectError(ProcessBuilder.Redirect.DISCARD)
+                        .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+                        .redirectError(ProcessBuilder.Redirect.INHERIT)
                         .start().waitFor()
                     if (ret != 0) {
                         return@mapNotNull null

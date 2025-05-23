@@ -9,8 +9,6 @@ import java.net.*;
 import java.util.ArrayList;
 import java.nio.*;
 import java.util.Arrays;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Worker extends Thread {
     private static class Work {
@@ -22,22 +20,13 @@ public class Worker extends Thread {
     }
 
     private int port;
-    private String inetInterface;
 
     public Worker(Config.WorkerConfig workerConfig) {
         port = workerConfig.port;
-        inetInterface = workerConfig.inetInterface;
     }
 
     @Override
     public void run() {
-        NetworkInterface networkInterface = null;
-        try {
-            networkInterface = NetworkInterface.getByName(inetInterface);
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        }
-
         ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket();
@@ -51,12 +40,11 @@ public class Worker extends Thread {
             try {
                 Socket socket = serverSocket.accept();
 
-                checkEnd(socket);
-                do {
+                while (checkEnd(socket)) {
                     Work work = getWork(socket);
                     Result res = doWork(work);
                     sendAns(socket, res);
-                } while (checkEnd(socket));
+                }
 
                 socket.close();
             } catch (IOException e) {
@@ -79,23 +67,31 @@ public class Worker extends Thread {
         Work work = new Work();
         work.arr = new ArrayList<>();
 
-        byte[] buffer = new byte[5];
-
+        byte[] bufferCount = new byte[4];
         int read = 0;
-        while (true) {
-            int res = stream.read(buffer, read, buffer.length - read);
+        while (bufferCount.length - read != 0) {
+            read = stream.read(bufferCount, 0, bufferCount.length);
+        }
+
+        ByteBuffer byteBuffer = ByteBuffer.wrap(Arrays.copyOfRange(bufferCount, 0, 4));
+        byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        int count = byteBuffer.getInt();
+        int countBytesInMessage = count * 4;
+
+        byte[] message = new byte[countBytesInMessage];
+        read = 0;
+        while (countBytesInMessage - read != 0) {
+            int res = stream.read(message, read, countBytesInMessage - read);
             if (res == 0) {
                 throw new IOException("Unexpected end of stream");
             }
-
             read += res;
-            if (read == buffer.length) {
-                read = 0;
-                work.arr.add(ByteBuffer.wrap(Arrays.copyOfRange(buffer, 0, 4)).getInt());
-                if (buffer[4] == 0) {
-                    break;
-                }
-            }
+        }
+
+        ByteBuffer buffer = ByteBuffer.wrap(message);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+        for (int i = 0; i < count; i++) {
+            work.arr.add(buffer.getInt());
         }
 
         return work;

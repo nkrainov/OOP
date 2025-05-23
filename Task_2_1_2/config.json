@@ -1,5 +1,4 @@
 {
-  "inetInterface": "loopback",
   "pathToNumbers": "numbers.txt",
   "workers" : [
     {

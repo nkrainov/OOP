@@ -1,6 +1,5 @@
 package org.example;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -14,14 +13,12 @@ public class Config {
             public int port;
         }
 
-        public String inetInterface;
         public String pathToNumbers;
         public List<WorkerInfo> workers;
     }
 
     public static class WorkerConfig {
         public int port;
-        public String inetInterface;
     }
 
     public static BossConfig readBossConfig(String file) throws IOException {

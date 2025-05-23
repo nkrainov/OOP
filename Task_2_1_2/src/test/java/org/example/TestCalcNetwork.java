@@ -60,8 +60,8 @@ public class TestCalcNetwork {
 
     @Test
     void testWork() throws IOException, InterruptedException {
-        System.setOut(new testPrintStream(new testOutputStream()));
-        String[] args1 = {"server", "config.json"};
+         System.setOut(new testPrintStream(new testOutputStream()));
+        String[] args1 = {"taskgiver", "config.json"};
         String[] args2 = {"worker", "workconfig.json"};
         org.example.Main.main(args2);
         org.example.Main.main(args1);
@@ -74,7 +74,7 @@ public class TestCalcNetwork {
     @Test
     void testNotWorkIfWorkersDoesntExist() throws IOException, InterruptedException {
         System.setErr(new testPrintStream(new testErrStream()));
-        String[] args1 = {"server", "config.json"};
+        String[] args1 = {"taskgiver", "config.json"};
         org.example.Main.main(args1);
 
         synchronized (flag) {

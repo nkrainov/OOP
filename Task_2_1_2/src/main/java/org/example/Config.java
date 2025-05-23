@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class Config {
-    public static class BossConfig {
+    public static class TaskGiverConfig {
         public static class WorkerInfo {
             public String host;
             public int port;
@@ -21,9 +21,9 @@ public class Config {
         public int port;
     }
 
-    public static BossConfig readBossConfig(String file) throws IOException {
+    public static TaskGiverConfig readBossConfig(String file) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(new File(file), BossConfig.class);
+        return mapper.readValue(new File(file), TaskGiverConfig.class);
     }
 
     public static WorkerConfig readWorkerConfig(String file) throws IOException {

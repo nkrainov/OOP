@@ -1,12 +1,9 @@
 package org.example;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.example.server.Boss;
+import org.example.server.TasksGiver;
 import org.example.worker.Worker;
 
 import java.io.IOException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -14,10 +11,10 @@ public class Main {
             System.exit(1);
         }
 
-        if (args[0].equals("server")) {
-            Config.BossConfig bossConfig = Config.readBossConfig(args[1]);
-            Boss boss = new Boss(bossConfig);
-            boss.start();
+        if (args[0].equals("taskgiver")) {
+            Config.TaskGiverConfig bossConfig = Config.readBossConfig(args[1]);
+            TasksGiver TasksGiver = new TasksGiver(bossConfig);
+            TasksGiver.start();
         } else if (args[0].equals("worker")) {
             Config.WorkerConfig clientConfig = Config.readWorkerConfig(args[1]);
             Worker worker = new Worker(clientConfig);

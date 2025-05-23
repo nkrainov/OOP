@@ -5,14 +5,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.channels.Channel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.*;
 import java.nio.*;
 
-public class Boss extends Thread {
+public class TasksGiver extends Thread {
     private static class Task {
         Task(List<Integer> numbers) {
             this.numbers = numbers;
@@ -21,11 +20,11 @@ public class Boss extends Thread {
     }
 
     private String pathToNumbers;
-    private List<Config.BossConfig.WorkerInfo> workers;
+    private List<Config.TaskGiverConfig.WorkerInfo> workers;
     private ArrayList<Task> tasks;
     private HashSet<Task> processTasks = new HashSet<Task>();
 
-    public Boss(Config.BossConfig config) {
+    public TasksGiver(Config.TaskGiverConfig config) {
         workers = config.workers;
         pathToNumbers = config.pathToNumbers;
     }
@@ -53,7 +52,7 @@ public class Boss extends Thread {
         }
 
         int countWorkers = 0;
-        for (Config.BossConfig.WorkerInfo worker : workers) {
+        for (Config.TaskGiverConfig.WorkerInfo worker : workers) {
             try {
                 SocketChannel chan = SocketChannel.open();
                 chan.configureBlocking(false);
